@@ -1,0 +1,40 @@
+/* The fixed frame owns perspective and pointer measurement. Rotation, light,
+   and shadow are written from one spring position; no extra transitions. */
+.compass-tilt {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  max-width: 100%;
+  aspect-ratio: 13 / 16;
+  border: 0;
+  border-radius: var(--tilt-corner);
+  padding: 0;
+  background: transparent;
+  outline: none;
+  touch-action: pan-y;
+}
+
+.compass-tilt:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 6px;
+}
+
+.compass-tilt-card {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--secondary);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  pointer-events: none;
+  /* No permanent will-change: the browser promotes the surface only when
+     needed, rather than keeping every gallery card on its own layer. */
+}
+
+.compass-tilt-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}

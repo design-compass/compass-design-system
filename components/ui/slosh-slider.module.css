@@ -1,0 +1,26 @@
+/* Slider shape: Copyright (c) 2026 Lorenzo Cabra, MIT.
+   Full notice is retained in slosh-slider.tsx. */
+.root { width: 192px; max-width: 100%; font-family: var(--font-sans); color: var(--foreground); }
+.track {
+  position: relative;
+  height: 28px;
+  border-radius: var(--radius-xl);
+  corner-shape: var(--corner-shape);
+  background: color-mix(in srgb, var(--foreground) 11%, var(--card));
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: none;
+}
+.track:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--card), 0 0 0 4px color-mix(in srgb, var(--ring) 40%, transparent);
+}
+/* A 14px circular radius becomes a capsule on this 28px track. */
+@supports not (corner-shape: squircle) {
+  .track { border-radius: calc(var(--radius-xl) / 2); }
+}
+/* The blue fill surrounds the white handle with a 4px inset, like Toggle. */
+.fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: inherit; corner-shape: inherit; background: var(--primary); }
+/* The inset handle remains inside both end stops. The entire track
+   receives pointer input so the narrow visual is not the only hit target. */
+.knob { position: absolute; top: 4px; bottom: 4px; width: 12px; margin-left: -6px; border-radius: 4px; corner-shape: round; background: var(--primary-foreground); box-shadow: var(--control-thumb-shadow); pointer-events: none; }

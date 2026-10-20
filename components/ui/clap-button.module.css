@@ -1,0 +1,60 @@
+.root { display: inline-flex; align-items: center; gap: 0; }
+.control { position: relative; width: 56px; height: 56px; }
+.button {
+  background: transparent !important;
+  border-color: transparent !important;
+  scale: 1 !important;
+  color: var(--muted-foreground) !important;
+}
+.button[data-pulsing] { color: var(--primary) !important; }
+.button::before, .button::after { display: none; }
+.hands { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; transform-origin: center; }
+.button .hands .icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--muted-foreground);
+  fill-opacity: 0;
+  transition: fill-opacity 160ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover .icon { fill-opacity: 0.16; }
+}
+.count {
+  margin-inline-start: -8px;
+  pointer-events: none;
+  min-width: 3ch;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  font-variant-numeric: proportional-nums;
+  color: var(--muted-foreground);
+}
+.impacts { position: absolute; inset: 0; pointer-events: none; }
+.tick {
+  position: absolute;
+  top: 4px;
+  left: 27px;
+  width: 2px;
+  height: 7px;
+  background: var(--primary);
+  border-radius: 1px;
+  pointer-events: none;
+  transform-origin: center 24px;
+  opacity: 0;
+  animation: clapImpact 420ms ease-out both;
+}
+.tick:nth-child(1) { rotate: -70deg; }
+.tick:nth-child(2) { rotate: -35deg; animation-delay: 20ms; }
+.tick:nth-child(3) { rotate: 0deg; animation-delay: 40ms; }
+.tick:nth-child(4) { rotate: 35deg; animation-delay: 20ms; }
+.tick:nth-child(5) { rotate: 70deg; }
+.tick:nth-child(6) { rotate: 165deg; animation-delay: 40ms; }
+@keyframes clapImpact {
+  0% { opacity: 0; transform: translateY(4px) scaleY(0.5); }
+  18% { opacity: 0.85; transform: translateY(0) scaleY(1); }
+  100% { opacity: 0; transform: translateY(-9px) scaleY(0.35); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .impacts { display: none; }
+  .button .hands .icon { transition: none; }
+}

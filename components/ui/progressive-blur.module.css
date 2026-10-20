@@ -1,0 +1,46 @@
+.lift {
+  transition: transform 220ms ease-out, box-shadow 220ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hoverTarget:hover .lift {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 18%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lift { transition: none; }
+  .hoverTarget:hover .lift { transform: none; }
+}
+.frame {
+  /* Keep filtered layers and the source image in one rounded compositing mask. */
+  -webkit-mask-image: linear-gradient(#fff, #fff);
+  mask-image: linear-gradient(#fff, #fff);
+}
+@supports not (corner-shape: squircle) {
+  .frame { clip-path: inset(0 round var(--radius-3xl)); }
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--blur-start), #000 var(--blur-end));
+  mask-image: linear-gradient(to bottom, transparent var(--blur-start), #000 var(--blur-end));
+}
+.layer:empty {
+  -webkit-backdrop-filter: blur(var(--progressive-blur));
+  backdrop-filter: blur(var(--progressive-blur));
+}
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(var(--progressive-blur));
+}
