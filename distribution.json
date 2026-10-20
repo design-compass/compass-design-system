@@ -22,14 +22,34 @@
   ],
   "files": [
     {
+      "path": "assets/components.png",
+      "origin": "public-controls-screenshot-no-account-header",
+      "sha256": "8af8dd73ec5d525d519c1861d7c64a024f2e632189a36955463a42ab71969a96"
+    },
+    {
+      "path": "components/heat-word.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "171d1f30af6239e20e24718761c22e15042ef5d29e7b6c9d56a453620a5ffbb1"
+    },
+    {
+      "path": "components/theme-provider.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "2ee233bb5af23cf330b63108aef93891ed93373d4bec974877db6bdc73da0e58"
+    },
+    {
+      "path": "components/tilt-card.css",
+      "origin": "public-registry-1.0.0",
+      "sha256": "013d2ce4ac8c5bf1b7112346e3ab2dfc283ae68fffbf254c450a1816e2e1ab63"
+    },
+    {
+      "path": "components/tilt-card.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "e01f6fafd6f3fe555826420e68206d9a85513af856275ee11f16e9a1b337aca2"
+    },
+    {
       "path": "components/ui/alert-dialog.tsx",
       "origin": "public-registry-1.0.0",
       "sha256": "80008756cbe12f59d26d163cf5ebe3260f4e686123c1a707225a8fdf34d780b8"
-    },
-    {
-      "path": "components/ui/button.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "ead3e3cd19f0227a4ad2a588f82e6edc974897c271125fcdde556ba17c7517a1"
     },
     {
       "path": "components/ui/avatar.tsx",
@@ -40,6 +60,11 @@
       "path": "components/ui/badge.tsx",
       "origin": "public-registry-1.0.0",
       "sha256": "b7158e1fd2b79ade3960649c1fb082b3490a4b179bedc85d9f833567cc72da63"
+    },
+    {
+      "path": "components/ui/button.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "ead3e3cd19f0227a4ad2a588f82e6edc974897c271125fcdde556ba17c7517a1"
     },
     {
       "path": "components/ui/calendar.tsx",
@@ -62,14 +87,14 @@
       "sha256": "02708d8d07aabbf3625f124e4eb197599db3d30dfa897d587e539ebba9abf295"
     },
     {
-      "path": "components/ui/clap-button.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "9d5397e3d1c50ca6723f433846239dcdb2c8508c18cda9f323df580fa0430e58"
-    },
-    {
       "path": "components/ui/clap-button.module.css",
       "origin": "public-registry-1.0.0",
       "sha256": "5fdd64a376c156c9a8c849a0fcbb5fc36dd381e5cc8b97348fd1a04224662b58"
+    },
+    {
+      "path": "components/ui/clap-button.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "9d5397e3d1c50ca6723f433846239dcdb2c8508c18cda9f323df580fa0430e58"
     },
     {
       "path": "components/ui/date-range-picker.tsx",
@@ -85,11 +110,6 @@
       "path": "components/ui/dot-pagination.tsx",
       "origin": "public-registry-1.0.0",
       "sha256": "4a5357ef6a76d962724ed30d42e9d4444b23e8020728a27225e6cf27b94137d6"
-    },
-    {
-      "path": "components/ui/pagination.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "6a996187c64090bceb559d9c6d044339813790c77322793e7bf263a6f5603e84"
     },
     {
       "path": "components/ui/element-motion.tsx",
@@ -112,14 +132,19 @@
       "sha256": "6e0a6fd2243590bbd4d270693365aad5934b61bfeab7a73aac7c6e37a4e83177"
     },
     {
+      "path": "components/ui/like-button.module.css",
+      "origin": "public-registry-1.0.0",
+      "sha256": "eeb4d6ac4d0ef006a1aaba92fa5719cbb7dc3c452e249698e1e8aa8c90cac031"
+    },
+    {
       "path": "components/ui/like-button.tsx",
       "origin": "public-registry-1.0.0",
       "sha256": "f9ed97ad7ee77f1c2169e8efc3f9b4a962c2818837a19f4529489c6751716bc3"
     },
     {
-      "path": "components/ui/like-button.module.css",
+      "path": "components/ui/pagination.tsx",
       "origin": "public-registry-1.0.0",
-      "sha256": "eeb4d6ac4d0ef006a1aaba92fa5719cbb7dc3c452e249698e1e8aa8c90cac031"
+      "sha256": "6a996187c64090bceb559d9c6d044339813790c77322793e7bf263a6f5603e84"
     },
     {
       "path": "components/ui/progress.tsx",
@@ -127,14 +152,14 @@
       "sha256": "f636ef53eda7dd8bb1a5391eecff4b8d3345cbb60026703052e4b8586aaee09f"
     },
     {
-      "path": "components/ui/progressive-blur.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "c3ab13e09ad9daa9d9018437092d71ce45961fcfced1cb34cdb0ac94d0994e74"
-    },
-    {
       "path": "components/ui/progressive-blur.module.css",
       "origin": "public-registry-1.0.0",
       "sha256": "52baeefe937c6d0b8cdf1c57e62bbd07544174db3d77b198afc5c3d89b805d4f"
+    },
+    {
+      "path": "components/ui/progressive-blur.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "c3ab13e09ad9daa9d9018437092d71ce45961fcfced1cb34cdb0ac94d0994e74"
     },
     {
       "path": "components/ui/radio-group.tsx",
@@ -167,24 +192,24 @@
       "sha256": "c7f2a47d0b929b230de8a124e4588e0d7c78bad0d45bb2b86a2d7b50bd7d3c01"
     },
     {
-      "path": "components/ui/slosh-slider.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "36a974ce91180f84578585ea1837cfe6c533305ea5f9318971deb8b86c7933c0"
-    },
-    {
       "path": "components/ui/slosh-slider.module.css",
       "origin": "public-registry-1.0.0",
       "sha256": "023a27f3c4f0ff78f78d6f77811d17f254ba06865a59a686d189e6902b86c320"
     },
     {
-      "path": "components/ui/success-mark.tsx",
+      "path": "components/ui/slosh-slider.tsx",
       "origin": "public-registry-1.0.0",
-      "sha256": "6382e45778cb5ed63fb4bf6ca99ced2889ed56f8ba865a5bbbe3ddc3e3a69781"
+      "sha256": "36a974ce91180f84578585ea1837cfe6c533305ea5f9318971deb8b86c7933c0"
     },
     {
       "path": "components/ui/success-mark.module.css",
       "origin": "public-registry-1.0.0",
       "sha256": "94030640fd50beca9740067aae528d64aeb5fb2b015dd7a50c3cb32d1eddf8ce"
+    },
+    {
+      "path": "components/ui/success-mark.tsx",
+      "origin": "public-registry-1.0.0",
+      "sha256": "6382e45778cb5ed63fb4bf6ca99ced2889ed56f8ba865a5bbbe3ddc3e3a69781"
     },
     {
       "path": "components/ui/switch.tsx",
@@ -232,784 +257,229 @@
       "sha256": "23fbffce49cc737855a4ee48caa48bd8fed901afa9477f73f73f95ab2a630631"
     },
     {
-      "path": "components/theme-provider.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "2ee233bb5af23cf330b63108aef93891ed93373d4bec974877db6bdc73da0e58"
+      "path": "r/alert-dialog.json",
+      "origin": "public-directory-registry",
+      "sha256": "ba9ef1343eb6281f4d1b0f2899123a079fd063dbe7e5f97c21bcee057764ad3b"
     },
     {
-      "path": "components/heat-word.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "171d1f30af6239e20e24718761c22e15042ef5d29e7b6c9d56a453620a5ffbb1"
+      "path": "r/avatar.json",
+      "origin": "public-directory-registry",
+      "sha256": "9c566fb37323cd3d0063348e6f7abf07ba5caf5fffe2c5bfd662d06a96dd1ead"
     },
     {
-      "path": "components/tilt-card.tsx",
-      "origin": "public-registry-1.0.0",
-      "sha256": "e01f6fafd6f3fe555826420e68206d9a85513af856275ee11f16e9a1b337aca2"
+      "path": "r/badge.json",
+      "origin": "public-directory-registry",
+      "sha256": "d129e0b421784b4f7aa5852798e361c64c0b152acfe66dd8465638464f57d14b"
     },
     {
-      "path": "components/tilt-card.css",
-      "origin": "public-registry-1.0.0",
-      "sha256": "013d2ce4ac8c5bf1b7112346e3ab2dfc283ae68fffbf254c450a1816e2e1ab63"
+      "path": "r/button.json",
+      "origin": "public-directory-registry",
+      "sha256": "39ef93ca0e7fbe9e7658bb30f0b01674deb5becc867dc15a17d28adbada46329"
     },
     {
-      "path": "styles/foundations.css",
-      "origin": "public-foundation-tokens-1.0.0",
-      "sha256": "ac07c112399f629b73c98eff465c2b9f314026a649e9fb6af6286cc2f4e382bf"
+      "path": "r/calendar.json",
+      "origin": "public-directory-registry",
+      "sha256": "49209d4cb75e7d72129e8af4f3904ff74004b65b071426885e56132276db8e46"
     },
     {
-      "path": "skills/compass/SKILL.md",
-      "origin": "public-basic-skill-template",
-      "sha256": "8917daa1e55b5888e9cdb138d8f6da0467905ea7a1b7c4c28594f63c1f79a6c2"
+      "path": "r/card.json",
+      "origin": "public-directory-registry",
+      "sha256": "9b8b9c4fb787eabcd77f793eece58efbe05811b7824e96a995d79564df5d19e8"
     },
     {
-      "path": "skills/compass/references/en/button.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "d2d287e4fcae7a75a82442c64a9425009d614fd7d771238b2725077b974d5a73"
+      "path": "r/chart.json",
+      "origin": "public-directory-registry",
+      "sha256": "abd3076cd374aa72a3e262a9ceda82763f67e78e6b8b09e8de83ef13492d8b1b"
     },
     {
-      "path": "skills/compass/references/en/switch.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "97321f58d2f464259564cb8ed1020c628fec0be01a6b232eb983891b8b1027f7"
+      "path": "r/checkbox.json",
+      "origin": "public-directory-registry",
+      "sha256": "477f816520c9258ed3bc9066c6950a69becafcb125b7160a62fb46a11ae9191f"
     },
     {
-      "path": "skills/compass/references/en/slider.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "cef2a18037756d14e4d5a495161fb6cacf930f55c04f14c7e0d56d7aaafee4c3"
+      "path": "r/clap-button.json",
+      "origin": "public-directory-registry",
+      "sha256": "358f9ab038df7a108e4301d9ce1b24081a5d207b589fa2b6be621eb06ff04bc0"
     },
     {
-      "path": "skills/compass/references/en/slosh-slider.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9703b4d60d4e7f863c12bd4972d7cde2aa615f2219819983592fc39b1aa70d49"
+      "path": "r/compass.json",
+      "origin": "public-directory-registry",
+      "sha256": "dc9fc87dc7d7de04c11c9a47abb6fe48f348ce7a793cb29765d416bb279bc656"
     },
     {
-      "path": "skills/compass/references/en/radio-group.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "a2b588f72e2c32d56c8e3ee678740c6f05091382a7a2db8e2f2ac1bb8e41b00e"
+      "path": "r/date-range-picker.json",
+      "origin": "public-directory-registry",
+      "sha256": "01f3a55f369ab97e2524e15f4470b0c5df4a48cae3aaf193e0b1c64ea2a01fe3"
     },
     {
-      "path": "skills/compass/references/en/checkbox.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "ff71e09c0cbaf250a135acd029fee5fd916dc8381f8900d5e2ae0b33c383e3c0"
+      "path": "r/dialog.json",
+      "origin": "public-directory-registry",
+      "sha256": "df8be80294434373793954c69a14cbe9bd898921c2f73db7d9204f46335b96d8"
     },
     {
-      "path": "skills/compass/references/en/select.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "f2a3e2eaf3f36f4642497e463a7d30634830d577cee1e93718fc6788272fa265"
+      "path": "r/dot-pagination.json",
+      "origin": "public-directory-registry",
+      "sha256": "d78dd6c53aaf392ee7c04145c002242b2eb9fe83a8e83b8297ae1c9a7e1a4f09"
     },
     {
-      "path": "skills/compass/references/en/toolbar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5bf44ad56713de7d442893eb2b1c2531988e10806c6bc5931f6eeadb892b1813"
+      "path": "r/element-motion.json",
+      "origin": "public-directory-registry",
+      "sha256": "8c257783ee5e9a0495fa5124f336c143d3796a15554f36e16ef4406d51176678"
     },
     {
-      "path": "skills/compass/references/en/input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "d70789a455a0a0cde68d0981ec9843e402b984905e33d26b25d94cba07940f77"
+      "path": "r/fade-overflow.json",
+      "origin": "public-directory-registry",
+      "sha256": "0ec849a8c810cc95e9f53477ed00876cca0a3f2243e03d12f0709458c6ed08db"
     },
     {
-      "path": "skills/compass/references/en/search.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "7a6257bed7cd2c8cf3d759e0261a23a0aaa581a4b49880f8cfd1cbf254bb562c"
+      "path": "r/foundations.json",
+      "origin": "public-directory-registry",
+      "sha256": "0eaa65a1d5db890f56a5b493c3f607954ebb819f99191afca396cddfc283e538"
     },
     {
-      "path": "skills/compass/references/en/password-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9df52412c4bff2ae429f8f5cc50c6bd4914afaba9790ba61f025b3a7b7270a37"
+      "path": "r/heat-map.json",
+      "origin": "public-directory-registry",
+      "sha256": "e46c4dc5d6150accd9748a46e50f8aa670fe40043b3a3656bcea18a87e478b69"
     },
     {
-      "path": "skills/compass/references/en/phone-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "bb688f1a78b2f2818af06fe99d58ed24cc844a6bbfe3ae5999c6ef8c1df96b36"
+      "path": "r/image-gallery.json",
+      "origin": "public-directory-registry",
+      "sha256": "b5b06991d467e7dce6740bfd097672df97a62fa0719417677179e4550278cbbe"
     },
     {
-      "path": "skills/compass/references/en/code-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "b38cf8c4d004d7b92090ccaecca959e5eef3198d81e9b7c2d9bfed1f0f65614f"
+      "path": "r/input.json",
+      "origin": "public-directory-registry",
+      "sha256": "66a29ffe47a1d3cc949a7ae4b753cae5a65065d92a359c12e9410c28476a0660"
     },
     {
-      "path": "skills/compass/references/en/number-stepper.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "03c759ba308c3ddf5ba8b2633b4ae3987192a507b64576b93786ea885545f5a8"
+      "path": "r/like-button.json",
+      "origin": "public-directory-registry",
+      "sha256": "520eabd95a8acaa068d69ef214be572dcd70440b260b92c5ba3c565758e41aa7"
     },
     {
-      "path": "skills/compass/references/en/date-picker.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6ab44cf7b77d3f520844d7234306a8e68103a927b2e28cb894124b2cd6cc8e97"
+      "path": "r/pagination.json",
+      "origin": "public-directory-registry",
+      "sha256": "c5149979a4f6cfa4a2e66ddcd9f2c871f8c2112ff373673e80efb3833f43726f"
     },
     {
-      "path": "skills/compass/references/en/time-picker.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "adc8abc0c62668f5128f7f44dd685b7f8addf878c573484cf6aac8b32fa88946"
+      "path": "r/progress.json",
+      "origin": "public-directory-registry",
+      "sha256": "e1bf4b1874c768b2af6206c401491f485c17efcbec8b395f6c662d0db098dbab"
     },
     {
-      "path": "skills/compass/references/en/voice-recorder.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c40ed0e045fbac3059d52183861ceb2d91cac986eaa6a5521528cca56e15cc74"
+      "path": "r/progressive-blur.json",
+      "origin": "public-directory-registry",
+      "sha256": "13d0270975593c26d906910ade590129d473962e539ca8d1ae7035682bda0e6d"
     },
     {
-      "path": "skills/compass/references/en/signature-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5efa68f7a057a8d009eb49edae835cfa249be1144635dae39a7c6c818eafa6f9"
+      "path": "r/radio-group.json",
+      "origin": "public-directory-registry",
+      "sha256": "3f6592fff932030d04b91282f6da032f9372159a3265ea12bde8308a6379ee02"
     },
     {
-      "path": "skills/compass/references/en/file-drop.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "46f7901e3555baba2872da431e0345421ee094c4089383f81ad77409533d95ed"
+      "path": "r/registry.json",
+      "origin": "public-directory-registry",
+      "sha256": "0bf9f3ebdf91027590f81e9959701ea748129ab47ceb2f25232a38b5efd039cf"
     },
     {
-      "path": "skills/compass/references/en/classic-tabs.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "7385ec357b2a54dd735c15de269e6ada48edc862f1d566e128742532e3de2f04"
+      "path": "r/search-field.json",
+      "origin": "public-directory-registry",
+      "sha256": "35d40592a2a1e3595303f670cb04178543d5f667cb7ac1b7f5bc00c450d5a832"
     },
     {
-      "path": "skills/compass/references/en/tabs.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5d04d9f65a93f468488c735b6fd020a2c32d8e689630301a8f74c79754ba3682"
+      "path": "r/select.json",
+      "origin": "public-directory-registry",
+      "sha256": "fff4b9120534616f122d7a04e19d66e1fbd74cf2089118425f094d04ce89e604"
     },
     {
-      "path": "skills/compass/references/en/filter.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "4c05511b340ecde39150b586eef3337a26156aa535029987e43d3d3124fc7ca7"
+      "path": "r/sheet.json",
+      "origin": "public-directory-registry",
+      "sha256": "3d003e57e4f66bdac8ad1218c9822be12e39551ac64c881c997b8d0d5507c45e"
     },
     {
-      "path": "skills/compass/references/en/navigation-bar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5ab04204489a0be2f3b09fd3c7bf7eae1c3b9439c6df6fb5635fd4beba86b88f"
+      "path": "r/skeleton.json",
+      "origin": "public-directory-registry",
+      "sha256": "fac9965c1b38da3b405413a35d170873a1ff03bc93bdeda7d59f02f64e28e26e"
     },
     {
-      "path": "skills/compass/references/en/breadcrumb.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "704168bbdc797101da47b30d093a1d3b96f71450a4d6f7490b681bfaab7ea8a7"
+      "path": "r/slider.json",
+      "origin": "public-directory-registry",
+      "sha256": "c44581fa445113fce9e0ccb13117ce2aedef5a3b33776a27fce544e695f021d9"
     },
     {
-      "path": "skills/compass/references/en/table-of-contents.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "300924f724b7784ebcbb62cdd3f486eb0882addc1b4106804a02cd1b87980e5e"
+      "path": "r/slosh-slider.json",
+      "origin": "public-directory-registry",
+      "sha256": "e20e7bef91d7dff947bec81d07634283b406653af8f895c0c4d6d814047a000e"
     },
     {
-      "path": "skills/compass/references/en/accordion.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "83c3e59c7dbd747de997b96d269f6d6f8c820008d4828b4fe169a42e17f30f53"
+      "path": "r/success-mark.json",
+      "origin": "public-directory-registry",
+      "sha256": "847107b8e83a8725e6ff65e369610271d29fcdb4357d41d7c7b3cf9b65018495"
     },
     {
-      "path": "skills/compass/references/en/tree-view.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "09bda5efd14d092e9acfae1d275ea785be0033ffe8add4f6fc458f149b02de75"
+      "path": "r/switch.json",
+      "origin": "public-directory-registry",
+      "sha256": "aaae8eeaf6808ea274e292af4be0f08245cd5f479ed980320853579a740e3b35"
     },
     {
-      "path": "skills/compass/references/en/carousel.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "e25fc1ed7a55d3f37284f1219b1559cf767e8da75a46b77ab056f2d1688c6d08"
+      "path": "r/table-of-contents.json",
+      "origin": "public-directory-registry",
+      "sha256": "3b76e76c9740247adac5f3172c272fe803ffb459b27fcc5af6948370936c5b8b"
     },
     {
-      "path": "skills/compass/references/en/dot-pagination.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6e55a09253a277616a3b00d9789495316049c2628f157905cb8923b897eb6a18"
+      "path": "r/table.json",
+      "origin": "public-directory-registry",
+      "sha256": "a781d8c44bfbe2d345207e8fd9e768a09c68d0023dde6b8e7ed212b25ce95f8a"
     },
     {
-      "path": "skills/compass/references/en/pagination.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "895c5a393c5f915211812e5deac52cd99d740da2fa6a1e000b86324f68269654"
+      "path": "r/tabs.json",
+      "origin": "public-directory-registry",
+      "sha256": "7496d1d3abab7881addd86a51f362cb7c6a99d3b27afbb4b7c8e01973ea2b94d"
     },
     {
-      "path": "skills/compass/references/en/tag.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "251e9c6f82ff9fee8ac951b8a178b80c01963b767d4bba905c0612d2ceaad39c"
+      "path": "r/text-motion.json",
+      "origin": "public-directory-registry",
+      "sha256": "fb7d1be2b0e3a39dbbd5786dfe0b4945d0c235bf6c597143eae39b6c62e4ac1a"
     },
     {
-      "path": "skills/compass/references/en/badge.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "53bd1940ebb01175c06b9174bd7066ccfeb026c6783b79a2a61576b4f72e2355"
+      "path": "r/theme-provider.json",
+      "origin": "public-directory-registry",
+      "sha256": "5f7e8c0c497a8bb978a23794a4dd33b88d30e43bbdedc0da03d6769faab944fc"
     },
     {
-      "path": "skills/compass/references/en/progress.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c20a92b87935f2c7e009cd01e9de65977dfe25fdee397305738211af999b72da"
+      "path": "r/tilt-card.json",
+      "origin": "public-directory-registry",
+      "sha256": "7d2084643e2650801b2d4e0f78c1af22e3dcc123374f5e182597c9e8bb137312"
     },
     {
-      "path": "skills/compass/references/en/skeleton.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "d05ac93ec268e7dcfbe4092246bfe7422a63153c866ba1f97b4d54e5b58b01be"
+      "path": "r/time-picker.json",
+      "origin": "public-directory-registry",
+      "sha256": "53d0e95ed523dea186c28d77e0b10a892fbc7afc40ec5b5521a12d6e8ab71ef4"
     },
     {
-      "path": "skills/compass/references/en/progress-bar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "da0ae6442f24e52a750a712b544a16b7275fadf3287b0dfd27ce4f3b61a723f0"
+      "path": "r/toggle-group.json",
+      "origin": "public-directory-registry",
+      "sha256": "524b36576a37babd5d5c55c5f7cd88c54389df659d1fecf55878f3de168017d3"
     },
     {
-      "path": "skills/compass/references/en/avatar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3a1edfdcdad2e37d386acb105b84fc556113806d36e3c4fd5893ffe9d1e0d439"
+      "path": "r/toggle.json",
+      "origin": "public-directory-registry",
+      "sha256": "3c96b0455c661d444a1c9964b073d82610524fd746e58756dd4cfc32216f30f6"
     },
     {
-      "path": "skills/compass/references/en/avatar-group.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "ae817dfacd7d6c482fa8ae69ebd89498a86df0f2459d58be6e485c3a3f465e7d"
+      "path": "r/tooltip.json",
+      "origin": "public-directory-registry",
+      "sha256": "dc1b81c6727d52c7522b81515b60068bb9c289a5651b33b486b5dff11723eb53"
     },
     {
-      "path": "skills/compass/references/en/goal-ring.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "0ce3c8c4a27755d98dbeec4e8b07936f5a01feecc9992b1d7dc05274fad28cee"
+      "path": "README.md",
+      "origin": "reviewed-public-readme",
+      "sha256": "2d4c1aef18ca61569cda7971a9b7fd500c564f842c7d293ec3023e8ad1312982"
     },
     {
-      "path": "skills/compass/references/en/challenge.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "052fd315c2bd041a56def73274d15713e0f951aebe158ca4b7156df48fa098c8"
-    },
-    {
-      "path": "skills/compass/references/en/step-progress.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "e90260b471e55023890651d1a43346915396a5cb0155975edbab05043a9c525d"
-    },
-    {
-      "path": "skills/compass/references/en/timeline.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "fe1721d5064c6b9b4aa8bfeaa95aaeaab97afd53aa65b18bc0587c253200ce47"
-    },
-    {
-      "path": "skills/compass/references/en/table.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "bd706147324b3ca7c56731cd44eed9144349d35310ff84f72de854cee22111bb"
-    },
-    {
-      "path": "skills/compass/references/en/contributions.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "72f678e48adfbcaff5124cdbfb43c613bf5f8955985995d2a1b0db615ef3f7eb"
-    },
-    {
-      "path": "skills/compass/references/en/confetti.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "62b13923d480074c3c1942fe5354fa9c09c3238e19f43b6b573b51256c4a0d4e"
-    },
-    {
-      "path": "skills/compass/references/en/completion.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3f9fcbf058bd0a63f5d4af39a8575aed9664fa6c6b7f0b76e1f49e6484c2fb31"
-    },
-    {
-      "path": "skills/compass/references/en/liquid-glass.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "cd8d34c6a1e54673cb76606b44b8531a6425930ac82daeb3af354a51124857e7"
-    },
-    {
-      "path": "skills/compass/references/en/like-burst.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9fc95a0c443f130874b16d4131b76c110fb18bec2f11435949d5eb9169a8b808"
-    },
-    {
-      "path": "skills/compass/references/en/progressive-blur.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9222dc363af07652613acb99a01c83e52a12d2140224d5b96c5d967ad3162cca"
-    },
-    {
-      "path": "skills/compass/references/en/clap.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "35ac51bded1d605eb41614c555d9e20599fa3680ab8ebe65450c3d72cd3c5b66"
-    },
-    {
-      "path": "skills/compass/references/en/area-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "7be80533a67a2cd69bd66a6138c722b8794e3151c6128055aa23e3cb76834fb2"
-    },
-    {
-      "path": "skills/compass/references/en/area-chart-linear.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "bbb63d9d05a08ad78573b877b00dcc7a3d09d2c3157e59fbc69c0fa1ebff5083"
-    },
-    {
-      "path": "skills/compass/references/en/area-chart-step.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "88175a41bea541314acc8c0529e18e3c61a45372c892a6f8274a8cdc9b6ab367"
-    },
-    {
-      "path": "skills/compass/references/en/area-chart-stacked.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "026cfb2337cfa4b98ef441238c50fbe883188f59bea203cae5b546bd1f0be4ea"
-    },
-    {
-      "path": "skills/compass/references/en/area-chart-normalized.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6bbf58632da215d5f4844b9f28de1521966a116a7b7599f06a55253e00e78da1"
-    },
-    {
-      "path": "skills/compass/references/en/area-chart-gradient.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9a125bade19a8fd1c228f682c5f14d27055171d43436721ba67ac241d315a61f"
-    },
-    {
-      "path": "skills/compass/references/en/bar-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "e2e4098f9e35a9c671aec4c04cdbfd220698ce9c5c69bc3d28cbc6f1238f9b99"
-    },
-    {
-      "path": "skills/compass/references/en/bar-chart-horizontal.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "ddbb3fd78097745b38cec92715df731d290b186fba0458aa1dc3a2f977a9ec11"
-    },
-    {
-      "path": "skills/compass/references/en/bar-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "045d95a67c4fb32f245998143dfcabdf62f368a205ad412a9376da99d393231e"
-    },
-    {
-      "path": "skills/compass/references/en/bar-chart-stacked.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "04f8163c3be35f5f3fd6664ee2ca7b35079357294f0265a7037afd315066d1d5"
-    },
-    {
-      "path": "skills/compass/references/en/bar-chart-labels.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "b569e5e87c74fbbc21f9935e17bc8c6e323ed8fec58dce75ab08fd7235cea5de"
-    },
-    {
-      "path": "skills/compass/references/en/bar-chart-negative.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "d288c8f2a24111ef9a1a47f42583c28c4ff779e92719e0a0deaf65b1cc8c4eba"
-    },
-    {
-      "path": "skills/compass/references/en/line-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "74c1b477ae25bc5e1cb7fda0c012558e66a66ba9fed51f0591fa8d7efae21ee2"
-    },
-    {
-      "path": "skills/compass/references/en/line-chart-smooth.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "b98f8ce5420a48114567dfec36c71901f4ddfad5ff7226825405e301207d8a51"
-    },
-    {
-      "path": "skills/compass/references/en/line-chart-step.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "f17d1cd4b887bcac25f4fc6bfb1abc55cf72bb9418304fb3f27a656e6407d921"
-    },
-    {
-      "path": "skills/compass/references/en/line-chart-dots.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "024efb7d23d56f5ca66b9f6adfa062f9a1d0c4f32da06e0a97b4e59b916bd570"
-    },
-    {
-      "path": "skills/compass/references/en/line-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "fb98de608380effe9fb1d36848dedd6cc7e2d6a746cc1ce70fec6637a476af94"
-    },
-    {
-      "path": "skills/compass/references/en/pie-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c7da0a4a00bf8e196918308c440a3e31ed9efc4aa1725653548d577a61fd439e"
-    },
-    {
-      "path": "skills/compass/references/en/pie-chart-labels.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "fba9d6cbdaa40fee02aa74ed02cf6ece3a31aaac8705f14fae550a26cf97a3e5"
-    },
-    {
-      "path": "skills/compass/references/en/donut-chart-basic.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9a22d71adff708c2a6703a1badb7c5f3fb2e5948d1f3a75b510f1940f52acadc"
-    },
-    {
-      "path": "skills/compass/references/en/donut-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "1b8dca82fed438141281b39343eea4dde36971517fbdd825d88f25e94117033a"
-    },
-    {
-      "path": "skills/compass/references/en/radar-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "90aa0412239d26d39eddf141210fc42d6ed9f9c0ffd6a1c127bed1020fdc1711"
-    },
-    {
-      "path": "skills/compass/references/en/radar-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9c5e777f4a781c18e2ebb405165c96b8e5f4f98430fb8354b03658bcea3391a1"
-    },
-    {
-      "path": "skills/compass/references/en/radial-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "80836972b23f16ac107480ba2295cb1fde60e97665872428cb0bf0e2e46e92e4"
-    },
-    {
-      "path": "skills/compass/references/en/radial-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c8cdddb5c1a0c4f4e8639140fbdbfe0b16df44b3021c3f3ac6f44505fd7bf47b"
-    },
-    {
-      "path": "skills/compass/references/en/chart-tooltip-dot.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "fc66ef951978cbe856890e03b3185df213469652c3884420b8dfca4dd90beea2"
-    },
-    {
-      "path": "skills/compass/references/ko/button.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "787d7868c596c81e1f7ba515502410b0dc5047c8b3d8531c82ba5340de1109fe"
-    },
-    {
-      "path": "skills/compass/references/ko/switch.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6351977d905fb84e47c5a2262bbf885328cf78848149d6df1d1cb2708189f593"
-    },
-    {
-      "path": "skills/compass/references/ko/slider.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "eaa5a8c0a1112430156c091bbcf2b95bfbc746f7859169c487004047bc770ed0"
-    },
-    {
-      "path": "skills/compass/references/ko/slosh-slider.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "a779cf2b7deef62e5415a823ad8e9924a3957a02341e2b44a2975df379b2cb48"
-    },
-    {
-      "path": "skills/compass/references/ko/radio-group.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "77632d6b8ce5b8ffa7cabc13029de0530101bb3f1a8338f93eada6d24a2891c1"
-    },
-    {
-      "path": "skills/compass/references/ko/checkbox.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "7a24ee2b1c0f71740046d839902184143ac10dd21c5862ca6f7aa452f7ed6c47"
-    },
-    {
-      "path": "skills/compass/references/ko/select.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "a5b52beb527029bdb62bda781d380647507810f9998f074021d31ec96cb6010d"
-    },
-    {
-      "path": "skills/compass/references/ko/toolbar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5a58be137f5ac43bea62c6e7ab799958dbab4615389b569c3e94cfbb2591f97c"
-    },
-    {
-      "path": "skills/compass/references/ko/input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "ce8ff136c05258a715f87b906abaf0fa2a1204b224b772ecfe19e1e375a59aab"
-    },
-    {
-      "path": "skills/compass/references/ko/search.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "750869cebc41404a8effa79ddb48adef7b6ab9cfb4af833b0a85cdc462d4fa0c"
-    },
-    {
-      "path": "skills/compass/references/ko/password-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "61e55069e848690a6fbf7f7cc0c6c5b44ca292b685397eabf4a16e71aab830c0"
-    },
-    {
-      "path": "skills/compass/references/ko/phone-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "2d88b68d466648edf4c2ade91a4a4b618cfd150dc91b7d182053a0962e9641c0"
-    },
-    {
-      "path": "skills/compass/references/ko/code-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "f68a52975d97fd586a38844a0528f668ad9e8684f7d8e1132956088de2b99206"
-    },
-    {
-      "path": "skills/compass/references/ko/number-stepper.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "69bf33bde335df6fd8f9f87b542c79ea23207382c01bd90eaaf94153c14f8380"
-    },
-    {
-      "path": "skills/compass/references/ko/date-picker.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "9e7643a64a0e2b1ec5eaf637be302f34f13c70cbaec4de39440ad04ba8734710"
-    },
-    {
-      "path": "skills/compass/references/ko/time-picker.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5780d2cdf0963f95bc620b290eb7c1abdbfad498fe203d08a702d835de5bfc97"
-    },
-    {
-      "path": "skills/compass/references/ko/voice-recorder.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "ee77c3a3314ac4703a435ce00c4972fd01392e06645c13a8efa7d436d4d56a23"
-    },
-    {
-      "path": "skills/compass/references/ko/signature-input.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "000d318222c59c362e3d367562ff97a4fb4e12cd05a6d60fcb7f03465c25ff3d"
-    },
-    {
-      "path": "skills/compass/references/ko/file-drop.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "a04c69b8d1dba599e8232f42b3e2cfe9fee907f2bc71dfe0fcf3db8111281e1c"
-    },
-    {
-      "path": "skills/compass/references/ko/classic-tabs.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "561ecc98437013345fa19c9c0f581592e4d54ea56d7984dc9f56dc4744ced30d"
-    },
-    {
-      "path": "skills/compass/references/ko/tabs.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "bdac56123516dd105adfb94559579342349e2eaab9fe8f9605a1d17303c4bc30"
-    },
-    {
-      "path": "skills/compass/references/ko/filter.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "234711c7cb3a3e62f98db5af57296fcc6c800203e51c4b3276b807a364fbaad6"
-    },
-    {
-      "path": "skills/compass/references/ko/navigation-bar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "47e326c39558ad32b52d02fc2dea9d29f37ec71fbc9a6f6a21102fff8bcd5439"
-    },
-    {
-      "path": "skills/compass/references/ko/breadcrumb.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "281ef943154e0dbcbc43b0fe7fbfee05fa715c67704496ac12c5811b11987132"
-    },
-    {
-      "path": "skills/compass/references/ko/table-of-contents.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "56076ffb8258b5872bf882c5048b962f8620fdd55cec41d761e9b778531e8e84"
-    },
-    {
-      "path": "skills/compass/references/ko/accordion.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "eeaf1a2004a757729672655bfd08e645ea41e759760a8769d8206d0bb94f9328"
-    },
-    {
-      "path": "skills/compass/references/ko/tree-view.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "472617afc741ad75baf6060b2ed35e6ec33a425b2bb1031d73eb453f8a3d8270"
-    },
-    {
-      "path": "skills/compass/references/ko/carousel.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3cbc35b30fdc7a657190a18337f00f18479174674a3f9d1dba1291797751156f"
-    },
-    {
-      "path": "skills/compass/references/ko/dot-pagination.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3fa3d1c180c8de0ea266c0aa2af0887ce84ec854f3dcfb3a73a9ea405cb6c4e6"
-    },
-    {
-      "path": "skills/compass/references/ko/pagination.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "092b6a4dbd4bfdb144db364740371fd4bcfbf4991cab51bc28a90b32ffe301ba"
-    },
-    {
-      "path": "skills/compass/references/ko/tag.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "ef117a6b0f487b31befaaf8c36b0e018d4667fb540a7d22048e072bcd042f9b4"
-    },
-    {
-      "path": "skills/compass/references/ko/badge.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6517b31ede7e607218eae89c11ae46df0870269859ef6bf2c4237758c006bb95"
-    },
-    {
-      "path": "skills/compass/references/ko/progress.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "2ec834c13031228df26cecdb504349b283cd62c0699736051f9198ba1c3bfac0"
-    },
-    {
-      "path": "skills/compass/references/ko/skeleton.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "153b679d45d6f4ec16ab396b0fec205f00acdd591ba63b9dc268356c3b9c5465"
-    },
-    {
-      "path": "skills/compass/references/ko/progress-bar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3950ab789e6dcb3b4f3ee9390f2b68c300b63159d56f09d9a6cbd54f86f49614"
-    },
-    {
-      "path": "skills/compass/references/ko/avatar.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "d41c41c6423f63b5bc27b439fd5c19d4eb61c48de3b576d8bd5df653fd49fe71"
-    },
-    {
-      "path": "skills/compass/references/ko/avatar-group.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "2581bc64c605ecf2f92b3eb86e0b13af2afa6243cff0e0c6f07ff639b19ce087"
-    },
-    {
-      "path": "skills/compass/references/ko/goal-ring.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "cf0eb4a415e667148592684031152b3bcb76e8a1ac640e4e051d842dc59c85c3"
-    },
-    {
-      "path": "skills/compass/references/ko/challenge.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "81c471a60fe5cdd8aa1bc078f7e8b9af795c1ee24970a6687b341c0c42daf3b6"
-    },
-    {
-      "path": "skills/compass/references/ko/step-progress.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "d241412881e0d3c6e93b1fa2b53eb93fb39e7d0ecc5bb75637540addfecbde9c"
-    },
-    {
-      "path": "skills/compass/references/ko/timeline.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "1c81199302a4465f9f89cda739eb9b3240f1f1d99faf5ad4af701b62ca29132d"
-    },
-    {
-      "path": "skills/compass/references/ko/table.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6b97a43dc1f8e8399007ca656ebc4deb528a5e4fc450ea1bf184ca80507af84a"
-    },
-    {
-      "path": "skills/compass/references/ko/contributions.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c07b14a4dfd3f38b344860ca0b788a97dec47d64dd6e78da75356914277f103e"
-    },
-    {
-      "path": "skills/compass/references/ko/confetti.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3870e52f4ae2aa2d6840c6532a33ea75cc1465c018165ec5e156f43e330fdb5e"
-    },
-    {
-      "path": "skills/compass/references/ko/completion.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "43d7b45d4cbd21ae2d599c3f8bbb78596ff1ef5ed9fd6a3ca15370b56d0dff38"
-    },
-    {
-      "path": "skills/compass/references/ko/liquid-glass.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "4b9384e49a1d56588430bdf1efd88185535284e589f635967505e1b5b57dbc75"
-    },
-    {
-      "path": "skills/compass/references/ko/like-burst.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "7bf9f20e72d117e81743da83cf4666ff8d515388cba5ac0b53b719d46694d61a"
-    },
-    {
-      "path": "skills/compass/references/ko/progressive-blur.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6f38ae11136362a83be21d31980be1ea284441517f6f494f5dc2d57a761d85ea"
-    },
-    {
-      "path": "skills/compass/references/ko/clap.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6ec176bad1d5229fb2e784d7c1afd883813e48b3345aebcb5074b561d20e8744"
-    },
-    {
-      "path": "skills/compass/references/ko/area-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c885682338fb939d0c467f290f94f508c350ede3d51c47505eda12b6bbb5843c"
-    },
-    {
-      "path": "skills/compass/references/ko/area-chart-linear.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5d7a67cf4cc29899d33fa06d55ccb0bb051570b34ab9672f3f26236f7f83cdf4"
-    },
-    {
-      "path": "skills/compass/references/ko/area-chart-step.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "c42ef4dcabd07a4d843ce7754506407b2550f6ed468c02ccd0547e9377b736ee"
-    },
-    {
-      "path": "skills/compass/references/ko/area-chart-stacked.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "08fd1838fbc8ca3c98481bb471ac888d4452023bd514170a11f094054c7d8681"
-    },
-    {
-      "path": "skills/compass/references/ko/area-chart-normalized.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "6964702183840c39a24fee410b721d971ee37daf1bea30c4e7a78b352f420ba5"
-    },
-    {
-      "path": "skills/compass/references/ko/area-chart-gradient.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "2f078eeb2a3119ac111fce770462e003d088fae11c7f61a6d9eae0084b49f652"
-    },
-    {
-      "path": "skills/compass/references/ko/bar-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "0e8fe396f60391982c7cfd708224d2ad9a3b72671ec0da4968159d0821b08845"
-    },
-    {
-      "path": "skills/compass/references/ko/bar-chart-horizontal.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "0de145b875a82de5336d1ac2d6665afc6215f69e1f02dcd65ed2a492fc60a021"
-    },
-    {
-      "path": "skills/compass/references/ko/bar-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "304689cdee90d6ed9548bd09db9fe04b83c4ac5dbc6475c867bf613a21e34dd0"
-    },
-    {
-      "path": "skills/compass/references/ko/bar-chart-stacked.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "fbbbf5d983c6f3c9ae52a3eb932bb07a1b8226787dc2c2c3a6960fc54dc76784"
-    },
-    {
-      "path": "skills/compass/references/ko/bar-chart-labels.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "525f16d3e06a9f395864fa68dff402c1ad35a949fd65f5e6af7a17989b42d816"
-    },
-    {
-      "path": "skills/compass/references/ko/bar-chart-negative.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "42967f51a8e97a5a73d97ff2ed29c0711e1062a86d1bb8e79ff10bafaca91a3d"
-    },
-    {
-      "path": "skills/compass/references/ko/line-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3d0d5e8b46ebec13923161f76ed9d01b3d4aba78f2c5df902e2ab6b17909234e"
-    },
-    {
-      "path": "skills/compass/references/ko/line-chart-smooth.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "5e040e44988f631ba1a1aeba7d96386ff9218d7f8fa0a2d0fe991feb790dbc95"
-    },
-    {
-      "path": "skills/compass/references/ko/line-chart-step.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "15104433245d17f29f02bb3905ac21baf7d117b65b8816982be613cffcab8923"
-    },
-    {
-      "path": "skills/compass/references/ko/line-chart-dots.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "047ddae8da1bd0d7b68d6967ffebb3756076f80c3170ce16f0c0858156faa935"
-    },
-    {
-      "path": "skills/compass/references/ko/line-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "fe44fdffdd76cae5c3471a269115eac1734f9209ec8b92f5ad0487485a2d10b6"
-    },
-    {
-      "path": "skills/compass/references/ko/pie-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "8172a603b3f44df14894765c0f76009f8f03095a9879a473072fd07c5c494252"
-    },
-    {
-      "path": "skills/compass/references/ko/pie-chart-labels.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "2d679c6303961280ed403a56d50805ff05c61b8a8c0b9cb813af84d9af7490b3"
-    },
-    {
-      "path": "skills/compass/references/ko/donut-chart-basic.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "feb91e26f313d9021e9e7338fc6c2d18443b4f13587924ab54958d0450df7bff"
-    },
-    {
-      "path": "skills/compass/references/ko/donut-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "7935fb042c8c7b3dca70e78965543e520f16b4448427bad7efac3b9c1aed668a"
-    },
-    {
-      "path": "skills/compass/references/ko/radar-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "4cd8eb603972c072e264ebcfea7898561a2cce809c1c6550c7cf2eecdc74e385"
-    },
-    {
-      "path": "skills/compass/references/ko/radar-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "3914724ef216b50f546d85882a381d4fa1cd7721fc873cde6d474c6b2efc6825"
-    },
-    {
-      "path": "skills/compass/references/ko/radial-chart.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "270ca671a87c8df3fa98acba692ee6d3aabee138d29a710d020717b4e0ab99aa"
-    },
-    {
-      "path": "skills/compass/references/ko/radial-chart-multiple.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "180fe759c33a49109db52466288275ea2a150edebeb307a4b15dc384c8f34fb9"
-    },
-    {
-      "path": "skills/compass/references/ko/chart-tooltip-dot.md",
-      "origin": "built-in-public-rules-only",
-      "sha256": "0f018c65afe8a9114a1e7a5c7f22dcca8272dcc781e336b2b0f19e4146ed55c2"
+      "path": "registry.json",
+      "origin": "public-directory-registry",
+      "sha256": "0bf9f3ebdf91027590f81e9959701ea748129ab47ceb2f25232a38b5efd039cf"
     },
     {
       "path": "skills/compass/references/components.md",
@@ -1022,19 +492,764 @@
       "sha256": "afd596fd4c92ecea208d16da1c7811b89a66e25ddcb6db23c82a611b32810e43"
     },
     {
-      "path": "registry.json",
-      "origin": "derived-public-registry-with-safe-guide",
-      "sha256": "9254a4b3923177aeb857e2e31f7577ecaf4ffc9283a59edcacc8a97244235c42"
+      "path": "skills/compass/references/en/accordion.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "83c3e59c7dbd747de997b96d269f6d6f8c820008d4828b4fe169a42e17f30f53"
     },
     {
-      "path": "README.md",
-      "origin": "reviewed-public-readme",
-      "sha256": "2618f4e5bccad10c1f9a88f8dc35c75155c2d6f72661e781cbbe41eeb041b092"
+      "path": "skills/compass/references/en/area-chart-gradient.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9a125bade19a8fd1c228f682c5f14d27055171d43436721ba67ac241d315a61f"
     },
     {
-      "path": "assets/components.png",
-      "origin": "public-controls-screenshot-no-account-header",
-      "sha256": "8af8dd73ec5d525d519c1861d7c64a024f2e632189a36955463a42ab71969a96"
+      "path": "skills/compass/references/en/area-chart-linear.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "bbb63d9d05a08ad78573b877b00dcc7a3d09d2c3157e59fbc69c0fa1ebff5083"
+    },
+    {
+      "path": "skills/compass/references/en/area-chart-normalized.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6bbf58632da215d5f4844b9f28de1521966a116a7b7599f06a55253e00e78da1"
+    },
+    {
+      "path": "skills/compass/references/en/area-chart-stacked.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "026cfb2337cfa4b98ef441238c50fbe883188f59bea203cae5b546bd1f0be4ea"
+    },
+    {
+      "path": "skills/compass/references/en/area-chart-step.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "88175a41bea541314acc8c0529e18e3c61a45372c892a6f8274a8cdc9b6ab367"
+    },
+    {
+      "path": "skills/compass/references/en/area-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "7be80533a67a2cd69bd66a6138c722b8794e3151c6128055aa23e3cb76834fb2"
+    },
+    {
+      "path": "skills/compass/references/en/avatar-group.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "ae817dfacd7d6c482fa8ae69ebd89498a86df0f2459d58be6e485c3a3f465e7d"
+    },
+    {
+      "path": "skills/compass/references/en/avatar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3a1edfdcdad2e37d386acb105b84fc556113806d36e3c4fd5893ffe9d1e0d439"
+    },
+    {
+      "path": "skills/compass/references/en/badge.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "53bd1940ebb01175c06b9174bd7066ccfeb026c6783b79a2a61576b4f72e2355"
+    },
+    {
+      "path": "skills/compass/references/en/bar-chart-horizontal.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "ddbb3fd78097745b38cec92715df731d290b186fba0458aa1dc3a2f977a9ec11"
+    },
+    {
+      "path": "skills/compass/references/en/bar-chart-labels.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "b569e5e87c74fbbc21f9935e17bc8c6e323ed8fec58dce75ab08fd7235cea5de"
+    },
+    {
+      "path": "skills/compass/references/en/bar-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "045d95a67c4fb32f245998143dfcabdf62f368a205ad412a9376da99d393231e"
+    },
+    {
+      "path": "skills/compass/references/en/bar-chart-negative.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "d288c8f2a24111ef9a1a47f42583c28c4ff779e92719e0a0deaf65b1cc8c4eba"
+    },
+    {
+      "path": "skills/compass/references/en/bar-chart-stacked.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "04f8163c3be35f5f3fd6664ee2ca7b35079357294f0265a7037afd315066d1d5"
+    },
+    {
+      "path": "skills/compass/references/en/bar-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "e2e4098f9e35a9c671aec4c04cdbfd220698ce9c5c69bc3d28cbc6f1238f9b99"
+    },
+    {
+      "path": "skills/compass/references/en/breadcrumb.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "704168bbdc797101da47b30d093a1d3b96f71450a4d6f7490b681bfaab7ea8a7"
+    },
+    {
+      "path": "skills/compass/references/en/button.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "d2d287e4fcae7a75a82442c64a9425009d614fd7d771238b2725077b974d5a73"
+    },
+    {
+      "path": "skills/compass/references/en/carousel.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "e25fc1ed7a55d3f37284f1219b1559cf767e8da75a46b77ab056f2d1688c6d08"
+    },
+    {
+      "path": "skills/compass/references/en/challenge.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "052fd315c2bd041a56def73274d15713e0f951aebe158ca4b7156df48fa098c8"
+    },
+    {
+      "path": "skills/compass/references/en/chart-tooltip-dot.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "fc66ef951978cbe856890e03b3185df213469652c3884420b8dfca4dd90beea2"
+    },
+    {
+      "path": "skills/compass/references/en/checkbox.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "ff71e09c0cbaf250a135acd029fee5fd916dc8381f8900d5e2ae0b33c383e3c0"
+    },
+    {
+      "path": "skills/compass/references/en/clap.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "35ac51bded1d605eb41614c555d9e20599fa3680ab8ebe65450c3d72cd3c5b66"
+    },
+    {
+      "path": "skills/compass/references/en/classic-tabs.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "7385ec357b2a54dd735c15de269e6ada48edc862f1d566e128742532e3de2f04"
+    },
+    {
+      "path": "skills/compass/references/en/code-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "b38cf8c4d004d7b92090ccaecca959e5eef3198d81e9b7c2d9bfed1f0f65614f"
+    },
+    {
+      "path": "skills/compass/references/en/completion.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3f9fcbf058bd0a63f5d4af39a8575aed9664fa6c6b7f0b76e1f49e6484c2fb31"
+    },
+    {
+      "path": "skills/compass/references/en/confetti.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "62b13923d480074c3c1942fe5354fa9c09c3238e19f43b6b573b51256c4a0d4e"
+    },
+    {
+      "path": "skills/compass/references/en/contributions.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "72f678e48adfbcaff5124cdbfb43c613bf5f8955985995d2a1b0db615ef3f7eb"
+    },
+    {
+      "path": "skills/compass/references/en/date-picker.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6ab44cf7b77d3f520844d7234306a8e68103a927b2e28cb894124b2cd6cc8e97"
+    },
+    {
+      "path": "skills/compass/references/en/donut-chart-basic.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9a22d71adff708c2a6703a1badb7c5f3fb2e5948d1f3a75b510f1940f52acadc"
+    },
+    {
+      "path": "skills/compass/references/en/donut-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "1b8dca82fed438141281b39343eea4dde36971517fbdd825d88f25e94117033a"
+    },
+    {
+      "path": "skills/compass/references/en/dot-pagination.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6e55a09253a277616a3b00d9789495316049c2628f157905cb8923b897eb6a18"
+    },
+    {
+      "path": "skills/compass/references/en/file-drop.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "46f7901e3555baba2872da431e0345421ee094c4089383f81ad77409533d95ed"
+    },
+    {
+      "path": "skills/compass/references/en/filter.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "4c05511b340ecde39150b586eef3337a26156aa535029987e43d3d3124fc7ca7"
+    },
+    {
+      "path": "skills/compass/references/en/goal-ring.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "0ce3c8c4a27755d98dbeec4e8b07936f5a01feecc9992b1d7dc05274fad28cee"
+    },
+    {
+      "path": "skills/compass/references/en/input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "d70789a455a0a0cde68d0981ec9843e402b984905e33d26b25d94cba07940f77"
+    },
+    {
+      "path": "skills/compass/references/en/like-burst.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9fc95a0c443f130874b16d4131b76c110fb18bec2f11435949d5eb9169a8b808"
+    },
+    {
+      "path": "skills/compass/references/en/line-chart-dots.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "024efb7d23d56f5ca66b9f6adfa062f9a1d0c4f32da06e0a97b4e59b916bd570"
+    },
+    {
+      "path": "skills/compass/references/en/line-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "fb98de608380effe9fb1d36848dedd6cc7e2d6a746cc1ce70fec6637a476af94"
+    },
+    {
+      "path": "skills/compass/references/en/line-chart-smooth.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "b98f8ce5420a48114567dfec36c71901f4ddfad5ff7226825405e301207d8a51"
+    },
+    {
+      "path": "skills/compass/references/en/line-chart-step.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "f17d1cd4b887bcac25f4fc6bfb1abc55cf72bb9418304fb3f27a656e6407d921"
+    },
+    {
+      "path": "skills/compass/references/en/line-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "74c1b477ae25bc5e1cb7fda0c012558e66a66ba9fed51f0591fa8d7efae21ee2"
+    },
+    {
+      "path": "skills/compass/references/en/liquid-glass.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "cd8d34c6a1e54673cb76606b44b8531a6425930ac82daeb3af354a51124857e7"
+    },
+    {
+      "path": "skills/compass/references/en/navigation-bar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5ab04204489a0be2f3b09fd3c7bf7eae1c3b9439c6df6fb5635fd4beba86b88f"
+    },
+    {
+      "path": "skills/compass/references/en/number-stepper.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "03c759ba308c3ddf5ba8b2633b4ae3987192a507b64576b93786ea885545f5a8"
+    },
+    {
+      "path": "skills/compass/references/en/pagination.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "895c5a393c5f915211812e5deac52cd99d740da2fa6a1e000b86324f68269654"
+    },
+    {
+      "path": "skills/compass/references/en/password-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9df52412c4bff2ae429f8f5cc50c6bd4914afaba9790ba61f025b3a7b7270a37"
+    },
+    {
+      "path": "skills/compass/references/en/phone-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "bb688f1a78b2f2818af06fe99d58ed24cc844a6bbfe3ae5999c6ef8c1df96b36"
+    },
+    {
+      "path": "skills/compass/references/en/pie-chart-labels.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "fba9d6cbdaa40fee02aa74ed02cf6ece3a31aaac8705f14fae550a26cf97a3e5"
+    },
+    {
+      "path": "skills/compass/references/en/pie-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c7da0a4a00bf8e196918308c440a3e31ed9efc4aa1725653548d577a61fd439e"
+    },
+    {
+      "path": "skills/compass/references/en/progress-bar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "da0ae6442f24e52a750a712b544a16b7275fadf3287b0dfd27ce4f3b61a723f0"
+    },
+    {
+      "path": "skills/compass/references/en/progress.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c20a92b87935f2c7e009cd01e9de65977dfe25fdee397305738211af999b72da"
+    },
+    {
+      "path": "skills/compass/references/en/progressive-blur.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9222dc363af07652613acb99a01c83e52a12d2140224d5b96c5d967ad3162cca"
+    },
+    {
+      "path": "skills/compass/references/en/radar-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9c5e777f4a781c18e2ebb405165c96b8e5f4f98430fb8354b03658bcea3391a1"
+    },
+    {
+      "path": "skills/compass/references/en/radar-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "90aa0412239d26d39eddf141210fc42d6ed9f9c0ffd6a1c127bed1020fdc1711"
+    },
+    {
+      "path": "skills/compass/references/en/radial-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c8cdddb5c1a0c4f4e8639140fbdbfe0b16df44b3021c3f3ac6f44505fd7bf47b"
+    },
+    {
+      "path": "skills/compass/references/en/radial-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "80836972b23f16ac107480ba2295cb1fde60e97665872428cb0bf0e2e46e92e4"
+    },
+    {
+      "path": "skills/compass/references/en/radio-group.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "a2b588f72e2c32d56c8e3ee678740c6f05091382a7a2db8e2f2ac1bb8e41b00e"
+    },
+    {
+      "path": "skills/compass/references/en/search.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "7a6257bed7cd2c8cf3d759e0261a23a0aaa581a4b49880f8cfd1cbf254bb562c"
+    },
+    {
+      "path": "skills/compass/references/en/select.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "f2a3e2eaf3f36f4642497e463a7d30634830d577cee1e93718fc6788272fa265"
+    },
+    {
+      "path": "skills/compass/references/en/signature-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5efa68f7a057a8d009eb49edae835cfa249be1144635dae39a7c6c818eafa6f9"
+    },
+    {
+      "path": "skills/compass/references/en/skeleton.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "d05ac93ec268e7dcfbe4092246bfe7422a63153c866ba1f97b4d54e5b58b01be"
+    },
+    {
+      "path": "skills/compass/references/en/slider.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "cef2a18037756d14e4d5a495161fb6cacf930f55c04f14c7e0d56d7aaafee4c3"
+    },
+    {
+      "path": "skills/compass/references/en/slosh-slider.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9703b4d60d4e7f863c12bd4972d7cde2aa615f2219819983592fc39b1aa70d49"
+    },
+    {
+      "path": "skills/compass/references/en/step-progress.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "e90260b471e55023890651d1a43346915396a5cb0155975edbab05043a9c525d"
+    },
+    {
+      "path": "skills/compass/references/en/switch.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "97321f58d2f464259564cb8ed1020c628fec0be01a6b232eb983891b8b1027f7"
+    },
+    {
+      "path": "skills/compass/references/en/table-of-contents.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "300924f724b7784ebcbb62cdd3f486eb0882addc1b4106804a02cd1b87980e5e"
+    },
+    {
+      "path": "skills/compass/references/en/table.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "bd706147324b3ca7c56731cd44eed9144349d35310ff84f72de854cee22111bb"
+    },
+    {
+      "path": "skills/compass/references/en/tabs.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5d04d9f65a93f468488c735b6fd020a2c32d8e689630301a8f74c79754ba3682"
+    },
+    {
+      "path": "skills/compass/references/en/tag.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "251e9c6f82ff9fee8ac951b8a178b80c01963b767d4bba905c0612d2ceaad39c"
+    },
+    {
+      "path": "skills/compass/references/en/time-picker.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "adc8abc0c62668f5128f7f44dd685b7f8addf878c573484cf6aac8b32fa88946"
+    },
+    {
+      "path": "skills/compass/references/en/timeline.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "fe1721d5064c6b9b4aa8bfeaa95aaeaab97afd53aa65b18bc0587c253200ce47"
+    },
+    {
+      "path": "skills/compass/references/en/toolbar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5bf44ad56713de7d442893eb2b1c2531988e10806c6bc5931f6eeadb892b1813"
+    },
+    {
+      "path": "skills/compass/references/en/tree-view.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "09bda5efd14d092e9acfae1d275ea785be0033ffe8add4f6fc458f149b02de75"
+    },
+    {
+      "path": "skills/compass/references/en/voice-recorder.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c40ed0e045fbac3059d52183861ceb2d91cac986eaa6a5521528cca56e15cc74"
+    },
+    {
+      "path": "skills/compass/references/ko/accordion.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "eeaf1a2004a757729672655bfd08e645ea41e759760a8769d8206d0bb94f9328"
+    },
+    {
+      "path": "skills/compass/references/ko/area-chart-gradient.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "2f078eeb2a3119ac111fce770462e003d088fae11c7f61a6d9eae0084b49f652"
+    },
+    {
+      "path": "skills/compass/references/ko/area-chart-linear.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5d7a67cf4cc29899d33fa06d55ccb0bb051570b34ab9672f3f26236f7f83cdf4"
+    },
+    {
+      "path": "skills/compass/references/ko/area-chart-normalized.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6964702183840c39a24fee410b721d971ee37daf1bea30c4e7a78b352f420ba5"
+    },
+    {
+      "path": "skills/compass/references/ko/area-chart-stacked.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "08fd1838fbc8ca3c98481bb471ac888d4452023bd514170a11f094054c7d8681"
+    },
+    {
+      "path": "skills/compass/references/ko/area-chart-step.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c42ef4dcabd07a4d843ce7754506407b2550f6ed468c02ccd0547e9377b736ee"
+    },
+    {
+      "path": "skills/compass/references/ko/area-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c885682338fb939d0c467f290f94f508c350ede3d51c47505eda12b6bbb5843c"
+    },
+    {
+      "path": "skills/compass/references/ko/avatar-group.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "2581bc64c605ecf2f92b3eb86e0b13af2afa6243cff0e0c6f07ff639b19ce087"
+    },
+    {
+      "path": "skills/compass/references/ko/avatar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "d41c41c6423f63b5bc27b439fd5c19d4eb61c48de3b576d8bd5df653fd49fe71"
+    },
+    {
+      "path": "skills/compass/references/ko/badge.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6517b31ede7e607218eae89c11ae46df0870269859ef6bf2c4237758c006bb95"
+    },
+    {
+      "path": "skills/compass/references/ko/bar-chart-horizontal.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "0de145b875a82de5336d1ac2d6665afc6215f69e1f02dcd65ed2a492fc60a021"
+    },
+    {
+      "path": "skills/compass/references/ko/bar-chart-labels.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "525f16d3e06a9f395864fa68dff402c1ad35a949fd65f5e6af7a17989b42d816"
+    },
+    {
+      "path": "skills/compass/references/ko/bar-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "304689cdee90d6ed9548bd09db9fe04b83c4ac5dbc6475c867bf613a21e34dd0"
+    },
+    {
+      "path": "skills/compass/references/ko/bar-chart-negative.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "42967f51a8e97a5a73d97ff2ed29c0711e1062a86d1bb8e79ff10bafaca91a3d"
+    },
+    {
+      "path": "skills/compass/references/ko/bar-chart-stacked.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "fbbbf5d983c6f3c9ae52a3eb932bb07a1b8226787dc2c2c3a6960fc54dc76784"
+    },
+    {
+      "path": "skills/compass/references/ko/bar-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "0e8fe396f60391982c7cfd708224d2ad9a3b72671ec0da4968159d0821b08845"
+    },
+    {
+      "path": "skills/compass/references/ko/breadcrumb.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "281ef943154e0dbcbc43b0fe7fbfee05fa715c67704496ac12c5811b11987132"
+    },
+    {
+      "path": "skills/compass/references/ko/button.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "787d7868c596c81e1f7ba515502410b0dc5047c8b3d8531c82ba5340de1109fe"
+    },
+    {
+      "path": "skills/compass/references/ko/carousel.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3cbc35b30fdc7a657190a18337f00f18479174674a3f9d1dba1291797751156f"
+    },
+    {
+      "path": "skills/compass/references/ko/challenge.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "81c471a60fe5cdd8aa1bc078f7e8b9af795c1ee24970a6687b341c0c42daf3b6"
+    },
+    {
+      "path": "skills/compass/references/ko/chart-tooltip-dot.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "0f018c65afe8a9114a1e7a5c7f22dcca8272dcc781e336b2b0f19e4146ed55c2"
+    },
+    {
+      "path": "skills/compass/references/ko/checkbox.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "7a24ee2b1c0f71740046d839902184143ac10dd21c5862ca6f7aa452f7ed6c47"
+    },
+    {
+      "path": "skills/compass/references/ko/clap.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6ec176bad1d5229fb2e784d7c1afd883813e48b3345aebcb5074b561d20e8744"
+    },
+    {
+      "path": "skills/compass/references/ko/classic-tabs.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "561ecc98437013345fa19c9c0f581592e4d54ea56d7984dc9f56dc4744ced30d"
+    },
+    {
+      "path": "skills/compass/references/ko/code-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "f68a52975d97fd586a38844a0528f668ad9e8684f7d8e1132956088de2b99206"
+    },
+    {
+      "path": "skills/compass/references/ko/completion.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "43d7b45d4cbd21ae2d599c3f8bbb78596ff1ef5ed9fd6a3ca15370b56d0dff38"
+    },
+    {
+      "path": "skills/compass/references/ko/confetti.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3870e52f4ae2aa2d6840c6532a33ea75cc1465c018165ec5e156f43e330fdb5e"
+    },
+    {
+      "path": "skills/compass/references/ko/contributions.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "c07b14a4dfd3f38b344860ca0b788a97dec47d64dd6e78da75356914277f103e"
+    },
+    {
+      "path": "skills/compass/references/ko/date-picker.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "9e7643a64a0e2b1ec5eaf637be302f34f13c70cbaec4de39440ad04ba8734710"
+    },
+    {
+      "path": "skills/compass/references/ko/donut-chart-basic.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "feb91e26f313d9021e9e7338fc6c2d18443b4f13587924ab54958d0450df7bff"
+    },
+    {
+      "path": "skills/compass/references/ko/donut-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "7935fb042c8c7b3dca70e78965543e520f16b4448427bad7efac3b9c1aed668a"
+    },
+    {
+      "path": "skills/compass/references/ko/dot-pagination.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3fa3d1c180c8de0ea266c0aa2af0887ce84ec854f3dcfb3a73a9ea405cb6c4e6"
+    },
+    {
+      "path": "skills/compass/references/ko/file-drop.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "a04c69b8d1dba599e8232f42b3e2cfe9fee907f2bc71dfe0fcf3db8111281e1c"
+    },
+    {
+      "path": "skills/compass/references/ko/filter.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "234711c7cb3a3e62f98db5af57296fcc6c800203e51c4b3276b807a364fbaad6"
+    },
+    {
+      "path": "skills/compass/references/ko/goal-ring.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "cf0eb4a415e667148592684031152b3bcb76e8a1ac640e4e051d842dc59c85c3"
+    },
+    {
+      "path": "skills/compass/references/ko/input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "ce8ff136c05258a715f87b906abaf0fa2a1204b224b772ecfe19e1e375a59aab"
+    },
+    {
+      "path": "skills/compass/references/ko/like-burst.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "7bf9f20e72d117e81743da83cf4666ff8d515388cba5ac0b53b719d46694d61a"
+    },
+    {
+      "path": "skills/compass/references/ko/line-chart-dots.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "047ddae8da1bd0d7b68d6967ffebb3756076f80c3170ce16f0c0858156faa935"
+    },
+    {
+      "path": "skills/compass/references/ko/line-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "fe44fdffdd76cae5c3471a269115eac1734f9209ec8b92f5ad0487485a2d10b6"
+    },
+    {
+      "path": "skills/compass/references/ko/line-chart-smooth.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5e040e44988f631ba1a1aeba7d96386ff9218d7f8fa0a2d0fe991feb790dbc95"
+    },
+    {
+      "path": "skills/compass/references/ko/line-chart-step.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "15104433245d17f29f02bb3905ac21baf7d117b65b8816982be613cffcab8923"
+    },
+    {
+      "path": "skills/compass/references/ko/line-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3d0d5e8b46ebec13923161f76ed9d01b3d4aba78f2c5df902e2ab6b17909234e"
+    },
+    {
+      "path": "skills/compass/references/ko/liquid-glass.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "4b9384e49a1d56588430bdf1efd88185535284e589f635967505e1b5b57dbc75"
+    },
+    {
+      "path": "skills/compass/references/ko/navigation-bar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "47e326c39558ad32b52d02fc2dea9d29f37ec71fbc9a6f6a21102fff8bcd5439"
+    },
+    {
+      "path": "skills/compass/references/ko/number-stepper.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "69bf33bde335df6fd8f9f87b542c79ea23207382c01bd90eaaf94153c14f8380"
+    },
+    {
+      "path": "skills/compass/references/ko/pagination.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "092b6a4dbd4bfdb144db364740371fd4bcfbf4991cab51bc28a90b32ffe301ba"
+    },
+    {
+      "path": "skills/compass/references/ko/password-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "61e55069e848690a6fbf7f7cc0c6c5b44ca292b685397eabf4a16e71aab830c0"
+    },
+    {
+      "path": "skills/compass/references/ko/phone-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "2d88b68d466648edf4c2ade91a4a4b618cfd150dc91b7d182053a0962e9641c0"
+    },
+    {
+      "path": "skills/compass/references/ko/pie-chart-labels.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "2d679c6303961280ed403a56d50805ff05c61b8a8c0b9cb813af84d9af7490b3"
+    },
+    {
+      "path": "skills/compass/references/ko/pie-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "8172a603b3f44df14894765c0f76009f8f03095a9879a473072fd07c5c494252"
+    },
+    {
+      "path": "skills/compass/references/ko/progress-bar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3950ab789e6dcb3b4f3ee9390f2b68c300b63159d56f09d9a6cbd54f86f49614"
+    },
+    {
+      "path": "skills/compass/references/ko/progress.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "2ec834c13031228df26cecdb504349b283cd62c0699736051f9198ba1c3bfac0"
+    },
+    {
+      "path": "skills/compass/references/ko/progressive-blur.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6f38ae11136362a83be21d31980be1ea284441517f6f494f5dc2d57a761d85ea"
+    },
+    {
+      "path": "skills/compass/references/ko/radar-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "3914724ef216b50f546d85882a381d4fa1cd7721fc873cde6d474c6b2efc6825"
+    },
+    {
+      "path": "skills/compass/references/ko/radar-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "4cd8eb603972c072e264ebcfea7898561a2cce809c1c6550c7cf2eecdc74e385"
+    },
+    {
+      "path": "skills/compass/references/ko/radial-chart-multiple.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "180fe759c33a49109db52466288275ea2a150edebeb307a4b15dc384c8f34fb9"
+    },
+    {
+      "path": "skills/compass/references/ko/radial-chart.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "270ca671a87c8df3fa98acba692ee6d3aabee138d29a710d020717b4e0ab99aa"
+    },
+    {
+      "path": "skills/compass/references/ko/radio-group.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "77632d6b8ce5b8ffa7cabc13029de0530101bb3f1a8338f93eada6d24a2891c1"
+    },
+    {
+      "path": "skills/compass/references/ko/search.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "750869cebc41404a8effa79ddb48adef7b6ab9cfb4af833b0a85cdc462d4fa0c"
+    },
+    {
+      "path": "skills/compass/references/ko/select.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "a5b52beb527029bdb62bda781d380647507810f9998f074021d31ec96cb6010d"
+    },
+    {
+      "path": "skills/compass/references/ko/signature-input.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "000d318222c59c362e3d367562ff97a4fb4e12cd05a6d60fcb7f03465c25ff3d"
+    },
+    {
+      "path": "skills/compass/references/ko/skeleton.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "153b679d45d6f4ec16ab396b0fec205f00acdd591ba63b9dc268356c3b9c5465"
+    },
+    {
+      "path": "skills/compass/references/ko/slider.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "eaa5a8c0a1112430156c091bbcf2b95bfbc746f7859169c487004047bc770ed0"
+    },
+    {
+      "path": "skills/compass/references/ko/slosh-slider.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "a779cf2b7deef62e5415a823ad8e9924a3957a02341e2b44a2975df379b2cb48"
+    },
+    {
+      "path": "skills/compass/references/ko/step-progress.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "d241412881e0d3c6e93b1fa2b53eb93fb39e7d0ecc5bb75637540addfecbde9c"
+    },
+    {
+      "path": "skills/compass/references/ko/switch.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6351977d905fb84e47c5a2262bbf885328cf78848149d6df1d1cb2708189f593"
+    },
+    {
+      "path": "skills/compass/references/ko/table-of-contents.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "56076ffb8258b5872bf882c5048b962f8620fdd55cec41d761e9b778531e8e84"
+    },
+    {
+      "path": "skills/compass/references/ko/table.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "6b97a43dc1f8e8399007ca656ebc4deb528a5e4fc450ea1bf184ca80507af84a"
+    },
+    {
+      "path": "skills/compass/references/ko/tabs.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "bdac56123516dd105adfb94559579342349e2eaab9fe8f9605a1d17303c4bc30"
+    },
+    {
+      "path": "skills/compass/references/ko/tag.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "ef117a6b0f487b31befaaf8c36b0e018d4667fb540a7d22048e072bcd042f9b4"
+    },
+    {
+      "path": "skills/compass/references/ko/time-picker.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5780d2cdf0963f95bc620b290eb7c1abdbfad498fe203d08a702d835de5bfc97"
+    },
+    {
+      "path": "skills/compass/references/ko/timeline.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "1c81199302a4465f9f89cda739eb9b3240f1f1d99faf5ad4af701b62ca29132d"
+    },
+    {
+      "path": "skills/compass/references/ko/toolbar.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "5a58be137f5ac43bea62c6e7ab799958dbab4615389b569c3e94cfbb2591f97c"
+    },
+    {
+      "path": "skills/compass/references/ko/tree-view.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "472617afc741ad75baf6060b2ed35e6ec33a425b2bb1031d73eb453f8a3d8270"
+    },
+    {
+      "path": "skills/compass/references/ko/voice-recorder.md",
+      "origin": "built-in-public-rules-only",
+      "sha256": "ee77c3a3314ac4703a435ce00c4972fd01392e06645c13a8efa7d436d4d56a23"
+    },
+    {
+      "path": "skills/compass/SKILL.md",
+      "origin": "public-basic-skill-template",
+      "sha256": "8917daa1e55b5888e9cdb138d8f6da0467905ea7a1b7c4c28594f63c1f79a6c2"
+    },
+    {
+      "path": "styles/foundations.css",
+      "origin": "public-foundation-tokens-1.0.0",
+      "sha256": "ac07c112399f629b73c98eff465c2b9f314026a649e9fb6af6286cc2f4e382bf"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",

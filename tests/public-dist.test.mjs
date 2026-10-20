@@ -3,7 +3,7 @@ import test from "node:test"
 import { readFile, readdir, lstat } from "node:fs/promises"
 import { join } from "node:path"
 import { createHash } from "node:crypto"
-import { registrySchema } from "shadcn/schema"
+import { registrySchema, registryItemSchema } from "shadcn/schema"
 import ts from "typescript"
 
 const root = new URL("../", import.meta.url)
@@ -69,4 +69,18 @@ test("public registry and local imports are self-contained", async () => {
     }
   }
   for (const item of registry.items) assert.ok(item.dependencies.includes("leaflet@1.9.4"))
+})
+
+test("directory index has no inline source and each flat item installs from the public distribution", async () => {
+  const source = JSON.parse(await readFile(new URL("registry.json", root), "utf8"))
+  const index = registrySchema.parse(JSON.parse(await readFile(new URL("r/registry.json", root), "utf8")))
+  assert.deepEqual(index.items.map(item => item.name), source.items.map(item => item.name))
+  for (const item of index.items) {
+    for (const file of item.files || []) assert.equal("content" in file, false)
+    const payload = registryItemSchema.parse(JSON.parse(await readFile(new URL(`r/${item.name}.json`, root), "utf8")))
+    assert.ok(payload.files.every(file => typeof file.content === "string"))
+    for (const file of payload.files) assert.equal(file.content, await readFile(new URL(file.path, root), "utf8"))
+    for (const dependency of payload.registryDependencies || [])
+      assert.match(dependency, /^https:\/\/raw\.githubusercontent\.com\/design-compass\/compass-design-system\/main\/r\/[a-z-]+\.json$/)
+  }
 })

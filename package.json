@@ -9,6 +9,7 @@
   "repository": { "type": "git", "url": "https://github.com/design-compass/compass-design-system.git" },
   "engines": { "node": ">=22" },
   "scripts": {
+    "registry:build": "node scripts/build-registry.mjs",
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",

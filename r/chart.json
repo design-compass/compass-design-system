@@ -1,0 +1,395 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart",
+  "title": "차트",
+  "description": "차트 from COMPASS Design System. Public source, shared tokens, and practical UX rules.",
+  "dependencies": [
+    "cn@0.4.0",
+    "pretendard@1.3.9",
+    "react-dom@19.2.8",
+    "recharts@3.10.1",
+    "shadcn@4.21.0",
+    "tw-animate-css@1.4.0",
+    "leaflet@1.9.4"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/design-compass/compass-design-system/main/r/foundations.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/chart.tsx",
+      "content": "\"use client\"\n\nimport { useEffect, useId, useRef, useState } from \"react\"\nimport { createPortal } from \"react-dom\"\nimport {\n  Bar,\n  BarChart,\n  Area,\n  AreaChart,\n  CartesianGrid,\n  LabelList,\n  Line,\n  LineChart,\n  Pie,\n  PieChart,\n  PolarAngleAxis,\n  PolarGrid,\n  PolarRadiusAxis,\n  Radar,\n  RadarChart,\n  RadialBar,\n  RadialBarChart,\n  Rectangle,\n  ResponsiveContainer,\n  Tooltip,\n  XAxis,\n  YAxis,\n  useChartHeight,\n  useChartWidth,\n  usePlotArea,\n  useXAxisScale,\n  useYAxisScale,\n  type TooltipContentProps,\n  type BarShapeProps,\n} from \"recharts\"\nimport { cn } from \"cn\"\n\nexport type ChartDatum = { label: string; value: number; secondary?: number; [key: `series${number}`]: number | undefined }\nexport type ChartType =\n  \"bar\" | \"line\" | \"area\" | \"pie\" | \"donut\" | \"radar\" | \"radial\"\nexport type ChartSeries = {\n  key: \"value\" | \"secondary\" | `series${number}`\n  label: string\n  color?: string\n}\nexport type ChartOptions = {\n  yAxisWidth?: number\n  yAxisAllowDecimals?: boolean\n  horizontal?: boolean\n  stacked?: boolean\n  normalized?: boolean\n  curve?: \"linear\" | \"monotone\" | \"step\"\n  dots?: boolean\n  showLabels?: boolean\n  showLegend?: boolean\n  interactiveLegend?: boolean\n  gradient?: boolean\n  centerText?: boolean\n  radarGrid?: \"polygon\" | \"circle\"\n  tooltipIndicator?: \"dot\" | \"line\" | \"none\"\n}\n\nexport function ChartTooltipContent({\n  active,\n  label,\n  payload,\n  indicator = \"dot\",\n  locale = \"en\",\n  unit = \"\",\n}: {\n  active?: boolean\n  label?: unknown\n  payload?: readonly { name?: unknown; value?: unknown; color?: string }[]\n  indicator?: \"dot\" | \"line\" | \"none\"\n  locale?: string\n  unit?: string\n}) {\n  const entries =\n    payload?.filter(\n      (entry) => typeof entry.value === \"number\" && Number.isFinite(entry.value)\n    ) ?? []\n  if (!active || !entries.length) return null\n  const format = new Intl.NumberFormat(locale)\n  return (\n    <div className=\"max-w-full min-w-0 rounded-lg border bg-popover p-3 text-sm text-popover-foreground shadow-sm [&_li]:flex-wrap [&_span]:break-words\">\n      {label !== undefined && label !== \"\" && (\n        <p className=\"mb-2 text-xs text-muted-foreground\">{String(label)}</p>\n      )}\n      <ul className=\"grid gap-1.5\">\n        {entries.map((entry, index) => (\n          <li key={index} className=\"flex items-center gap-2\">\n            {indicator !== \"none\" && (\n              <span\n                aria-hidden=\"true\"\n                className={\n                  indicator === \"line\"\n                    ? \"h-3 w-0.5 shrink-0 rounded-sm\"\n                    : \"size-2 shrink-0 rounded-sm\"\n                }\n                style={{ background: entry.color ?? \"var(--primary)\" }}\n              />\n            )}\n            <span className=\"mr-3 text-muted-foreground\">\n              {String(entry.name ?? \"\")}\n            </span>\n            <span className=\"ml-auto font-medium tabular-nums\">\n              {format.format(entry.value as number)}\n              {unit}\n            </span>\n          </li>\n        ))}\n      </ul>\n    </div>\n  )\n}\n\nconst colors = [\n  \"var(--primary)\",\n  \"var(--chart-2)\",\n  \"var(--chart-3)\",\n  \"var(--chart-4)\",\n  \"var(--chart-5)\",\n]\n\nexport function pieGeometry(width: number, height: number, donut: boolean) {\n  const w = Number.isFinite(width) && width > 0 ? width : 280\n  const h = Number.isFinite(height) && height > 0 ? height : 240\n  const diameter = Math.max(2, Math.min(w, h) - 10)\n  return {\n    cx: w / 2,\n    cy: h / 2,\n    outerRadius: diameter * 0.45,\n    innerRadius: donut ? diameter * 0.31 : 0,\n    paddingAngle: 0,\n    strokeWidth: 3,\n  }\n}\n\nexport function stackedBarRadius(\n  item: ChartDatum | undefined,\n  key: ChartSeries[\"key\"],\n  series: ChartSeries[],\n  horizontal: boolean\n): [number, number, number, number] {\n  const value = item?.[key] ?? 0\n  const index = series.findIndex((entry) => entry.key === key)\n  const covered = series.slice(index + 1).some((entry) => {\n    const next = item?.[entry.key] ?? 0\n    return next !== 0 && Math.sign(next) === Math.sign(value)\n  })\n  if (!value || index < 0 || covered) return [0, 0, 0, 0]\n  if (horizontal) return value > 0 ? [0, 4, 4, 0] : [4, 0, 0, 4]\n  return value > 0 ? [4, 4, 0, 0] : [0, 0, 4, 4]\n}\n\ntype ChartPoint = { x: number; y: number }\ntype ChartPointer = ChartPoint & { viewport: ChartPoint }\ntype ChartScale = (\n  value: unknown,\n  options?: { position?: \"middle\" }\n) => number | undefined\n\nexport function chartPointerPosition(\n  pointer: ChartPoint,\n  bounds: { left: number; top: number; width: number; height: number },\n  chart: { width: number; height: number }\n): ChartPoint | undefined {\n  if (\n    ![\n      pointer.x,\n      pointer.y,\n      bounds.left,\n      bounds.top,\n      bounds.width,\n      bounds.height,\n      chart.width,\n      chart.height,\n    ].every(Number.isFinite) ||\n    bounds.width <= 0 ||\n    bounds.height <= 0 ||\n    chart.width <= 0 ||\n    chart.height <= 0\n  )\n    return undefined\n  return {\n    x: Math.max(\n      0,\n      Math.min(\n        chart.width,\n        ((pointer.x - bounds.left) * chart.width) / bounds.width\n      )\n    ),\n    y: Math.max(\n      0,\n      Math.min(\n        chart.height,\n        ((pointer.y - bounds.top) * chart.height) / bounds.height\n      )\n    ),\n  }\n}\n\nexport function chartTooltipAnchor({\n  type,\n  index,\n  data,\n  series,\n  options,\n  xScale,\n  yScale,\n  plot,\n  sector,\n  coordinate,\n}: {\n  type: ChartType\n  index: number\n  data: ChartDatum[]\n  series: ChartSeries[]\n  options: ChartOptions\n  xScale?: ChartScale\n  yScale?: ChartScale\n  plot?: { x: number; y: number; width: number; height: number }\n  coordinate?: ChartPoint\n  sector?: {\n    cx?: number\n    cy?: number\n    innerRadius?: number\n    outerRadius?: number\n    startAngle?: number\n    endAngle?: number\n  }\n}): ChartPoint | undefined {\n  const item = data[index]\n  if (!item) return undefined\n  // Recharts supplies the slice midpoint (not the pointer) for pie tooltips.\n  if (\n    (type === \"pie\" || type === \"donut\") &&\n    coordinate &&\n    Number.isFinite(coordinate.x) &&\n    Number.isFinite(coordinate.y)\n  )\n    return coordinate\n  let point: { x: number | undefined; y: number | undefined }\n  if (type === \"pie\" || type === \"donut\" || type === \"radial\") {\n    if (\n      !sector ||\n      ![\n        sector.cx,\n        sector.cy,\n        sector.innerRadius,\n        sector.outerRadius,\n        sector.startAngle,\n        sector.endAngle,\n      ].every(Number.isFinite)\n    )\n      return undefined\n    const angle =\n      (((sector.startAngle! + sector.endAngle!) / 2) * Math.PI) / 180\n    const radius = (sector.innerRadius! + sector.outerRadius!) / 2\n    point = {\n      x: sector.cx! + Math.cos(angle) * radius,\n      y: sector.cy! - Math.sin(angle) * radius,\n    }\n  } else {\n    const amounts = series.map((entry) => item[entry.key] ?? 0)\n    const ends = options.normalized\n      ? [1]\n      : options.stacked\n        ? type === \"area\"\n          ? amounts.reduce<number[]>((totals, amount) => {\n              totals.push((totals.at(-1) ?? 0) + amount)\n              return totals\n            }, [])\n          : [\n              amounts.reduce((sum, value) => sum + Math.max(0, value), 0),\n              amounts.reduce((sum, value) => sum + Math.min(0, value), 0),\n            ]\n        : amounts\n    const value = ends.reduce(\n      (furthest, end) => (Math.abs(end) > Math.abs(furthest) ? end : furthest),\n      0\n    )\n    if (type === \"radar\") {\n      if (!plot) return undefined\n      const angle = ((90 - (index * 360) / data.length) * Math.PI) / 180\n      const radius =\n        ((Math.min(plot.width, plot.height) / 2) * 0.65 * value) / 100\n      point = {\n        x: plot.x + plot.width / 2 + Math.cos(angle) * radius,\n        y: plot.y + plot.height / 2 - Math.sin(angle) * radius,\n      }\n    } else if (type === \"bar\" && options.horizontal) {\n      point = {\n        x: xScale?.(value),\n        y: yScale?.(item.label, { position: \"middle\" }),\n      }\n    } else {\n      point = {\n        x: xScale?.(item.label, { position: \"middle\" }),\n        y: yScale?.(value),\n      }\n    }\n  }\n  return Number.isFinite(point.x) && Number.isFinite(point.y)\n    ? (point as ChartPoint)\n    : undefined\n}\n\nexport function chartTooltipPosition(\n  anchor: ChartPoint,\n  size: { width: number; height: number },\n  chart: { width: number; height: number },\n  followPointer = false\n): ChartPoint {\n  const inset = 8\n  const gap = 10\n  const clamp = (value: number, extent: number, length: number) =>\n    Math.max(inset, Math.min(value, extent - length - inset))\n  const above = anchor.y - size.height - gap\n  if (followPointer) {\n    return {\n      x: anchor.x - size.width / 2,\n      y: anchor.y - size.height - 12,\n    }\n  }\n  return {\n    x: clamp(anchor.x - size.width / 2, chart.width, size.width),\n    y: clamp(\n      above >= inset ? above : anchor.y + gap,\n      chart.height,\n      size.height\n    ),\n  }\n}\n\nfunction FloatingChartTooltip({\n  type,\n  data,\n  series,\n  options,\n  locale,\n  unit,\n  pointer,\n  ...props\n}: TooltipContentProps & {\n  type: ChartType\n  data: ChartDatum[]\n  series: ChartSeries[]\n  options: ChartOptions\n  locale: string\n  unit: string\n  pointer?: ChartPointer\n}) {\n  const xScale = useXAxisScale()\n  const yScale = useYAxisScale()\n  const plot = usePlotArea()\n  const width = useChartWidth() ?? 280\n  const height = useChartHeight() ?? 240\n  const ref = useRef<HTMLDivElement>(null)\n  const [size, setSize] = useState({ width: 128, height: 72 })\n  const followsPointer = !!pointer\n  useEffect(() => {\n    const element = ref.current\n    if (!element) return\n    const observer = new ResizeObserver(([entry]) => {\n      const { width, height } = entry.contentRect\n      setSize((previous) =>\n        previous.width === width && previous.height === height\n          ? previous\n          : { width, height }\n      )\n    })\n    observer.observe(element)\n    return () => observer.disconnect()\n  }, [followsPointer])\n  const anchor =\n    pointer ??\n    chartTooltipAnchor({\n      type,\n      index: Number(props.activeIndex),\n      data,\n      series,\n      options,\n      xScale,\n      yScale,\n      plot,\n      sector: props.payload[0]?.payload,\n      coordinate: props.coordinate,\n    })\n  const position = anchor\n    ? chartTooltipPosition(anchor, size, { width, height }, !!pointer)\n    : undefined\n  const pointerInPlot = !pointer || !plot || (\n    pointer.x >= plot.x && pointer.x <= plot.x + plot.width &&\n    pointer.y >= plot.y && pointer.y <= plot.y + plot.height\n  )\n  const active = props.active && pointerInPlot\n  const panel = (\n    <div\n      ref={ref}\n      data-slot=\"chart-tooltip\"\n      data-positioning={pointer ? \"pointer\" : \"element\"}\n      data-anchor-x={anchor?.x}\n      data-anchor-y={anchor?.y}\n      data-pointer-x={pointer?.viewport.x}\n      data-pointer-y={pointer?.viewport.y}\n      style={{\n        position: pointer ? \"fixed\" : undefined,\n        left: pointer ? 0 : undefined,\n        top: pointer ? 0 : undefined,\n        zIndex: pointer ? 50 : undefined,\n        pointerEvents: \"none\",\n        width: \"max-content\",\n        minWidth: Math.min(128, Math.max(1, width - 16)),\n        maxWidth: Math.max(1, width - 16),\n        visibility: active && position ? \"visible\" : \"hidden\",\n        transform: pointer\n          ? `translate(${pointer.viewport.x}px, ${pointer.viewport.y - 12}px) translate(-50%, -100%)`\n          : position\n            ? `translate(${position.x}px, ${position.y}px)`\n            : undefined,\n      }}\n    >\n      <ChartTooltipContent\n        {...props}\n        active={active}\n        label={type === \"radial\" ? undefined : props.label}\n        payload={\n          type === \"radial\"\n            ? props.payload.map((entry) => ({\n                ...entry,\n                name: entry.payload?.label ?? entry.name,\n              }))\n            : props.payload\n        }\n        indicator={options.tooltipIndicator}\n        locale={locale}\n        unit={unit}\n      />\n    </div>\n  )\n  return pointer ? createPortal(panel, document.body) : panel\n}\n\nexport function Chart({\n  data,\n  type = \"bar\",\n  title,\n  valueLabel,\n  emptyLabel,\n  height = 240,\n  locale = \"en\",\n  className,\n  series,\n  options = {},\n  unit = \"\",\n}: {\n  data: ChartDatum[]\n  type?: ChartType\n  title: string\n  valueLabel: string\n  emptyLabel: string\n  height?: number\n  locale?: string\n  className?: string\n  series?: ChartSeries[]\n  options?: ChartOptions\n  unit?: string\n}) {\n  const id = useId()\n  const [pieWidth, setPieWidth] = useState(280)\n  const [pointer, setPointer] = useState<ChartPointer>()\n  const frameRef = useRef<HTMLDivElement>(null)\n  const [tooltipDismissed, setTooltipDismissed] = useState(false)\n  const [hiddenSeries, setHiddenSeries] = useState<ChartSeries[\"key\"][]>([])\n  const dismissTooltip = () => {\n    setPointer(undefined)\n    setTooltipDismissed(true)\n  }\n  const trackingPointer = !!pointer\n  useEffect(() => {\n    if (!trackingPointer) return\n    const dismiss = () => {\n      setPointer(undefined)\n      setTooltipDismissed(true)\n    }\n    // Observe outside the SVG too; child handlers and delayed chart updates\n    // must not leave a portalled panel visible after the pointer has left.\n    const checkPointer = (event: PointerEvent) => {\n      const frame = frameRef.current\n      if (!frame) return dismiss()\n      const bounds = frame.getBoundingClientRect()\n      if (!frame.contains(event.target as Node) ||\n          event.clientX < bounds.left || event.clientX >= bounds.right ||\n          event.clientY < bounds.top || event.clientY >= bounds.bottom) dismiss()\n    }\n    const checkWindowExit = (event: PointerEvent) => {\n      if (!event.relatedTarget) dismiss()\n    }\n    window.addEventListener(\"pointermove\", checkPointer, true)\n    window.addEventListener(\"pointerout\", checkWindowExit, true)\n    window.addEventListener(\"scroll\", dismiss, true)\n    window.addEventListener(\"blur\", dismiss)\n    return () => {\n      window.removeEventListener(\"pointermove\", checkPointer, true)\n      window.removeEventListener(\"pointerout\", checkWindowExit, true)\n      window.removeEventListener(\"scroll\", dismiss, true)\n      window.removeEventListener(\"blur\", dismiss)\n    }\n  }, [trackingPointer])\n  const configuredSeries = (\n    series?.length ? series : [{ key: \"value\" as const, label: valueLabel }]\n  ).map((entry, index) => ({\n    ...entry,\n    color: entry.color ?? colors[index % colors.length],\n  }))\n  const interactiveLegend = type === \"line\" && options.interactiveLegend === true\n  const selectedSeries = configuredSeries.filter(entry => !hiddenSeries.includes(entry.key))\n  const visibleSeries = interactiveLegend && selectedSeries.length ? selectedSeries : configuredSeries\n  function toggleSeries(key: ChartSeries[\"key\"]) {\n    if (visibleSeries.length === 1 && visibleSeries[0].key === key) return\n    dismissTooltip()\n    setHiddenSeries(previous => previous.includes(key) ? previous.filter(item => item !== key) : [...previous, key])\n  }\n  const isPie = type === \"pie\" || type === \"donut\"\n  const pieLayout = pieGeometry(pieWidth, height, type === \"donut\")\n  const isRadial = type === \"radial\"\n  const horizontal = type === \"bar\" && options.horizontal\n  const normalized = type === \"area\" && options.normalized\n  const values = data.filter(\n    (item) =>\n      configuredSeries.every(\n        (entry) =>\n          typeof item[entry.key] === \"number\" &&\n          Number.isFinite(item[entry.key])\n      ) &&\n      (!isPie || item.value > 0) &&\n      (!(type === \"radar\" || isRadial || normalized) ||\n        configuredSeries.every((entry) => (item[entry.key] ?? 0) >= 0)) &&\n      (!isRadial || item.value <= 100) &&\n      (type !== \"radar\" ||\n        configuredSeries.every((entry) => (item[entry.key] ?? 0) <= 100)) &&\n      (!normalized ||\n        configuredSeries.reduce(\n          (sum, entry) => sum + (item[entry.key] ?? 0),\n          0\n        ) > 0)\n  )\n  const format = new Intl.NumberFormat(locale)\n  const total = values.reduce((sum, item) => sum + item.value, 0)\n  const pieData = values.map((item, index) => ({\n    ...item,\n    fill: colors[index % colors.length],\n  }))\n  const tooltip = (\n    <Tooltip\n      content={(props) => (\n        <FloatingChartTooltip\n          {...props}\n          active={!tooltipDismissed && props.active}\n          type={type}\n          data={values}\n          series={visibleSeries}\n          options={options}\n          locale={locale}\n          unit={unit}\n          pointer={pointer}\n        />\n      )}\n      active={tooltipDismissed ? false : undefined}\n      position={{ x: 0, y: 0 }}\n      isAnimationActive={false}\n      cursor={\n        type === \"line\" || type === \"area\"\n          ? { stroke: \"var(--border)\" }\n          : type === \"bar\"\n            ? { fill: \"var(--muted)\", opacity: 0.5 }\n            : false\n      }\n    />\n  )\n  const axes = (\n    <>\n      <CartesianGrid\n        vertical={Boolean(horizontal)}\n        horizontal={!horizontal}\n        stroke=\"var(--border)\"\n        strokeDasharray=\"3 3\"\n      />\n      <XAxis\n        dataKey={horizontal ? undefined : \"label\"}\n        type={horizontal ? \"number\" : \"category\"}\n        axisLine={false}\n        tickLine={false}\n        tick={{ fill: \"var(--muted-foreground)\", fontSize: 12 }}\n        tickMargin={8}\n        minTickGap={12}\n        domain={\n          horizontal ? [(min: number) => Math.min(0, min), \"auto\"] : undefined\n        }\n      />\n      <YAxis\n        allowDecimals={options.yAxisAllowDecimals}\n        axisLine={false}\n        type={horizontal ? \"category\" : \"number\"}\n        dataKey={horizontal ? \"label\" : undefined}\n        tickLine={false}\n        tick={{ fill: \"var(--muted-foreground)\", fontSize: 12 }}\n        width={options.yAxisWidth ?? (horizontal ? 44 : 36)}\n        tickCount={4}\n        tickFormatter={\n          horizontal\n            ? undefined\n            : (value: number) =>\n                normalized\n                  ? `${Math.round(value * 100)}%`\n                  : format.format(value)\n        }\n        domain={\n          horizontal\n            ? undefined\n            : normalized\n              ? [0, 1]\n              : type === \"bar\" || type === \"area\"\n                ? [(min: number) => Math.min(0, min), \"auto\"]\n                : [\"auto\", \"auto\"]\n        }\n      />\n    </>\n  )\n\n  return (\n    <figure\n      data-slot=\"chart\"\n      className={cn(\"m-0 w-full min-w-0\", className)}\n      aria-labelledby={`${id}-title`}\n    >\n      <figcaption id={`${id}-title`} className=\"sr-only\">\n        {title}\n      </figcaption>\n      <div\n        ref={frameRef}\n        className=\"relative w-full min-w-0\"\n        style={{ height }}\n        onPointerEnter={() => setTooltipDismissed(false)}\n        onPointerMove={(event) => {\n          if (event.pointerType === \"touch\") return\n          const frame = event.currentTarget\n          const point = chartPointerPosition(\n            { x: event.clientX, y: event.clientY },\n            frame.getBoundingClientRect(),\n            { width: frame.clientWidth, height: frame.clientHeight }\n          )\n          setPointer(\n            point\n              ? { ...point, viewport: { x: event.clientX, y: event.clientY } }\n              : undefined\n          )\n        }}\n        onPointerDown={(event) => {\n          if (event.pointerType === \"touch\") {\n            setPointer(undefined)\n            setTooltipDismissed(false)\n          }\n        }}\n        onPointerLeave={dismissTooltip}\n        onPointerCancel={dismissTooltip}\n        onKeyDownCapture={() => {\n          setPointer(undefined)\n          setTooltipDismissed(false)\n        }}\n      >\n        {!values.length ? (\n          <div\n            role=\"status\"\n            className=\"flex h-full items-center justify-center text-sm text-muted-foreground\"\n          >\n            {emptyLabel}\n          </div>\n        ) : (\n          <>\n            <ResponsiveContainer\n              width=\"100%\"\n              height={height}\n              minWidth={0}\n              minHeight={height}\n              initialDimension={{ width: 280, height }}\n              onResize={\n                isPie\n                  ? (width) => {\n                      if (Number.isFinite(width) && width > 0)\n                        setPieWidth(Math.max(1, Math.round(width)))\n                    }\n                  : undefined\n              }\n            >\n              {isPie ? (\n                <PieChart\n                  margin={{ top: 0, right: 0, bottom: 0, left: 0 }}\n                  accessibilityLayer\n                >\n                  <Pie\n                    data={pieData}\n                    dataKey=\"value\"\n                    nameKey=\"label\"\n                    cx={pieLayout.cx}\n                    cy={pieLayout.cy}\n                    innerRadius={pieLayout.innerRadius}\n                    outerRadius={pieLayout.outerRadius}\n                    paddingAngle={pieLayout.paddingAngle}\n                    stroke=\"var(--background)\"\n                    strokeWidth={pieLayout.strokeWidth}\n                    strokeLinejoin=\"round\"\n                    isAnimationActive={false}\n                    labelLine={false}\n                  >\n                    {options.showLabels && (\n                      <LabelList\n                        dataKey=\"value\"\n                        position=\"inside\"\n                        fill=\"var(--primary-foreground)\"\n                        fontSize={12}\n                        formatter={(value) =>\n                          typeof value === \"number\"\n                            ? format.format(value)\n                            : String(value)\n                        }\n                      />\n                    )}\n                  </Pie>\n                  {tooltip}\n                </PieChart>\n              ) : type === \"radar\" ? (\n                <RadarChart data={values} outerRadius=\"65%\" accessibilityLayer>\n                  <PolarGrid\n                    gridType={options.radarGrid ?? \"polygon\"}\n                    stroke=\"var(--border)\"\n                  />\n                  <PolarAngleAxis\n                    dataKey=\"label\"\n                    tick={{ fill: \"var(--muted-foreground)\", fontSize: 10 }}\n                  />\n                  <PolarRadiusAxis\n                    domain={[0, 100]}\n                    tick={false}\n                    axisLine={false}\n                  />\n                  {configuredSeries.map((entry) => (\n                    <Radar<ChartDatum>\n                      key={entry.key}\n                      name={entry.label}\n                      dataKey={entry.key}\n                      stroke={entry.color}\n                      fill={entry.color}\n                      fillOpacity={0.18}\n                      strokeWidth={2}\n                      dot={Boolean(options.dots)}\n                      isAnimationActive={false}\n                    />\n                  ))}\n                  {tooltip}\n                </RadarChart>\n              ) : isRadial ? (\n                <RadialBarChart\n                  data={pieData}\n                  startAngle={90}\n                  endAngle={-270}\n                  innerRadius=\"35%\"\n                  outerRadius=\"90%\"\n                  barSize={14}\n                  accessibilityLayer\n                >\n                  <PolarAngleAxis\n                    type=\"number\"\n                    domain={[0, 100]}\n                    tick={false}\n                  />\n                  <RadialBar\n                    dataKey=\"value\"\n                    background={{ fill: \"var(--muted)\" }}\n                    cornerRadius={7}\n                    isAnimationActive={false}\n                  />\n                  {tooltip}\n                </RadialBarChart>\n              ) : type === \"area\" ? (\n                <AreaChart\n                  data={values}\n                  stackOffset={normalized ? \"expand\" : \"none\"}\n                  margin={{ top: 8, right: 8, bottom: 0, left: 0 }}\n                  accessibilityLayer\n                >\n                  {options.gradient && (\n                    <defs>\n                      {configuredSeries.map((entry) => (\n                        <linearGradient\n                          key={entry.key}\n                          id={`${id}-${entry.key}`}\n                          x1=\"0\"\n                          y1=\"0\"\n                          x2=\"0\"\n                          y2=\"1\"\n                        >\n                          <stop\n                            offset=\"0%\"\n                            stopColor={entry.color}\n                            stopOpacity={0.5}\n                          />\n                          <stop\n                            offset=\"100%\"\n                            stopColor={entry.color}\n                            stopOpacity={0.02}\n                          />\n                        </linearGradient>\n                      ))}\n                    </defs>\n                  )}\n                  {axes}\n                  {tooltip}\n                  {configuredSeries.map((entry) => (\n                    <Area<ChartDatum>\n                      key={entry.key}\n                      dataKey={entry.key}\n                      name={entry.label}\n                      type={options.curve ?? \"monotone\"}\n                      stackId={\n                        options.stacked || normalized ? \"total\" : undefined\n                      }\n                      stroke={entry.color}\n                      fill={\n                        options.gradient\n                          ? `url(#${id}-${entry.key})`\n                          : entry.color\n                      }\n                      fillOpacity={options.gradient ? 1 : 0.22}\n                      strokeWidth={2}\n                      isAnimationActive={false}\n                    />\n                  ))}\n                </AreaChart>\n              ) : type === \"line\" ? (\n                <LineChart\n                  data={values}\n                  margin={{ top: 8, right: 8, bottom: 0, left: 0 }}\n                  accessibilityLayer\n                >\n                  {axes}\n                  {tooltip}\n                  {visibleSeries.map((entry) => (\n                    <Line<ChartDatum>\n                      key={entry.key}\n                      dataKey={entry.key}\n                      name={entry.label}\n                      type={options.curve ?? \"linear\"}\n                      stroke={entry.color}\n                      strokeWidth={2.5}\n                      dot={\n                        options.dots === false\n                          ? false\n                          : { r: 3, fill: entry.color, strokeWidth: 0 }\n                      }\n                      activeDot={{\n                        r: 5,\n                        stroke: \"var(--background)\",\n                        strokeWidth: 2,\n                      }}\n                      isAnimationActive={false}\n                    />\n                  ))}\n                </LineChart>\n              ) : (\n                <BarChart\n                  data={values}\n                  layout={horizontal ? \"vertical\" : \"horizontal\"}\n                  stackOffset={options.stacked ? \"sign\" : \"none\"}\n                  margin={{\n                    top: options.showLabels ? 20 : 8,\n                    right: horizontal && options.showLabels ? 28 : 8,\n                    bottom: 0,\n                    left: 0,\n                  }}\n                  accessibilityLayer\n                >\n                  {axes}\n                  {tooltip}\n                  {configuredSeries.map((entry) => (\n                    <Bar<ChartDatum>\n                      key={entry.key}\n                      dataKey={entry.key}\n                      name={entry.label}\n                      fill={entry.color}\n                      stackId={options.stacked ? \"total\" : undefined}\n                      radius={horizontal ? [0, 4, 4, 0] : [4, 4, 0, 0]}\n                      shape={\n                        options.stacked\n                          ? (props: BarShapeProps) => (\n                              <Rectangle\n                                {...props}\n                                x={props.x + Math.min(0, props.width)}\n                                y={props.y + Math.min(0, props.height)}\n                                width={Math.abs(props.width)}\n                                height={Math.abs(props.height)}\n                                radius={stackedBarRadius(\n                                  values[props.originalDataIndex],\n                                  entry.key,\n                                  configuredSeries,\n                                  Boolean(horizontal)\n                                )}\n                              />\n                            )\n                          : undefined\n                      }\n                      maxBarSize={32}\n                      isAnimationActive={false}\n                    >\n                      {options.showLabels && (\n                        <LabelList\n                          dataKey={entry.key}\n                          position={horizontal ? \"right\" : \"top\"}\n                          fill=\"var(--foreground)\"\n                          fontSize={11}\n                        />\n                      )}\n                    </Bar>\n                  ))}\n                </BarChart>\n              )}\n            </ResponsiveContainer>\n            {((type === \"donut\" && options.centerText !== false) ||\n              (isRadial && options.centerText)) && (\n              <div\n                aria-hidden=\"true\"\n                className=\"pointer-events-none absolute inset-0 flex flex-col items-center justify-center\"\n              >\n                <span className=\"text-xl font-semibold tabular-nums\">\n                  {format.format(total)}\n                  {unit}\n                </span>\n                <span className=\"mt-1 text-xs text-muted-foreground\">\n                  {valueLabel}\n                </span>\n              </div>\n            )}\n          </>\n        )}\n      </div>\n      {(isPie ||\n        isRadial ||\n        options.showLegend ||\n        interactiveLegend ||\n        configuredSeries.length > 1) &&\n        values.length > 0 && (\n          <ul\n            className=\"mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground\"\n            aria-label={title}\n          >\n            {(isPie || isRadial\n              ? pieData.map((item) => ({\n                  label: `${item.label} ${isPie ? Math.round((item.value / total) * 100) + \"%\" : format.format(item.value) + unit}`,\n                  fill: item.fill,\n                }))\n              : configuredSeries.map((entry) => ({\n                  label: entry.label,\n                  fill: entry.color,\n                }))\n            ).map((item, index) => {\n              const entry = configuredSeries[index]\n              const visible = visibleSeries.some(series => series.key === entry?.key)\n              const content = <><span aria-hidden=\"true\" className=\"size-2 shrink-0 rounded-sm\" style={{ background: item.fill }} /><span>{item.label}</span></>\n              return (\n              <li\n                key={`${item.label}-${index}`}\n                className=\"inline-flex items-center gap-1.5\"\n              >\n                {interactiveLegend ? <button\n                  type=\"button\"\n                  aria-pressed={visible}\n                  aria-disabled={visible && visibleSeries.length === 1}\n                  onClick={() => toggleSeries(entry.key)}\n                  className={cn(\"inline-flex min-h-8 items-center gap-1.5 rounded-sm px-1 text-base focus-visible:outline-2 focus-visible:outline-ring\", visible ? \"text-foreground\" : \"text-muted-foreground opacity-50 line-through\")}\n                >{content}</button> : content}\n              </li>\n            )})}\n          </ul>\n        )}\n      <div className=\"sr-only\"><table>\n        <caption>{title}</caption>\n        <thead>\n          <tr>\n            <th scope=\"col\">{title}</th>\n            {configuredSeries.map((entry) => (\n              <th key={entry.key} scope=\"col\">\n                {entry.label}\n              </th>\n            ))}\n          </tr>\n        </thead>\n        <tbody>\n          {values.map((item, index) => (\n            <tr key={`${item.label}-${index}`}>\n              <th scope=\"row\">{item.label}</th>\n              {configuredSeries.map((entry) => (\n                <td key={entry.key}>\n                  {format.format(item[entry.key] ?? 0)}\n                  {unit}\n                </td>\n              ))}\n            </tr>\n          ))}\n        </tbody>\n      </table></div>\n    </figure>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/chart.tsx"
+    },
+    {
+      "path": "docs/compass.md",
+      "content": "# Building with COMPASS\n\nUse the installed COMPASS components and semantic design tokens rather than\nrecreating similar controls. This public distribution contains component source,\nfoundations, and Basic rules only.\n\n## Installation contract\n\n- React, Tailwind CSS v4, and a configured shadcn project are required.\n- Use the version-pinned hosted Registry documented in the README.\n- Request `foundations.json` explicitly alongside component items so the shared\n  tokens replace shadcn defaults. Review customized files before overwriting them.\n- Connect `components/theme-provider.tsx` at the application root. Preserve the\n  user's system theme preference and check light and dark rendering.\n- Keep the installed version and project integration choices in the project's\n  own notes. Do not update customized components automatically.\n\n## Working rules\n\n- Reuse `components/ui` and its actual variants and APIs.\n- Use semantic background, foreground, primary, border, input, and state tokens.\n- Use Pretendard Variable and the installed typography and spacing scales.\n- Use Lucide icons, accessible names for icon-only controls, and visible focus.\n- Preserve link semantics for navigation and button semantics for actions.\n- Provide useful loading, empty, error, success, and disabled states.\n- Keep text readable and controls stable on narrow screens and with longer labels.\n- Respect reduced motion. Do not delay important actions for decoration.\n- Read the relevant English or Korean Do / Don't reference under\n  `skills/compass/references/` before changing a component's behavior.\n- Run the target project's typecheck and build, then inspect the affected views.\n\nThis guide and Basic Skill do not grant permission to publish, send private data,\nor change unrelated systems. Plus documents, paid Skills, member images, and\nprivate service implementation are not included.\n",
+      "type": "registry:file",
+      "target": "~/docs/compass.md"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "shadow-sm": "var(--surface-shadow-sm)",
+      "shadow-md": "var(--surface-shadow-md)",
+      "shadow-lg": "var(--surface-shadow-lg)",
+      "font-heading": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-sans": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-mono": "\"SFMono-Regular\", Consolas, \"Liberation Mono\", Menlo, monospace",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-chart-5": "var(--chart-5)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-1": "var(--chart-1)",
+      "color-ring": "var(--ring)",
+      "color-input": "var(--input)",
+      "color-border": "var(--border)",
+      "color-destructive": "var(--destructive)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-accent": "var(--accent)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-muted": "var(--muted)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-button-secondary": "var(--button-secondary)",
+      "color-button-secondary-hover": "var(--button-secondary-hover)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-primary": "var(--primary)",
+      "color-primary-hover": "var(--primary-hover)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-popover": "var(--popover)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-card": "var(--card)",
+      "color-foreground": "var(--foreground)",
+      "color-background": "var(--background)",
+      "color-gallery-background": "var(--gallery-background)",
+      "color-tab-muted": "var(--tab-muted)",
+      "color-tag": "var(--tag)",
+      "color-tag-foreground": "var(--tag-foreground)",
+      "radius-sm": "calc(var(--radius) * 0.15)",
+      "radius-md": "calc(var(--radius) * 0.2)",
+      "radius-lg": "calc(var(--radius) * 0.25)",
+      "radius-xl": "calc(var(--radius) * 0.35)",
+      "radius-2xl": "calc(var(--radius) * 0.45)",
+      "radius-3xl": "calc(var(--radius) * 0.55)",
+      "radius-4xl": "calc(var(--radius) * 0.65)",
+      "radius-5xl": "calc(var(--radius) * 0.8)",
+      "radius-6xl": "var(--radius)",
+      "radius-container": "min(var(--container-radius), max(0px, calc(var(--nested-radius, var(--container-radius)) + var(--nested-gap, 0px))))"
+    },
+    "light": {
+      "text-icon-size": "1.125em",
+      "corner-shape": "squircle",
+      "button-corner-shape": "superellipse(1.15)",
+      "avatar-color-blue": "#2563eb",
+      "avatar-color-teal": "#0f766e",
+      "avatar-color-rose": "#be185d",
+      "avatar-color-violet": "#7c3aed",
+      "avatar-color-orange": "#c2410c",
+      "avatar-color-green": "#15803d",
+      "avatar-color-sky": "#0369a1",
+      "avatar-color-red": "#b91c1c",
+      "avatar-color-foreground": "#ffffff",
+      "avatar-profile-background": "#e5f1ff",
+      "avatar-profile-foreground": "#0056b3",
+      "surface-shadow-sm": "0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%)",
+      "surface-shadow-md": "0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%)",
+      "surface-shadow-lg": "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%)",
+      "slider-thumb-surface": "radial-gradient(ellipse at 35% 25%, #ffffff 0%, #ffffff 50%, #fdfdfd 78%, #f4f4f4 100%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow": "0 6px 16px -4px rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow-hover": "0 6px 16px -4px rgb(0 0 0 / 20%), 0 2px 4px -1px rgb(0 0 0 / 10%)",
+      "background": "#ffffff",
+      "gallery-background": "#f7f7f7",
+      "gallery-preview-background": "oklch(1 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "card": "oklch(1 0 0)",
+      "card-foreground": "oklch(0.145 0 0)",
+      "popover": "oklch(1 0 0)",
+      "popover-foreground": "oklch(0.145 0 0)",
+      "primary": "#007AFF",
+      "primary-hover": "color-mix(in oklch, var(--primary), black 12%)",
+      "primary-foreground": "#ffffff",
+      "button-secondary": "color-mix(in oklch, var(--primary) 24%, var(--background))",
+      "button-secondary-hover": "color-mix(in oklch, var(--primary) 32%, var(--background))",
+      "secondary": "oklch(0.97 0 0)",
+      "secondary-foreground": "oklch(0.205 0 0)",
+      "muted": "oklch(0.97 0 0)",
+      "tab-muted": "oklch(0.95 0 0)",
+      "layout-preview-background": "oklch(0.95 0 0)",
+      "tag": "#F4F4F4",
+      "tag-foreground": "oklch(0.205 0 0)",
+      "muted-foreground": "oklch(0.556 0 0)",
+      "accent": "#007AFF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "border": "oklch(0.922 0 0)",
+      "input": "oklch(0.922 0 0)",
+      "ring": "oklch(0.708 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#5F96D8",
+      "chart-3": "#315F99",
+      "chart-4": "#224777",
+      "chart-5": "#173254",
+      "radius": "2.5rem",
+      "container-radius": "2.5rem",
+      "sidebar": "oklch(0.985 0 0)",
+      "sidebar-foreground": "oklch(0.145 0 0)",
+      "sidebar-primary": "oklch(0.205 0 0)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.97 0 0)",
+      "sidebar-accent-foreground": "oklch(0.205 0 0)",
+      "sidebar-border": "oklch(0.922 0 0)",
+      "sidebar-ring": "oklch(0.708 0 0)"
+    },
+    "dark": {
+      "button-secondary": "#d6e8ff",
+      "button-secondary-hover": "#c4deff",
+      "surface-shadow-sm": "0 2px 6px 0 rgb(0 0 0 / 40%), 0 1px 2px 0 rgb(0 0 0 / 25%)",
+      "surface-shadow-md": "0 6px 16px -2px rgb(0 0 0 / 50%), 0 2px 6px 0 rgb(0 0 0 / 35%)",
+      "surface-shadow-lg": "0 14px 32px -4px rgb(0 0 0 / 65%), 0 6px 12px -2px rgb(0 0 0 / 45%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 20%), 0 1px 1px rgb(0 0 0 / 10%)",
+      "slider-thumb-shadow": "0 6px 18px -4px rgb(0 0 0 / 28%), 0 2px 4px -1px rgb(0 0 0 / 12%)",
+      "slider-thumb-shadow-hover": "0 6px 18px -4px rgb(0 0 0 / 40%), 0 2px 4px -1px rgb(0 0 0 / 20%)",
+      "background": "oklch(0.18 0 0)",
+      "gallery-background": "oklch(0.18 0 0)",
+      "gallery-preview-background": "oklch(0.23 0 0)",
+      "foreground": "oklch(0.985 0 0)",
+      "card": "oklch(0.205 0 0)",
+      "card-foreground": "oklch(0.985 0 0)",
+      "popover": "oklch(0.205 0 0)",
+      "popover-foreground": "oklch(0.985 0 0)",
+      "primary": "#3390FF",
+      "primary-foreground": "#ffffff",
+      "secondary": "oklch(0.269 0 0)",
+      "secondary-foreground": "oklch(0.985 0 0)",
+      "muted": "oklch(0.269 0 0)",
+      "tab-muted": "oklch(0.27 0 0)",
+      "layout-preview-background": "oklch(0.27 0 0)",
+      "muted-foreground": "oklch(0.708 0 0)",
+      "accent": "#3390FF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "border": "oklch(1 0 0 / 10%)",
+      "input": "oklch(1 0 0 / 20%)",
+      "ring": "oklch(0.556 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#8DBFFF",
+      "chart-3": "#66A5F2",
+      "chart-4": "#4D88D4",
+      "chart-5": "#3976C5",
+      "sidebar": "oklch(0.205 0 0)",
+      "sidebar-foreground": "oklch(0.985 0 0)",
+      "sidebar-primary": "oklch(0.488 0.243 264.376)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.269 0 0)",
+      "sidebar-accent-foreground": "oklch(0.985 0 0)",
+      "sidebar-border": "oklch(1 0 0 / 10%)",
+      "sidebar-ring": "oklch(0.556 0 0)"
+    }
+  },
+  "css": {
+    "@import \"tw-animate-css\"": {},
+    "@import \"shadcn/tailwind.css\"": {},
+    "@import \"leaflet/dist/leaflet.css\"": {},
+    "@import \"@ncdai/react-wheel-picker/style.css\"": {},
+    "@custom-variant dark (&:is(.dark *))": {},
+    "@font-face": {
+      "font-family": "\"Satoshi\"",
+      "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
+      "font-weight": "700",
+      "font-style": "normal",
+      "font-display": "swap"
+    },
+    "@keyframes gallery-card-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(14px) scale(0.98)",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none",
+        "filter": "none"
+      }
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".notification-badge-reveal,\n  .notification-badge-reveal[data-visible=\"false\"][data-animated=\"true\"]": {
+        "animation": "none"
+      }
+    },
+    "@keyframes pricing-content-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(16px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    "@layer base": {
+      "*": {
+        "@apply border-border outline-ring/50": {}
+      },
+      "body": {
+        "@apply bg-background text-base text-foreground": {}
+      },
+      "button:not(:disabled):not([aria-disabled=\"true\"]), [role=\"button\"]:not(:disabled):not([aria-disabled=\"true\"])": {
+        "cursor": "pointer"
+      },
+      ":disabled, [aria-disabled=\"true\"], [data-disabled]": {
+        "cursor": "not-allowed"
+      },
+      "html": {
+        "@apply font-sans": {}
+      },
+      "a[href], [role=\"link\"]": {
+        "display": "inline-block"
+      },
+      "@supports (corner-shape: squircle)": {
+        "*": {
+          "corner-shape": "var(--corner-shape)"
+        },
+        "::before, ::after": {
+          "corner-shape": "inherit"
+        },
+        ":where(.rounded-full,\n           [data-slot^=\"avatar\"], [data-slot=\"slider-thumb\"],\n           [data-slot=\"slider-track\"], [data-slot=\"progress\"],\n           [data-corner=\"round\"])": {
+          "corner-shape": "round"
+        },
+        "[data-corner=\"continuous\"]": {
+          "corner-shape": "var(--button-corner-shape)"
+        }
+      }
+    },
+    "@property --interaction-strength": {
+      "syntax": "\"<number>\"",
+      "inherits": "false",
+      "initial-value": "0"
+    },
+    "@property --button-ripple-radius": {
+      "syntax": "\"<length>\"",
+      "inherits": "false",
+      "initial-value": "0px"
+    },
+    "@keyframes button-ripple": {
+      "from": {
+        "--button-ripple-radius": "0px",
+        "opacity": "1"
+      },
+      "35%": {
+        "opacity": "0.85"
+      },
+      "to": {
+        "--button-ripple-radius": "var(--button-ripple-size, 160px)",
+        "opacity": "0"
+      }
+    },
+    "@keyframes compass-tooltip-in": {
+      "from": {
+        "opacity": "0",
+        "transform": "translate(var(--tooltip-enter-x), var(--tooltip-enter-y)) scale(0.72)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translate(0, 0) scale(1)"
+      }
+    },
+    "@keyframes compass-tooltip-out": {
+      "from": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      },
+      "to": {
+        "opacity": "0",
+        "transform": "scale(0.94)"
+      }
+    },
+    "@keyframes skeleton-shimmer": {
+      "0%, 100%": {
+        "opacity": "0.15",
+        "transform": "scale(0.8)"
+      },
+      "50%": {
+        "opacity": "1",
+        "transform": "scale(1.4)"
+      }
+    },
+    "@keyframes progress-bar-flow": {
+      "from": {
+        "transform": "translateX(-100%)"
+      },
+      "to": {
+        "transform": "translateX(100%)"
+      }
+    },
+    "@keyframes progress-percentage-shimmer": {
+      "from": {
+        "background-position": "100% 0"
+      },
+      "to": {
+        "background-position": "0% 0"
+      }
+    },
+    "@keyframes notification-badge-dismiss": {
+      "from": {
+        "translate": "0 0",
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      },
+      "to": {
+        "translate": "-4px 6px",
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      }
+    },
+    "@keyframes check-stroke-draw": {
+      "from": {
+        "stroke-dashoffset": "24"
+      },
+      "to": {
+        "stroke-dashoffset": "48"
+      }
+    },
+    "@keyframes notification-badge-slide": {
+      "from": {
+        "translate": "-8.2px 12.4px"
+      },
+      "to": {
+        "translate": "0 0"
+      }
+    },
+    "@keyframes notification-badge-pop": {
+      "from": {
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      }
+    },
+    "@import \"pretendard/dist/web/variable/pretendardvariable.css\"": {}
+  },
+  "meta": {
+    "version": "1.0.0",
+    "group": "charts",
+    "distribution": "public-source",
+    "documentation": "Public-only guide; no operating-service documentation."
+  },
+  "docs": "Requires an existing React + Tailwind CSS v4 project initialized with shadcn. COMPASS merges global styles; review existing components and CSS before installing. ThemeProvider must be connected to the application root separately. See /docs/registry and /docs/ai.",
+  "type": "registry:ui"
+}

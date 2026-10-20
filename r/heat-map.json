@@ -1,0 +1,392 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heat-map",
+  "title": "Heat map",
+  "description": "Heat map from COMPASS Design System. Public source, shared tokens, and practical UX rules.",
+  "dependencies": [
+    "pretendard@1.3.9",
+    "shadcn@4.21.0",
+    "tw-animate-css@1.4.0",
+    "leaflet@1.9.4"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/design-compass/compass-design-system/main/r/foundations.json"
+  ],
+  "files": [
+    {
+      "path": "components/heat-word.tsx",
+      "content": "\"use client\"\n\nimport { useEffect, useRef, useState } from \"react\"\n\nconst W = 360\nconst H = 170\nconst word = \"BEND\"\n\nconst clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))\nconst FACE = { family: \"Pretendard Variable\", weight: 800 }\n\nfunction rng(seed: number) {\n  let t = seed * 9301 + 49297\n\n  return () => {\n    t = (t * 9301 + 49297) % 233280\n    return t / 233280\n  }\n}\n\nfunction line(g: CanvasRenderingContext2D, pts: [number, number][]) {\n  g.beginPath()\n  pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)))\n  g.stroke()\n}\n\ntype Hand = { x: number; y: number; on: number; area: number }\ntype Stops = [number, [number, number, number]][]\n\nfunction drawShape(\n  g: CanvasRenderingContext2D,\n  shape: string,\n  w: number,\n  h: number,\n  r: number,\n  seed: number,\n  hand?: Hand\n) {\n  const rand = rng(seed)\n  const cx = w / 2\n  const cy = h / 2\n\n  g.lineCap = \"round\"\n  g.lineJoin = \"round\"\n\n  if (shape === \"Dots\") {\n    const cols = 7\n    const rows = 3\n    const reach = 62 * r * (hand?.area ?? 1)\n\n    for (let j = 0; j < rows; j++) {\n      for (let i = 0; i < cols; i++) {\n        const x = cx + (i - (cols - 1) / 2) * 38 * r + (rand() - 0.5) * 8 * r\n        const y = cy + (j - (rows - 1) / 2) * 38 * r + (rand() - 0.5) * 8 * r\n        let rad = (9 + rand() * 7) * r\n\n        if (hand && hand.on > 0.002) {\n          const d2 = ((x - hand.x) ** 2 + (y - hand.y) ** 2) / (reach * reach)\n          rad *= 1 + 0.75 * hand.on * Math.exp(-d2)\n        }\n\n        g.beginPath()\n        g.arc(x, y, rad, 0, Math.PI * 2)\n        g.fill()\n      }\n    }\n  } else if (shape === \"Star\") {\n    g.lineWidth = 14 * r\n    g.beginPath()\n    for (let i = 0; i < 10; i++) {\n      const angle = -Math.PI / 2 + i * Math.PI / 5\n      const radius = (i % 2 === 0 ? 72 : 34) * r\n      const x = cx + Math.cos(angle) * radius\n      const y = cy + Math.sin(angle) * radius\n      if (i === 0) g.moveTo(x, y)\n      else g.lineTo(x, y)\n    }\n    g.closePath()\n    g.stroke()\n  } else if (shape === \"Diamond\") {\n    const reach = 72 * r\n    const corner = 14 * r\n    g.lineWidth = 20 * r\n    g.beginPath()\n    g.moveTo(cx - corner, cy - reach + corner)\n    g.quadraticCurveTo(cx, cy - reach, cx + corner, cy - reach + corner)\n    g.lineTo(cx + reach - corner, cy - corner)\n    g.quadraticCurveTo(cx + reach, cy, cx + reach - corner, cy + corner)\n    g.lineTo(cx + corner, cy + reach - corner)\n    g.quadraticCurveTo(cx, cy + reach, cx - corner, cy + reach - corner)\n    g.lineTo(cx - reach + corner, cy + corner)\n    g.quadraticCurveTo(cx - reach, cy, cx - reach + corner, cy - corner)\n    g.closePath()\n    g.stroke()\n  } else if (shape === \"Ring\") {\n    g.lineWidth = 20 * r\n    g.beginPath()\n    g.arc(cx, cy, 58 * r, 0, Math.PI * 2)\n    g.stroke()\n  } else if (shape === \"Asterisk\") {\n    g.lineWidth = 16 * r\n    const n = 3 + Math.floor(rand() * 2)\n    const turn = rand() * Math.PI\n\n    for (let i = 0; i < n; i++) {\n      const a = turn + (i / n) * Math.PI\n      const c = Math.cos(a) * 66 * r\n      const sn = Math.sin(a) * 66 * r\n\n      line(g, [\n        [cx - c, cy - sn],\n        [cx + c, cy + sn],\n      ])\n    }\n  }\n}\n\nasync function ensure() {\n  try {\n    await document.fonts?.load(`${FACE.weight} 100px \"${FACE.family}\"`)\n  } catch {\n    /* The fallback still draws a usable word field. */\n  }\n}\n\nconst PALETTES: Record<string, Stops> = {\n  Neon: [\n    [0.0, [255, 150, 225]],\n    [0.1, [255, 90, 190]],\n    [0.2, [255, 50, 60]],\n    [0.32, [255, 150, 40]],\n    [0.42, [255, 228, 100]],\n    [0.54, [120, 215, 255]],\n    [0.68, [40, 120, 245]],\n    [0.84, [12, 44, 150]],\n    [1.0, [6, 18, 80]],\n  ],\n  Fire: [\n    [0.0, [255, 238, 180]],\n    [0.16, [255, 200, 80]],\n    [0.34, [255, 130, 30]],\n    [0.52, [228, 58, 28]],\n    [0.72, [150, 18, 44]],\n    [0.88, [74, 6, 42]],\n    [1.0, [30, 2, 24]],\n  ],\n  Sea: [\n    [0.0, [210, 255, 225]],\n    [0.16, [110, 245, 175]],\n    [0.34, [40, 215, 200]],\n    [0.52, [40, 150, 235]],\n    [0.72, [80, 70, 205]],\n    [0.88, [60, 20, 130]],\n    [1.0, [24, 8, 60]],\n  ],\n  Pop: [\n    [0.0, [255, 225, 240]],\n    [0.16, [255, 160, 210]],\n    [0.34, [245, 110, 190]],\n    [0.52, [180, 110, 255]],\n    [0.72, [100, 150, 255]],\n    [0.88, [40, 70, 190]],\n    [1.0, [20, 24, 100]],\n  ],\n}\n\nconst FLOOR = 34\nconst GREY = [150, 150, 154]\nconst GREY_A = new Uint8ClampedArray(256)\n\nfor (let i = 0; i < 256; i++) {\n  GREY_A[i] = 255 * clamp((i - 70) / 45, 0, 1)\n}\n\nfunction table(stops: Stops) {\n  const t = new Uint8ClampedArray(256 * 4)\n\n  for (let i = 0; i < 256; i++) {\n    if (i < FLOOR) {\n      t[i * 4 + 3] = 0\n      continue\n    }\n\n    const u = (i - FLOOR) / (255 - FLOOR)\n    let k = 0\n\n    while (k < stops.length - 2 && u > stops[k + 1][0]) {\n      k++\n    }\n\n    const [u0, c0] = stops[k]\n    const [u1, c1] = stops[k + 1]\n    const f = clamp((u - u0) / (u1 - u0), 0, 1)\n\n    for (let c = 0; c < 3; c++) {\n      t[i * 4 + c] = c0[c] + (c1[c] - c0[c]) * f\n    }\n\n    t[i * 4 + 3] = 255 * clamp((i - FLOOR) / 26, 0, 1)\n  }\n\n  return t\n}\n\nconst LUTS = new Map<string, Uint8ClampedArray>()\n\nfunction lut(name: string) {\n  let t = LUTS.get(name)\n\n  if (!t) {\n    t = table(PALETTES[name] ?? PALETTES.Neon)\n    LUTS.set(name, t)\n  }\n\n  return t\n}\n\nfunction HeatWord({\n  heat = 60,\n  soft = 50,\n  area = 50,\n  colors = \"Neon\",\n  shape: start = \"Star\",\n}: {\n  heat?: number\n  soft?: number\n  area?: number\n  colors?: string\n  shape?: string\n} = {}) {\n  const [seed] = useState(() => Math.floor(Math.random() * 1000))\n  const shape = start\n  const shown = useRef<HTMLCanvasElement>(null)\n  const st = useRef({\n    base: null as HTMLCanvasElement | null,\n    work: null as HTMLCanvasElement | null,\n    px: 0.5,\n    py: 0.5,\n    tx: 0.5,\n    ty: 0.5,\n    power: 1,\n    want: 1,\n    hovering: false,\n    elapsed: 0,\n    visible: true,\n    reducedMotion: false,\n    grow: 0,\n    raf: 0,\n    ratio: 1,\n    swollen: false,\n  })\n  const knobs = useRef({ heat, soft, area, colors })\n  knobs.current = { heat, soft, area, colors }\n\n  const spread = () => 0.5 + clamp(knobs.current.area, 0, 100) / 100\n\n  const field = () => {\n    const s = st.current\n    const base = s.base\n    const canvas = shown.current\n\n    if (!base || !canvas) {\n      return\n    }\n\n    const r = s.ratio\n    const w = base.width\n    const h = base.height\n    const g = base.getContext(\"2d\")\n\n    if (!g) {\n      return\n    }\n\n    g.setTransform(1, 0, 0, 1, 0, 0)\n    g.shadowColor = \"transparent\"\n    g.fillStyle = \"#000\"\n    g.fillRect(0, 0, w, h)\n\n    const blur = (6 + (clamp(knobs.current.soft, 0, 100) / 100) * 16) * r\n    const off = w * 3\n\n    g.shadowColor = \"#fff\"\n    g.shadowBlur = blur\n    g.shadowOffsetX = off\n    g.fillStyle = \"#fff\"\n    g.strokeStyle = \"#fff\"\n\n    if (shape !== \"Word\") {\n      g.save()\n      g.translate(-off, 0)\n      const hand = { x: s.px * w, y: s.py * h, on: s.power, area: spread() }\n      drawShape(g, shape, w, h, r, seed, hand)\n      drawShape(g, shape, w, h, r, seed, hand)\n      g.restore()\n      return\n    }\n\n    let size = 150 * r\n    const face = `\"${FACE.family}\", system-ui, sans-serif`\n    g.font = `${FACE.weight} ${size}px ${face}`\n    const fit = (w * 0.88) / g.measureText(word).width\n    size = Math.min(size, size * fit)\n    g.font = `${FACE.weight} ${size}px ${face}`\n    g.textAlign = \"center\"\n    g.textBaseline = \"middle\"\n    g.fillText(word, w / 2 - off, h / 2 + size * 0.04)\n    g.fillText(word, w / 2 - off, h / 2 + size * 0.04)\n  }\n\n  const paint = () => {\n    const s = st.current\n    const c = shown.current\n\n    if (!c || !s.base || !s.work) {\n      return\n    }\n\n    const w = c.width\n    const h = c.height\n\n    if (shape === \"Dots\" && (s.power > 0.002 || s.swollen)) {\n      field()\n      s.swollen = s.power > 0.002\n    }\n\n    const g = s.work.getContext(\"2d\", { willReadFrequently: true })\n\n    if (!g) {\n      return\n    }\n\n    g.globalCompositeOperation = \"source-over\"\n    g.globalAlpha = 1\n    g.fillStyle = \"#000\"\n    g.fillRect(0, 0, w, h)\n    g.globalAlpha = s.grow\n    g.drawImage(s.base, 0, 0)\n    g.globalAlpha = 1\n\n    if (s.power > 0.002) {\n      const cx = s.px * w\n      const cy = s.py * h\n      const rad = (60 + (knobs.current.heat / 100) * 50) * s.ratio * spread()\n      const amt = s.power * (0.35 + (knobs.current.heat / 100) * 0.55)\n      const cool = g.createRadialGradient(cx, cy, 0, cx, cy, rad)\n      const v = (k: number) => Math.round(255 * (1 - amt * k))\n\n      g.globalCompositeOperation = \"multiply\"\n      cool.addColorStop(0, `rgb(${v(1)},${v(1)},${v(1)})`)\n      cool.addColorStop(0.45, `rgb(${v(0.6)},${v(0.6)},${v(0.6)})`)\n      cool.addColorStop(1, \"rgb(255,255,255)\")\n      g.fillStyle = cool\n      g.fillRect(0, 0, w, h)\n    }\n\n    const src = g.getImageData(0, 0, w, h).data\n    const LUT = lut(knobs.current.colors)\n    const out = c.getContext(\"2d\")!.createImageData(w, h)\n    const d = out.data\n    const cx = s.px * w\n    const cy = s.py * h\n    const R = (95 + (knobs.current.heat / 100) * 55) * s.ratio * spread()\n    const R2 = R * R\n    const on = s.power\n\n    for (let y = 0, i = 0; y < h; y++) {\n      const dy2 = (y - cy) * (y - cy)\n\n      for (let x = 0; x < w; x++, i += 4) {\n        const f = src[i]\n        const v = f * 4\n        let m = 0\n\n        if (on > 0.002) {\n          const q = ((x - cx) * (x - cx) + dy2) / R2\n\n          if (q < 1) {\n            const t = 1 - q\n            m = on * t * t * (3 - 2 * t)\n          }\n        }\n\n        const ga = GREY_A[f]\n\n        if (m <= 0) {\n          d[i] = GREY[0]\n          d[i + 1] = GREY[1]\n          d[i + 2] = GREY[2]\n          d[i + 3] = ga\n          continue\n        }\n\n        const k = 1 - m\n        d[i] = GREY[0] * k + LUT[v] * m\n        d[i + 1] = GREY[1] * k + LUT[v + 1] * m\n        d[i + 2] = GREY[2] * k + LUT[v + 2] * m\n        d[i + 3] = ga * k + LUT[v + 3] * m\n      }\n    }\n\n    c.getContext(\"2d\")!.putImageData(out, 0, 0)\n  }\n\n  const build = () => {\n    const s = st.current\n    const r = Math.min(2, window.devicePixelRatio || 1)\n    s.ratio = r\n\n    const w = Math.round(W * r)\n    const h = Math.round(H * r)\n    const base = s.base ?? document.createElement(\"canvas\")\n    const work = s.work ?? document.createElement(\"canvas\")\n    const canvas = shown.current\n\n    if (!canvas) {\n      return\n    }\n\n    base.width = w\n    base.height = h\n    work.width = w\n    work.height = h\n    canvas.width = w\n    canvas.height = h\n    s.base = base\n    s.work = work\n    field()\n  }\n\n  const run = () => {\n    const s = st.current\n\n    if (s.raf || !s.visible || document.hidden) {\n      return\n    }\n    if (s.reducedMotion) {\n      s.power = s.want\n      s.grow = 1\n      paint()\n      return\n    }\n\n    let prev = performance.now()\n    const step = (t: number) => {\n      const dt = Math.min(0.05, (t - prev) / 1000)\n      prev = t\n      const k = 1 - Math.pow(0.002, dt)\n\n      s.elapsed += dt\n      if (!s.hovering) {\n        s.tx = 0.5 + Math.cos(s.elapsed * 0.7) * 0.24\n        s.ty = 0.5 + Math.sin(s.elapsed * 0.9) * 0.22\n      }\n\n      s.px += (s.tx - s.px) * k\n      s.py += (s.ty - s.py) * k\n      s.power += (s.want - s.power) * (1 - Math.pow(0.01, dt))\n      s.grow = Math.min(1, s.grow + dt / 0.9)\n      paint()\n\n      const still =\n        s.hovering &&\n        s.grow >= 1 &&\n        Math.abs(s.want - s.power) < 0.004 &&\n        Math.abs(s.tx - s.px) < 0.001 &&\n        Math.abs(s.ty - s.py) < 0.001\n\n      if (still && s.want === 0) {\n        s.power = 0\n      }\n\n      s.raf = still ? 0 : requestAnimationFrame(step)\n\n      if (still) {\n        paint()\n      }\n    }\n\n    s.raf = requestAnimationFrame(step)\n  }\n\n  useEffect(() => {\n    const s = st.current\n    let live = true\n    const motion = window.matchMedia(\"(prefers-reduced-motion: reduce)\")\n    s.reducedMotion = motion.matches\n    const pause = () => {\n      cancelAnimationFrame(s.raf)\n      s.raf = 0\n    }\n    const sync = () => {\n      pause()\n      s.reducedMotion = motion.matches\n      if (s.base) run()\n    }\n    const observer = typeof IntersectionObserver === \"undefined\" ? null : new IntersectionObserver(([entry]) => {\n      s.visible = entry.isIntersecting\n      sync()\n    })\n    if (shown.current) observer?.observe(shown.current)\n    document.addEventListener(\"visibilitychange\", sync)\n    motion.addEventListener(\"change\", sync)\n\n    ensure().then(() => {\n      if (!live) {\n        return\n      }\n\n      build()\n      s.grow = 0\n      run()\n    })\n\n    return () => {\n      live = false\n      pause()\n      observer?.disconnect()\n      document.removeEventListener(\"visibilitychange\", sync)\n      motion.removeEventListener(\"change\", sync)\n    }\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [shape, seed])\n\n  useEffect(() => {\n    if (!st.current.base) {\n      return\n    }\n\n    build()\n    paint()\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [soft])\n\n  const aim = (e: React.PointerEvent<HTMLDivElement>) => {\n    const r = e.currentTarget.getBoundingClientRect()\n    const s = st.current\n    if (!r.width || !r.height) return\n    s.tx = clamp((e.clientX - r.left) / r.width, 0, 1)\n    s.ty = clamp((e.clientY - r.top) / r.height, 0, 1)\n  }\n\n  return (\n    <div\n      className=\"grid w-full place-items-center\"\n      onPointerEnter={(e) => {\n        aim(e)\n        const s = st.current\n        s.hovering = true\n        s.want = 1\n        run()\n      }}\n      onPointerMove={(e) => {\n        aim(e)\n        st.current.want = 1\n        st.current.hovering = true\n        run()\n      }}\n      onPointerLeave={() => {\n        st.current.hovering = false\n        st.current.want = 1\n        run()\n      }}\n      onPointerCancel={() => {\n        st.current.hovering = false\n        run()\n      }}\n      role=\"img\"\n      aria-label={shape === \"Word\" ? word : shape}\n    >\n      <canvas\n        ref={shown}\n        className=\"h-auto w-full max-w-[360px]\"\n        style={{ aspectRatio: `${W} / ${H}` }}\n        aria-hidden=\"true\"\n      />\n    </div>\n  )\n}\n\nexport { HeatWord }\n",
+      "type": "registry:component",
+      "target": "@components/heat-word.tsx"
+    },
+    {
+      "path": "docs/compass.md",
+      "content": "# Building with COMPASS\n\nUse the installed COMPASS components and semantic design tokens rather than\nrecreating similar controls. This public distribution contains component source,\nfoundations, and Basic rules only.\n\n## Installation contract\n\n- React, Tailwind CSS v4, and a configured shadcn project are required.\n- Use the version-pinned hosted Registry documented in the README.\n- Request `foundations.json` explicitly alongside component items so the shared\n  tokens replace shadcn defaults. Review customized files before overwriting them.\n- Connect `components/theme-provider.tsx` at the application root. Preserve the\n  user's system theme preference and check light and dark rendering.\n- Keep the installed version and project integration choices in the project's\n  own notes. Do not update customized components automatically.\n\n## Working rules\n\n- Reuse `components/ui` and its actual variants and APIs.\n- Use semantic background, foreground, primary, border, input, and state tokens.\n- Use Pretendard Variable and the installed typography and spacing scales.\n- Use Lucide icons, accessible names for icon-only controls, and visible focus.\n- Preserve link semantics for navigation and button semantics for actions.\n- Provide useful loading, empty, error, success, and disabled states.\n- Keep text readable and controls stable on narrow screens and with longer labels.\n- Respect reduced motion. Do not delay important actions for decoration.\n- Read the relevant English or Korean Do / Don't reference under\n  `skills/compass/references/` before changing a component's behavior.\n- Run the target project's typecheck and build, then inspect the affected views.\n\nThis guide and Basic Skill do not grant permission to publish, send private data,\nor change unrelated systems. Plus documents, paid Skills, member images, and\nprivate service implementation are not included.\n",
+      "type": "registry:file",
+      "target": "~/docs/compass.md"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "shadow-sm": "var(--surface-shadow-sm)",
+      "shadow-md": "var(--surface-shadow-md)",
+      "shadow-lg": "var(--surface-shadow-lg)",
+      "font-heading": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-sans": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-mono": "\"SFMono-Regular\", Consolas, \"Liberation Mono\", Menlo, monospace",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-chart-5": "var(--chart-5)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-1": "var(--chart-1)",
+      "color-ring": "var(--ring)",
+      "color-input": "var(--input)",
+      "color-border": "var(--border)",
+      "color-destructive": "var(--destructive)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-accent": "var(--accent)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-muted": "var(--muted)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-button-secondary": "var(--button-secondary)",
+      "color-button-secondary-hover": "var(--button-secondary-hover)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-primary": "var(--primary)",
+      "color-primary-hover": "var(--primary-hover)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-popover": "var(--popover)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-card": "var(--card)",
+      "color-foreground": "var(--foreground)",
+      "color-background": "var(--background)",
+      "color-gallery-background": "var(--gallery-background)",
+      "color-tab-muted": "var(--tab-muted)",
+      "color-tag": "var(--tag)",
+      "color-tag-foreground": "var(--tag-foreground)",
+      "radius-sm": "calc(var(--radius) * 0.15)",
+      "radius-md": "calc(var(--radius) * 0.2)",
+      "radius-lg": "calc(var(--radius) * 0.25)",
+      "radius-xl": "calc(var(--radius) * 0.35)",
+      "radius-2xl": "calc(var(--radius) * 0.45)",
+      "radius-3xl": "calc(var(--radius) * 0.55)",
+      "radius-4xl": "calc(var(--radius) * 0.65)",
+      "radius-5xl": "calc(var(--radius) * 0.8)",
+      "radius-6xl": "var(--radius)",
+      "radius-container": "min(var(--container-radius), max(0px, calc(var(--nested-radius, var(--container-radius)) + var(--nested-gap, 0px))))"
+    },
+    "light": {
+      "text-icon-size": "1.125em",
+      "corner-shape": "squircle",
+      "button-corner-shape": "superellipse(1.15)",
+      "avatar-color-blue": "#2563eb",
+      "avatar-color-teal": "#0f766e",
+      "avatar-color-rose": "#be185d",
+      "avatar-color-violet": "#7c3aed",
+      "avatar-color-orange": "#c2410c",
+      "avatar-color-green": "#15803d",
+      "avatar-color-sky": "#0369a1",
+      "avatar-color-red": "#b91c1c",
+      "avatar-color-foreground": "#ffffff",
+      "avatar-profile-background": "#e5f1ff",
+      "avatar-profile-foreground": "#0056b3",
+      "surface-shadow-sm": "0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%)",
+      "surface-shadow-md": "0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%)",
+      "surface-shadow-lg": "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%)",
+      "slider-thumb-surface": "radial-gradient(ellipse at 35% 25%, #ffffff 0%, #ffffff 50%, #fdfdfd 78%, #f4f4f4 100%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow": "0 6px 16px -4px rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow-hover": "0 6px 16px -4px rgb(0 0 0 / 20%), 0 2px 4px -1px rgb(0 0 0 / 10%)",
+      "background": "#ffffff",
+      "gallery-background": "#f7f7f7",
+      "gallery-preview-background": "oklch(1 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "card": "oklch(1 0 0)",
+      "card-foreground": "oklch(0.145 0 0)",
+      "popover": "oklch(1 0 0)",
+      "popover-foreground": "oklch(0.145 0 0)",
+      "primary": "#007AFF",
+      "primary-hover": "color-mix(in oklch, var(--primary), black 12%)",
+      "primary-foreground": "#ffffff",
+      "button-secondary": "color-mix(in oklch, var(--primary) 24%, var(--background))",
+      "button-secondary-hover": "color-mix(in oklch, var(--primary) 32%, var(--background))",
+      "secondary": "oklch(0.97 0 0)",
+      "secondary-foreground": "oklch(0.205 0 0)",
+      "muted": "oklch(0.97 0 0)",
+      "tab-muted": "oklch(0.95 0 0)",
+      "layout-preview-background": "oklch(0.95 0 0)",
+      "tag": "#F4F4F4",
+      "tag-foreground": "oklch(0.205 0 0)",
+      "muted-foreground": "oklch(0.556 0 0)",
+      "accent": "#007AFF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "border": "oklch(0.922 0 0)",
+      "input": "oklch(0.922 0 0)",
+      "ring": "oklch(0.708 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#5F96D8",
+      "chart-3": "#315F99",
+      "chart-4": "#224777",
+      "chart-5": "#173254",
+      "radius": "2.5rem",
+      "container-radius": "2.5rem",
+      "sidebar": "oklch(0.985 0 0)",
+      "sidebar-foreground": "oklch(0.145 0 0)",
+      "sidebar-primary": "oklch(0.205 0 0)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.97 0 0)",
+      "sidebar-accent-foreground": "oklch(0.205 0 0)",
+      "sidebar-border": "oklch(0.922 0 0)",
+      "sidebar-ring": "oklch(0.708 0 0)"
+    },
+    "dark": {
+      "button-secondary": "#d6e8ff",
+      "button-secondary-hover": "#c4deff",
+      "surface-shadow-sm": "0 2px 6px 0 rgb(0 0 0 / 40%), 0 1px 2px 0 rgb(0 0 0 / 25%)",
+      "surface-shadow-md": "0 6px 16px -2px rgb(0 0 0 / 50%), 0 2px 6px 0 rgb(0 0 0 / 35%)",
+      "surface-shadow-lg": "0 14px 32px -4px rgb(0 0 0 / 65%), 0 6px 12px -2px rgb(0 0 0 / 45%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 20%), 0 1px 1px rgb(0 0 0 / 10%)",
+      "slider-thumb-shadow": "0 6px 18px -4px rgb(0 0 0 / 28%), 0 2px 4px -1px rgb(0 0 0 / 12%)",
+      "slider-thumb-shadow-hover": "0 6px 18px -4px rgb(0 0 0 / 40%), 0 2px 4px -1px rgb(0 0 0 / 20%)",
+      "background": "oklch(0.18 0 0)",
+      "gallery-background": "oklch(0.18 0 0)",
+      "gallery-preview-background": "oklch(0.23 0 0)",
+      "foreground": "oklch(0.985 0 0)",
+      "card": "oklch(0.205 0 0)",
+      "card-foreground": "oklch(0.985 0 0)",
+      "popover": "oklch(0.205 0 0)",
+      "popover-foreground": "oklch(0.985 0 0)",
+      "primary": "#3390FF",
+      "primary-foreground": "#ffffff",
+      "secondary": "oklch(0.269 0 0)",
+      "secondary-foreground": "oklch(0.985 0 0)",
+      "muted": "oklch(0.269 0 0)",
+      "tab-muted": "oklch(0.27 0 0)",
+      "layout-preview-background": "oklch(0.27 0 0)",
+      "muted-foreground": "oklch(0.708 0 0)",
+      "accent": "#3390FF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "border": "oklch(1 0 0 / 10%)",
+      "input": "oklch(1 0 0 / 20%)",
+      "ring": "oklch(0.556 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#8DBFFF",
+      "chart-3": "#66A5F2",
+      "chart-4": "#4D88D4",
+      "chart-5": "#3976C5",
+      "sidebar": "oklch(0.205 0 0)",
+      "sidebar-foreground": "oklch(0.985 0 0)",
+      "sidebar-primary": "oklch(0.488 0.243 264.376)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.269 0 0)",
+      "sidebar-accent-foreground": "oklch(0.985 0 0)",
+      "sidebar-border": "oklch(1 0 0 / 10%)",
+      "sidebar-ring": "oklch(0.556 0 0)"
+    }
+  },
+  "css": {
+    "@import \"tw-animate-css\"": {},
+    "@import \"shadcn/tailwind.css\"": {},
+    "@import \"leaflet/dist/leaflet.css\"": {},
+    "@import \"@ncdai/react-wheel-picker/style.css\"": {},
+    "@custom-variant dark (&:is(.dark *))": {},
+    "@font-face": {
+      "font-family": "\"Satoshi\"",
+      "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
+      "font-weight": "700",
+      "font-style": "normal",
+      "font-display": "swap"
+    },
+    "@keyframes gallery-card-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(14px) scale(0.98)",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none",
+        "filter": "none"
+      }
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".notification-badge-reveal,\n  .notification-badge-reveal[data-visible=\"false\"][data-animated=\"true\"]": {
+        "animation": "none"
+      }
+    },
+    "@keyframes pricing-content-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(16px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    "@layer base": {
+      "*": {
+        "@apply border-border outline-ring/50": {}
+      },
+      "body": {
+        "@apply bg-background text-base text-foreground": {}
+      },
+      "button:not(:disabled):not([aria-disabled=\"true\"]), [role=\"button\"]:not(:disabled):not([aria-disabled=\"true\"])": {
+        "cursor": "pointer"
+      },
+      ":disabled, [aria-disabled=\"true\"], [data-disabled]": {
+        "cursor": "not-allowed"
+      },
+      "html": {
+        "@apply font-sans": {}
+      },
+      "a[href], [role=\"link\"]": {
+        "display": "inline-block"
+      },
+      "@supports (corner-shape: squircle)": {
+        "*": {
+          "corner-shape": "var(--corner-shape)"
+        },
+        "::before, ::after": {
+          "corner-shape": "inherit"
+        },
+        ":where(.rounded-full,\n           [data-slot^=\"avatar\"], [data-slot=\"slider-thumb\"],\n           [data-slot=\"slider-track\"], [data-slot=\"progress\"],\n           [data-corner=\"round\"])": {
+          "corner-shape": "round"
+        },
+        "[data-corner=\"continuous\"]": {
+          "corner-shape": "var(--button-corner-shape)"
+        }
+      }
+    },
+    "@property --interaction-strength": {
+      "syntax": "\"<number>\"",
+      "inherits": "false",
+      "initial-value": "0"
+    },
+    "@property --button-ripple-radius": {
+      "syntax": "\"<length>\"",
+      "inherits": "false",
+      "initial-value": "0px"
+    },
+    "@keyframes button-ripple": {
+      "from": {
+        "--button-ripple-radius": "0px",
+        "opacity": "1"
+      },
+      "35%": {
+        "opacity": "0.85"
+      },
+      "to": {
+        "--button-ripple-radius": "var(--button-ripple-size, 160px)",
+        "opacity": "0"
+      }
+    },
+    "@keyframes compass-tooltip-in": {
+      "from": {
+        "opacity": "0",
+        "transform": "translate(var(--tooltip-enter-x), var(--tooltip-enter-y)) scale(0.72)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translate(0, 0) scale(1)"
+      }
+    },
+    "@keyframes compass-tooltip-out": {
+      "from": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      },
+      "to": {
+        "opacity": "0",
+        "transform": "scale(0.94)"
+      }
+    },
+    "@keyframes skeleton-shimmer": {
+      "0%, 100%": {
+        "opacity": "0.15",
+        "transform": "scale(0.8)"
+      },
+      "50%": {
+        "opacity": "1",
+        "transform": "scale(1.4)"
+      }
+    },
+    "@keyframes progress-bar-flow": {
+      "from": {
+        "transform": "translateX(-100%)"
+      },
+      "to": {
+        "transform": "translateX(100%)"
+      }
+    },
+    "@keyframes progress-percentage-shimmer": {
+      "from": {
+        "background-position": "100% 0"
+      },
+      "to": {
+        "background-position": "0% 0"
+      }
+    },
+    "@keyframes notification-badge-dismiss": {
+      "from": {
+        "translate": "0 0",
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      },
+      "to": {
+        "translate": "-4px 6px",
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      }
+    },
+    "@keyframes check-stroke-draw": {
+      "from": {
+        "stroke-dashoffset": "24"
+      },
+      "to": {
+        "stroke-dashoffset": "48"
+      }
+    },
+    "@keyframes notification-badge-slide": {
+      "from": {
+        "translate": "-8.2px 12.4px"
+      },
+      "to": {
+        "translate": "0 0"
+      }
+    },
+    "@keyframes notification-badge-pop": {
+      "from": {
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      }
+    },
+    "@import \"pretendard/dist/web/variable/pretendardvariable.css\"": {}
+  },
+  "meta": {
+    "version": "1.0.0",
+    "group": "effects",
+    "distribution": "public-source",
+    "documentation": "Public-only guide; no operating-service documentation."
+  },
+  "docs": "Requires an existing React + Tailwind CSS v4 project initialized with shadcn. COMPASS merges global styles; review existing components and CSS before installing. ThemeProvider must be connected to the application root separately. See /docs/registry and /docs/ai.",
+  "type": "registry:component"
+}

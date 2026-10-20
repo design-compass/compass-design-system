@@ -1,0 +1,395 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "title": "드롭다운",
+  "description": "드롭다운 from COMPASS Design System. Public source, shared tokens, and practical UX rules.",
+  "dependencies": [
+    "cn@0.4.0",
+    "lucide-react@1.52.0",
+    "pretendard@1.3.9",
+    "radix-ui@1.6.7",
+    "shadcn@4.21.0",
+    "tw-animate-css@1.4.0",
+    "leaflet@1.9.4"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/design-compass/compass-design-system/main/r/foundations.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/select.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\nimport { Select as SelectPrimitive } from \"radix-ui\"\n\nimport { ChevronsUpDown, Check, ChevronUp, ChevronDown } from \"lucide-react\"\n\nfunction Select({\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Root>) {\n  return <SelectPrimitive.Root data-slot=\"select\" {...props} />\n}\n\nfunction SelectGroup({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Group>) {\n  return (\n    <SelectPrimitive.Group\n      data-slot=\"select-group\"\n      className={cn(\"scroll-my-1 p-0\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction SelectValue({\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Value>) {\n  return <SelectPrimitive.Value data-slot=\"select-value\" {...props} />\n}\n\nfunction SelectTrigger({\n  className,\n  size = \"default\",\n  children,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Trigger> & {\n  size?: \"sm\" | \"default\"\n}) {\n  return (\n    <SelectPrimitive.Trigger\n      data-slot=\"select-trigger\"\n      data-size={size}\n      className={cn(\n\"flex h-10 min-h-10 w-fit items-center justify-between gap-1.5 rounded-xl border border-input bg-transparent py-[4pt] pr-[calc(.5rem+4pt)] pl-[calc(.625rem+4pt)] text-base whitespace-nowrap transition-colors outline-none select-none not-disabled:hover:bg-black/5 not-disabled:hover:text-[color-mix(in_oklch,var(--foreground),transparent_20%)] focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=sm]:h-8 data-[size=sm]:min-h-8 data-[size=sm]:py-1 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-transparent dark:not-disabled:hover:bg-transparent dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      <SelectPrimitive.Icon asChild>\n        <ChevronsUpDown strokeWidth={2} className=\"pointer-events-none size-4 text-muted-foreground\" />\n      </SelectPrimitive.Icon>\n    </SelectPrimitive.Trigger>\n  )\n}\n\nfunction SelectContent({\n  className,\n  children,\n  position = \"popper\",\n  align = \"start\",\n  side = \"bottom\",\n  sideOffset = 4,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Content>) {\n  return (\n    <SelectPrimitive.Portal>\n      <SelectPrimitive.Content\n        data-slot=\"select-content\"\n        data-align-trigger={position === \"item-aligned\"}\n        className={cn(\"relative z-50 max-h-(--radix-select-content-available-height) min-w-0 origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-xl bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[align-trigger=false]:min-w-(--radix-select-trigger-width) data-[align-trigger=true]:animate-none data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95\", position ===\"popper\"&&\"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1\", className )}\n        position={position}\n        align={align}\n        side={side}\n        sideOffset={sideOffset}\n        {...props}\n      >\n        <SelectScrollUpButton />\n        <SelectPrimitive.Viewport\n          data-position={position}\n          className={cn(\n            \"py-1 data-[position=popper]:w-full data-[position=popper]:min-w-(--radix-select-trigger-width)\",\n            position === \"popper\" && \"\"\n          )}\n        >\n          {children}\n        </SelectPrimitive.Viewport>\n        <SelectScrollDownButton />\n      </SelectPrimitive.Content>\n    </SelectPrimitive.Portal>\n  )\n}\n\nfunction SelectLabel({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Label>) {\n  return (\n    <SelectPrimitive.Label\n      data-slot=\"select-label\"\n      className={cn(\"px-1.5 py-1 text-xs text-muted-foreground\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction SelectItem({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Item>) {\n  return (\n    <SelectPrimitive.Item\n      data-slot=\"select-item\"\n      className={cn(\n\"relative isolate flex h-10 w-full cursor-pointer items-center gap-1.5 rounded-none border border-transparent py-[4pt] pr-[calc(2rem+4pt)] pl-[calc(.625rem+4pt)] text-base outline-hidden select-none before:pointer-events-none before:absolute before:inset-x-1 before:inset-y-0.5 before:-z-10 before:rounded-[calc(var(--radius)*0.35-4px)] before:bg-muted before:opacity-0 before:transition-opacity before:duration-100 before:content-[''] not-data-disabled:focus:before:opacity-100 not-data-disabled:focus:text-popover-foreground not-data-disabled:data-highlighted:before:opacity-100 not-data-disabled:data-highlighted:text-popover-foreground motion-reduce:before:transition-none data-disabled:cursor-not-allowed data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"pointer-events-none absolute right-[calc(.5rem+4pt)] flex size-4 items-center justify-center\">\n        <SelectPrimitive.ItemIndicator>\n          <Check strokeWidth={2} className=\"pointer-events-none\" />\n        </SelectPrimitive.ItemIndicator>\n      </span>\n      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\n    </SelectPrimitive.Item>\n  )\n}\n\nfunction SelectSeparator({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.Separator>) {\n  return (\n    <SelectPrimitive.Separator\n      data-slot=\"select-separator\"\n      className={cn(\"pointer-events-none -mx-1 my-1 h-px bg-border\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction SelectScrollUpButton({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {\n  return (\n    <SelectPrimitive.ScrollUpButton\n      data-slot=\"select-scroll-up-button\"\n      className={cn(\n        \"z-10 flex cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4\",\n        className\n      )}\n      {...props}\n    >\n      <ChevronUp strokeWidth={2} />\n    </SelectPrimitive.ScrollUpButton>\n  )\n}\n\nfunction SelectScrollDownButton({\n  className,\n  ...props\n}: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {\n  return (\n    <SelectPrimitive.ScrollDownButton\n      data-slot=\"select-scroll-down-button\"\n      className={cn(\n        \"z-10 flex cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4\",\n        className\n      )}\n      {...props}\n    >\n      <ChevronDown strokeWidth={2} />\n    </SelectPrimitive.ScrollDownButton>\n  )\n}\n\nexport {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectScrollDownButton,\n  SelectScrollUpButton,\n  SelectSeparator,\n  SelectTrigger,\n  SelectValue,\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/select.tsx"
+    },
+    {
+      "path": "docs/compass.md",
+      "content": "# Building with COMPASS\n\nUse the installed COMPASS components and semantic design tokens rather than\nrecreating similar controls. This public distribution contains component source,\nfoundations, and Basic rules only.\n\n## Installation contract\n\n- React, Tailwind CSS v4, and a configured shadcn project are required.\n- Use the version-pinned hosted Registry documented in the README.\n- Request `foundations.json` explicitly alongside component items so the shared\n  tokens replace shadcn defaults. Review customized files before overwriting them.\n- Connect `components/theme-provider.tsx` at the application root. Preserve the\n  user's system theme preference and check light and dark rendering.\n- Keep the installed version and project integration choices in the project's\n  own notes. Do not update customized components automatically.\n\n## Working rules\n\n- Reuse `components/ui` and its actual variants and APIs.\n- Use semantic background, foreground, primary, border, input, and state tokens.\n- Use Pretendard Variable and the installed typography and spacing scales.\n- Use Lucide icons, accessible names for icon-only controls, and visible focus.\n- Preserve link semantics for navigation and button semantics for actions.\n- Provide useful loading, empty, error, success, and disabled states.\n- Keep text readable and controls stable on narrow screens and with longer labels.\n- Respect reduced motion. Do not delay important actions for decoration.\n- Read the relevant English or Korean Do / Don't reference under\n  `skills/compass/references/` before changing a component's behavior.\n- Run the target project's typecheck and build, then inspect the affected views.\n\nThis guide and Basic Skill do not grant permission to publish, send private data,\nor change unrelated systems. Plus documents, paid Skills, member images, and\nprivate service implementation are not included.\n",
+      "type": "registry:file",
+      "target": "~/docs/compass.md"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "shadow-sm": "var(--surface-shadow-sm)",
+      "shadow-md": "var(--surface-shadow-md)",
+      "shadow-lg": "var(--surface-shadow-lg)",
+      "font-heading": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-sans": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-mono": "\"SFMono-Regular\", Consolas, \"Liberation Mono\", Menlo, monospace",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-chart-5": "var(--chart-5)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-1": "var(--chart-1)",
+      "color-ring": "var(--ring)",
+      "color-input": "var(--input)",
+      "color-border": "var(--border)",
+      "color-destructive": "var(--destructive)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-accent": "var(--accent)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-muted": "var(--muted)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-button-secondary": "var(--button-secondary)",
+      "color-button-secondary-hover": "var(--button-secondary-hover)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-primary": "var(--primary)",
+      "color-primary-hover": "var(--primary-hover)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-popover": "var(--popover)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-card": "var(--card)",
+      "color-foreground": "var(--foreground)",
+      "color-background": "var(--background)",
+      "color-gallery-background": "var(--gallery-background)",
+      "color-tab-muted": "var(--tab-muted)",
+      "color-tag": "var(--tag)",
+      "color-tag-foreground": "var(--tag-foreground)",
+      "radius-sm": "calc(var(--radius) * 0.15)",
+      "radius-md": "calc(var(--radius) * 0.2)",
+      "radius-lg": "calc(var(--radius) * 0.25)",
+      "radius-xl": "calc(var(--radius) * 0.35)",
+      "radius-2xl": "calc(var(--radius) * 0.45)",
+      "radius-3xl": "calc(var(--radius) * 0.55)",
+      "radius-4xl": "calc(var(--radius) * 0.65)",
+      "radius-5xl": "calc(var(--radius) * 0.8)",
+      "radius-6xl": "var(--radius)",
+      "radius-container": "min(var(--container-radius), max(0px, calc(var(--nested-radius, var(--container-radius)) + var(--nested-gap, 0px))))"
+    },
+    "light": {
+      "text-icon-size": "1.125em",
+      "corner-shape": "squircle",
+      "button-corner-shape": "superellipse(1.15)",
+      "avatar-color-blue": "#2563eb",
+      "avatar-color-teal": "#0f766e",
+      "avatar-color-rose": "#be185d",
+      "avatar-color-violet": "#7c3aed",
+      "avatar-color-orange": "#c2410c",
+      "avatar-color-green": "#15803d",
+      "avatar-color-sky": "#0369a1",
+      "avatar-color-red": "#b91c1c",
+      "avatar-color-foreground": "#ffffff",
+      "avatar-profile-background": "#e5f1ff",
+      "avatar-profile-foreground": "#0056b3",
+      "surface-shadow-sm": "0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%)",
+      "surface-shadow-md": "0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%)",
+      "surface-shadow-lg": "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%)",
+      "slider-thumb-surface": "radial-gradient(ellipse at 35% 25%, #ffffff 0%, #ffffff 50%, #fdfdfd 78%, #f4f4f4 100%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow": "0 6px 16px -4px rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow-hover": "0 6px 16px -4px rgb(0 0 0 / 20%), 0 2px 4px -1px rgb(0 0 0 / 10%)",
+      "background": "#ffffff",
+      "gallery-background": "#f7f7f7",
+      "gallery-preview-background": "oklch(1 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "card": "oklch(1 0 0)",
+      "card-foreground": "oklch(0.145 0 0)",
+      "popover": "oklch(1 0 0)",
+      "popover-foreground": "oklch(0.145 0 0)",
+      "primary": "#007AFF",
+      "primary-hover": "color-mix(in oklch, var(--primary), black 12%)",
+      "primary-foreground": "#ffffff",
+      "button-secondary": "color-mix(in oklch, var(--primary) 24%, var(--background))",
+      "button-secondary-hover": "color-mix(in oklch, var(--primary) 32%, var(--background))",
+      "secondary": "oklch(0.97 0 0)",
+      "secondary-foreground": "oklch(0.205 0 0)",
+      "muted": "oklch(0.97 0 0)",
+      "tab-muted": "oklch(0.95 0 0)",
+      "layout-preview-background": "oklch(0.95 0 0)",
+      "tag": "#F4F4F4",
+      "tag-foreground": "oklch(0.205 0 0)",
+      "muted-foreground": "oklch(0.556 0 0)",
+      "accent": "#007AFF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "border": "oklch(0.922 0 0)",
+      "input": "oklch(0.922 0 0)",
+      "ring": "oklch(0.708 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#5F96D8",
+      "chart-3": "#315F99",
+      "chart-4": "#224777",
+      "chart-5": "#173254",
+      "radius": "2.5rem",
+      "container-radius": "2.5rem",
+      "sidebar": "oklch(0.985 0 0)",
+      "sidebar-foreground": "oklch(0.145 0 0)",
+      "sidebar-primary": "oklch(0.205 0 0)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.97 0 0)",
+      "sidebar-accent-foreground": "oklch(0.205 0 0)",
+      "sidebar-border": "oklch(0.922 0 0)",
+      "sidebar-ring": "oklch(0.708 0 0)"
+    },
+    "dark": {
+      "button-secondary": "#d6e8ff",
+      "button-secondary-hover": "#c4deff",
+      "surface-shadow-sm": "0 2px 6px 0 rgb(0 0 0 / 40%), 0 1px 2px 0 rgb(0 0 0 / 25%)",
+      "surface-shadow-md": "0 6px 16px -2px rgb(0 0 0 / 50%), 0 2px 6px 0 rgb(0 0 0 / 35%)",
+      "surface-shadow-lg": "0 14px 32px -4px rgb(0 0 0 / 65%), 0 6px 12px -2px rgb(0 0 0 / 45%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 20%), 0 1px 1px rgb(0 0 0 / 10%)",
+      "slider-thumb-shadow": "0 6px 18px -4px rgb(0 0 0 / 28%), 0 2px 4px -1px rgb(0 0 0 / 12%)",
+      "slider-thumb-shadow-hover": "0 6px 18px -4px rgb(0 0 0 / 40%), 0 2px 4px -1px rgb(0 0 0 / 20%)",
+      "background": "oklch(0.18 0 0)",
+      "gallery-background": "oklch(0.18 0 0)",
+      "gallery-preview-background": "oklch(0.23 0 0)",
+      "foreground": "oklch(0.985 0 0)",
+      "card": "oklch(0.205 0 0)",
+      "card-foreground": "oklch(0.985 0 0)",
+      "popover": "oklch(0.205 0 0)",
+      "popover-foreground": "oklch(0.985 0 0)",
+      "primary": "#3390FF",
+      "primary-foreground": "#ffffff",
+      "secondary": "oklch(0.269 0 0)",
+      "secondary-foreground": "oklch(0.985 0 0)",
+      "muted": "oklch(0.269 0 0)",
+      "tab-muted": "oklch(0.27 0 0)",
+      "layout-preview-background": "oklch(0.27 0 0)",
+      "muted-foreground": "oklch(0.708 0 0)",
+      "accent": "#3390FF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "border": "oklch(1 0 0 / 10%)",
+      "input": "oklch(1 0 0 / 20%)",
+      "ring": "oklch(0.556 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#8DBFFF",
+      "chart-3": "#66A5F2",
+      "chart-4": "#4D88D4",
+      "chart-5": "#3976C5",
+      "sidebar": "oklch(0.205 0 0)",
+      "sidebar-foreground": "oklch(0.985 0 0)",
+      "sidebar-primary": "oklch(0.488 0.243 264.376)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.269 0 0)",
+      "sidebar-accent-foreground": "oklch(0.985 0 0)",
+      "sidebar-border": "oklch(1 0 0 / 10%)",
+      "sidebar-ring": "oklch(0.556 0 0)"
+    }
+  },
+  "css": {
+    "@import \"tw-animate-css\"": {},
+    "@import \"shadcn/tailwind.css\"": {},
+    "@import \"leaflet/dist/leaflet.css\"": {},
+    "@import \"@ncdai/react-wheel-picker/style.css\"": {},
+    "@custom-variant dark (&:is(.dark *))": {},
+    "@font-face": {
+      "font-family": "\"Satoshi\"",
+      "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
+      "font-weight": "700",
+      "font-style": "normal",
+      "font-display": "swap"
+    },
+    "@keyframes gallery-card-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(14px) scale(0.98)",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none",
+        "filter": "none"
+      }
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".notification-badge-reveal,\n  .notification-badge-reveal[data-visible=\"false\"][data-animated=\"true\"]": {
+        "animation": "none"
+      }
+    },
+    "@keyframes pricing-content-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(16px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    "@layer base": {
+      "*": {
+        "@apply border-border outline-ring/50": {}
+      },
+      "body": {
+        "@apply bg-background text-base text-foreground": {}
+      },
+      "button:not(:disabled):not([aria-disabled=\"true\"]), [role=\"button\"]:not(:disabled):not([aria-disabled=\"true\"])": {
+        "cursor": "pointer"
+      },
+      ":disabled, [aria-disabled=\"true\"], [data-disabled]": {
+        "cursor": "not-allowed"
+      },
+      "html": {
+        "@apply font-sans": {}
+      },
+      "a[href], [role=\"link\"]": {
+        "display": "inline-block"
+      },
+      "@supports (corner-shape: squircle)": {
+        "*": {
+          "corner-shape": "var(--corner-shape)"
+        },
+        "::before, ::after": {
+          "corner-shape": "inherit"
+        },
+        ":where(.rounded-full,\n           [data-slot^=\"avatar\"], [data-slot=\"slider-thumb\"],\n           [data-slot=\"slider-track\"], [data-slot=\"progress\"],\n           [data-corner=\"round\"])": {
+          "corner-shape": "round"
+        },
+        "[data-corner=\"continuous\"]": {
+          "corner-shape": "var(--button-corner-shape)"
+        }
+      }
+    },
+    "@property --interaction-strength": {
+      "syntax": "\"<number>\"",
+      "inherits": "false",
+      "initial-value": "0"
+    },
+    "@property --button-ripple-radius": {
+      "syntax": "\"<length>\"",
+      "inherits": "false",
+      "initial-value": "0px"
+    },
+    "@keyframes button-ripple": {
+      "from": {
+        "--button-ripple-radius": "0px",
+        "opacity": "1"
+      },
+      "35%": {
+        "opacity": "0.85"
+      },
+      "to": {
+        "--button-ripple-radius": "var(--button-ripple-size, 160px)",
+        "opacity": "0"
+      }
+    },
+    "@keyframes compass-tooltip-in": {
+      "from": {
+        "opacity": "0",
+        "transform": "translate(var(--tooltip-enter-x), var(--tooltip-enter-y)) scale(0.72)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translate(0, 0) scale(1)"
+      }
+    },
+    "@keyframes compass-tooltip-out": {
+      "from": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      },
+      "to": {
+        "opacity": "0",
+        "transform": "scale(0.94)"
+      }
+    },
+    "@keyframes skeleton-shimmer": {
+      "0%, 100%": {
+        "opacity": "0.15",
+        "transform": "scale(0.8)"
+      },
+      "50%": {
+        "opacity": "1",
+        "transform": "scale(1.4)"
+      }
+    },
+    "@keyframes progress-bar-flow": {
+      "from": {
+        "transform": "translateX(-100%)"
+      },
+      "to": {
+        "transform": "translateX(100%)"
+      }
+    },
+    "@keyframes progress-percentage-shimmer": {
+      "from": {
+        "background-position": "100% 0"
+      },
+      "to": {
+        "background-position": "0% 0"
+      }
+    },
+    "@keyframes notification-badge-dismiss": {
+      "from": {
+        "translate": "0 0",
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      },
+      "to": {
+        "translate": "-4px 6px",
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      }
+    },
+    "@keyframes check-stroke-draw": {
+      "from": {
+        "stroke-dashoffset": "24"
+      },
+      "to": {
+        "stroke-dashoffset": "48"
+      }
+    },
+    "@keyframes notification-badge-slide": {
+      "from": {
+        "translate": "-8.2px 12.4px"
+      },
+      "to": {
+        "translate": "0 0"
+      }
+    },
+    "@keyframes notification-badge-pop": {
+      "from": {
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      }
+    },
+    "@import \"pretendard/dist/web/variable/pretendardvariable.css\"": {}
+  },
+  "meta": {
+    "version": "1.0.0",
+    "group": "input",
+    "distribution": "public-source",
+    "documentation": "Public-only guide; no operating-service documentation."
+  },
+  "docs": "Requires an existing React + Tailwind CSS v4 project initialized with shadcn. COMPASS merges global styles; review existing components and CSS before installing. ThemeProvider must be connected to the application root separately. See /docs/registry and /docs/ai.",
+  "type": "registry:ui"
+}

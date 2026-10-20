@@ -65,6 +65,28 @@ Review changes before replacing customized components. Connect the installed the
 
 Browse the [versioned Registry catalog](https://compass.designcompass.org/r/1.0.0/registry.json) for individual items.
 
+### Use the public GitHub registry
+
+The free distribution also provides a flat [public Registry index](https://raw.githubusercontent.com/design-compass/compass-design-system/main/r/registry.json) and individual install payloads under `r/`.
+
+Add this mapping to the `registries` object in your existing `components.json` to use the namespace directly, independently of directory approval:
+
+```json
+{
+  "registries": {
+    "@compass": "https://raw.githubusercontent.com/design-compass/compass-design-system/main/r/{name}.json"
+  }
+}
+```
+
+Then install the foundations explicitly together with your component:
+
+```sh
+npx shadcn@latest add @compass/foundations @compass/button
+```
+
+Merge the mapping with your existing configuration; do not replace the entire file. The `main` URLs follow this repository's current public distribution. Pin a Git commit in those URLs when you need an immutable revision. Rebuild the public payloads with `npm run registry:build` after reviewing source changes.
+
 ## Connect your agent
 
 **Skill** gives your agent a reusable workflow and public component rules. **MCP** lets it look up current public guidance as it works. Neither replaces installing and testing the components in your project.

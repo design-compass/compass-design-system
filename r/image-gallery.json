@@ -1,0 +1,409 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image-gallery",
+  "title": "이미지 갤러리",
+  "description": "이미지 갤러리 from COMPASS Design System. Public source, shared tokens, and practical UX rules.",
+  "dependencies": [
+    "class-variance-authority@0.7.1",
+    "cn@0.4.0",
+    "lucide-react@1.52.0",
+    "next@16.3.8",
+    "pretendard@1.3.9",
+    "radix-ui@1.6.7",
+    "shadcn@4.21.0",
+    "tw-animate-css@1.4.0",
+    "leaflet@1.9.4"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/design-compass/compass-design-system/main/r/foundations.json"
+  ],
+  "files": [
+    {
+      "path": "components/ui/image-gallery.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport Image from \"next/image\"\nimport { ChevronLeft, ChevronRight } from \"lucide-react\"\nimport { Button } from \"@/components/ui/button\"\nimport { Dialog, DialogContent, DialogTitle } from \"@/components/ui/dialog\"\n\nexport type GalleryPhoto = {\n  src: string\n  width: number\n  height: number\n  alt: string\n  altKo: string\n  crop?: { aspectRatio: number; position?: string }\n}\nexport type GalleryLayout = \"grid\" | \"masonry\" | \"justified\" | \"thumbnail\"\n\nexport function ImageGallery({\n  photos,\n  layout,\n  locale = \"en\",\n}: {\n  photos: GalleryPhoto[]\n  layout: GalleryLayout\n  locale?: string\n}) {\n  const ko = locale === \"ko\"\n  const [selected, setSelected] = useState(0)\n  const [open, setOpen] = useState(false)\n  if (!photos.length) return null\n  const index = Math.min(selected, photos.length - 1)\n  const active = photos[index]\n  const label = (photo: GalleryPhoto) => (ko ? photo.altKo : photo.alt)\n  const ratio = (photo: GalleryPhoto) =>\n    photo.crop?.aspectRatio ?? photo.width / photo.height\n  const image = (photo: GalleryPhoto, crop = false) => (\n    <Image\n      src={photo.src}\n      alt={label(photo)}\n      width={photo.width}\n      height={photo.height}\n      unoptimized\n      sizes=\"(max-width: 640px) 45vw, 240px\"\n      className={\n        crop || photo.crop\n          ? \"h-full w-full object-cover\"\n          : \"block h-auto w-full\"\n      }\n      style={{ objectPosition: photo.crop?.position }}\n    />\n  )\n  const tile = (photo: GalleryPhoto, photoIndex: number, crop = false) => (\n    <button\n      key={photo.src}\n      type=\"button\"\n      data-gallery-photo\n      aria-label={label(photo)}\n      style={!crop && photo.crop ? { aspectRatio: ratio(photo) } : undefined}\n      className={`block w-full overflow-hidden rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${crop ? \"aspect-[4/3]\" : \"\"}`}\n      onClick={() => {\n        setSelected(photoIndex)\n        setOpen(true)\n      }}\n    >\n      {image(photo, crop)}\n    </button>\n  )\n  const navigation = (\n    <>\n      <Button\n        variant=\"outline\"\n        size=\"icon-sm\"\n        aria-label={ko ? \"이전 이미지\" : \"Previous image\"}\n        disabled={index === 0}\n        onClick={() => setSelected(index - 1)}\n      >\n        <ChevronLeft />\n      </Button>\n      <span className=\"text-base tabular-nums\">\n        {index + 1} / {photos.length}\n      </span>\n      <Button\n        variant=\"outline\"\n        size=\"icon-sm\"\n        aria-label={ko ? \"다음 이미지\" : \"Next image\"}\n        disabled={index === photos.length - 1}\n        onClick={() => setSelected(index + 1)}\n      >\n        <ChevronRight />\n      </Button>\n    </>\n  )\n  return (\n    <div\n      data-gallery-layout={layout}\n      data-pointer-feedback=\"none\"\n      className=\"w-full min-w-0\"\n    >\n      {layout === \"grid\" && (\n        <div className=\"grid grid-cols-2 gap-3 sm:grid-cols-3\">\n          {photos.map((photo, i) => tile(photo, i, true))}\n        </div>\n      )}\n      {layout === \"masonry\" && (\n        <div className=\"columns-2 gap-3 sm:columns-3\">\n          {photos.map((photo, i) => (\n            <div key={photo.src} className=\"mb-3 break-inside-avoid\">\n              {tile(photo, i)}\n            </div>\n          ))}\n        </div>\n      )}\n      {layout === \"justified\" && (\n        <div className=\"space-y-3\">\n          {Array.from({ length: Math.ceil(photos.length / 3) }, (_, row) => (\n            <div key={row} className=\"flex items-start gap-3\" data-gallery-row>\n              {photos.slice(row * 3, row * 3 + 3).map((photo, column) => (\n                <div\n                  key={photo.src}\n                  className=\"min-w-0 basis-0\"\n                  style={{ flexGrow: ratio(photo) }}\n                >\n                  {tile(photo, row * 3 + column)}\n                </div>\n              ))}\n            </div>\n          ))}\n        </div>\n      )}\n      {layout === \"thumbnail\" && (\n        <div className=\"space-y-4\">\n          <button\n            type=\"button\"\n            aria-label={ko ? \"이미지 크게 보기\" : \"Enlarge image\"}\n            className=\"block aspect-[3/2] w-full overflow-hidden rounded-lg focus-visible:outline-2 focus-visible:outline-ring\"\n            onClick={() => setOpen(true)}\n          >\n            <Image\n              src={active.src}\n              alt={label(active)}\n              width={active.width}\n              height={active.height}\n              unoptimized\n              sizes=\"(max-width: 640px) 90vw, 768px\"\n              className=\"h-full w-full object-contain\"\n            />\n          </button>\n          <div className=\"flex justify-center gap-3\">{navigation}</div>\n          <div\n            className=\"flex gap-3 overflow-x-auto p-1\"\n            role=\"group\"\n            aria-label={ko ? \"이미지 썸네일\" : \"Image thumbnails\"}\n          >\n            {photos.map((photo, i) => (\n              <button\n                key={photo.src}\n                type=\"button\"\n                aria-label={label(photo)}\n                aria-pressed={i === index}\n                onClick={() => setSelected(i)}\n                className={`aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-lg ring-2 ring-offset-2 ring-offset-background focus-visible:outline-2 focus-visible:outline-ring ${i === index ? \"ring-primary\" : \"ring-transparent\"}`}\n              >\n                {image(photo, true)}\n              </button>\n            ))}\n          </div>\n        </div>\n      )}\n      <Dialog open={open} onOpenChange={setOpen}>\n        <DialogContent className=\"sm:max-w-3xl\" aria-describedby={undefined}>\n          <DialogTitle className=\"sr-only\">{label(active)}</DialogTitle>\n          <Image\n            src={active.src}\n            alt={label(active)}\n            width={active.width}\n            height={active.height}\n            unoptimized\n            sizes=\"90vw\"\n            className=\"max-h-[70svh] w-full object-contain\"\n          />\n          <div className=\"flex justify-center gap-3\">{navigation}</div>\n        </DialogContent>\n      </Dialog>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/image-gallery.tsx"
+    },
+    {
+      "path": "components/ui/button.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { Slot } from \"radix-ui\"\n\nconst buttonVariants = cva(\n\"group/button relative isolate inline-flex shrink-0 origin-center appearance-none items-center justify-center rounded-full border border-transparent bg-clip-padding py-[4pt] text-base font-medium whitespace-nowrap transition-all duration-150 ease-out outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-disabled:not-aria-disabled:scale-[0.80] motion-reduce:active:scale-100 motion-reduce:transition-none disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n  {\n    variants: {\n      variant: {\n        default: \"bg-primary text-primary-foreground not-disabled:not-aria-disabled:hover:bg-primary-hover not-disabled:not-aria-disabled:hover:[&:not([data-size^=icon])]:text-[color-mix(in_oklch,var(--primary-foreground),transparent_20%)]\",\n        outline:\n          \"border-border bg-transparent not-disabled:not-aria-disabled:hover:bg-black/5 not-disabled:not-aria-disabled:hover:text-foreground not-disabled:not-aria-disabled:hover:[&:not([data-size^=icon])]:text-[color-mix(in_oklch,var(--foreground),transparent_20%)] aria-expanded:text-foreground dark:border-input dark:not-disabled:not-aria-disabled:hover:bg-white/5\",\n        secondary:\n          \"bg-button-secondary text-primary not-disabled:not-aria-disabled:hover:bg-button-secondary-hover not-disabled:not-aria-disabled:hover:[&:not([data-size^=icon])]:text-[color-mix(in_oklch,var(--primary),transparent_20%)] aria-expanded:bg-button-secondary aria-expanded:text-primary\",\n        tertiary:\n          \"bg-tab-muted text-secondary-foreground not-disabled:not-aria-disabled:hover:bg-[color-mix(in_oklch,var(--tab-muted),black_8%)] not-disabled:not-aria-disabled:hover:[&:not([data-size^=icon])]:text-[color-mix(in_oklch,var(--secondary-foreground),transparent_20%)] aria-expanded:bg-tab-muted aria-expanded:text-secondary-foreground\",\n        destructive:\n          \"bg-destructive/10 text-destructive not-disabled:not-aria-disabled:hover:bg-destructive/20 not-disabled:not-aria-disabled:hover:[&:not([data-size^=icon])]:text-[color-mix(in_oklch,var(--destructive),transparent_20%)] focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:not-disabled:not-aria-disabled:hover:bg-black/20 dark:focus-visible:ring-destructive/40\",\n        link: \"text-primary underline-offset-4 not-disabled:not-aria-disabled:hover:text-primary-hover not-disabled:not-aria-disabled:hover:[&:not([data-size^=icon])]:text-[color-mix(in_oklch,var(--primary),transparent_20%)] not-disabled:not-aria-disabled:hover:underline\",\n      },\n      size: {\n        default:\n          \"h-10 w-fit gap-2 px-5 has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4\",\n        xs: \"h-6 w-fit gap-1.5 px-2.5 py-0 text-xs in-data-[slot=button-group]:rounded-full has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3\",\n        sm: \"h-8 w-fit gap-2 px-3 py-1 text-sm in-data-[slot=button-group]:rounded-full has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5\",\n        lg: \"h-14 w-fit gap-2.5 px-8 text-lg has-data-[icon=inline-end]:pr-6 has-data-[icon=inline-start]:pl-6 [&_svg:not([class*='size-'])]:size-5\",\n        icon: \"size-10 p-0\",\n        \"icon-xs\":\n          \"size-6 p-0 in-data-[slot=button-group]:rounded-full [&_svg:not([class*='size-'])]:size-3\",\n        \"icon-sm\":\n          \"size-8 p-0 in-data-[slot=button-group]:rounded-full\",\n        \"icon-lg\": \"size-14 p-0 [&_svg:not([class*='size-'])]:size-5\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nfunction Button({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  asChild = false,\n  onPointerEnter,\n  onPointerMove,\n  onPointerDown,\n  onPointerUp,\n  onPointerLeave,\n  onPointerCancel,\n  onClick,\n  ...props\n}: React.ComponentProps<\"button\"> &\n  VariantProps<typeof buttonVariants> & {\n    asChild?: boolean\n}) {\n  const Comp = asChild ? Slot.Root : \"button\"\n  const releaseTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)\n  const rippleTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)\n  const customBackground = props.style?.backgroundColor ?? props.style?.background\n  const customForeground = props.style?.color ?? \"var(--foreground)\"\n  const pointerStyle = typeof customBackground === \"string\" && !/gradient|url\\(/.test(customBackground)\n    ? {\n        \"--button-glow-center\": variant === \"outline\"\n          ? `color-mix(in oklch, ${customForeground}, transparent 92%)`\n          : `color-mix(in oklch, ${customBackground}, white 8%)`,\n        \"--button-glow-edge\": variant === \"outline\"\n          ? `color-mix(in oklch, ${customForeground}, transparent 98%)`\n          : `color-mix(in oklch, ${customBackground}, black 12%)`,\n        ...props.style,\n      } as React.CSSProperties\n    : props.style\n\n  React.useEffect(() => () => {\n    if (releaseTimer.current !== null) clearTimeout(releaseTimer.current)\n    if (rippleTimer.current !== null) clearTimeout(rippleTimer.current)\n  }, [])\n\n  function clearReleaseTimer() {\n    if (releaseTimer.current !== null) {\n      clearTimeout(releaseTimer.current)\n      releaseTimer.current = null\n    }\n  }\n\n  function updatePointer(event: React.PointerEvent<HTMLButtonElement>) {\n    const target = event.currentTarget\n    if (event.defaultPrevented || target.matches(\":disabled, [disabled], [aria-disabled=true], [data-disabled]\")) return\n    clearReleaseTimer()\n    const rect = target.getBoundingClientRect()\n    if (!rect.width || !rect.height) return\n    const x = Math.max(0, Math.min(100, (event.clientX - rect.left) / rect.width * 100))\n    const y = Math.max(0, Math.min(100, (event.clientY - rect.top) / rect.height * 100))\n    target.style.setProperty(\"--button-pointer-x\", `${x}%`)\n    target.style.setProperty(\"--button-pointer-y\", `${y}%`)\n    target.dataset.pointerActive = \"true\"\n  }\n\n  function clearPointer(target: HTMLElement) {\n    clearReleaseTimer()\n    delete target.dataset.pointerActive\n  }\n\n  function ripple(target: HTMLElement, x = 50, y = 50) {\n    if (target.matches(\":disabled, [disabled], [aria-disabled=true], [data-disabled]\") ||\n      target.ownerDocument?.defaultView?.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) return\n    const rect = target.getBoundingClientRect()\n    const width = target.offsetWidth || rect.width\n    const height = target.offsetHeight || rect.height\n    if (!width || !height) return\n    if (rippleTimer.current !== null) clearTimeout(rippleTimer.current)\n    target.style.setProperty(\"--button-ripple-x\", `${x}%`)\n    target.style.setProperty(\"--button-ripple-y\", `${y}%`)\n    target.style.setProperty(\"--button-ripple-size\", `${Math.hypot(Math.max(x, 100 - x) * width / 100, Math.max(y, 100 - y) * height / 100)}px`)\n    delete target.dataset.rippleActive\n    // Restart the single paint layer on repeated presses without adding DOM children.\n    void target.offsetWidth\n    target.dataset.rippleActive = \"true\"\n    rippleTimer.current = setTimeout(() => {\n      delete target.dataset.rippleActive\n      rippleTimer.current = null\n    }, 650)\n  }\n\n  return (\n    <Comp\n      data-slot=\"button\"\n      data-variant={variant}\n      data-size={size}\n      data-button-kind={size?.startsWith(\"icon\") ? \"icon\" : \"text\"}\n      data-corner={size?.startsWith(\"icon\") ? \"round\" : \"continuous\"}\n      className={cn(buttonVariants({ variant, size, className }))}\n      {...props}\n      style={pointerStyle}\n      onPointerEnter={(event) => {\n        onPointerEnter?.(event)\n        if (event.pointerType !== \"touch\") updatePointer(event)\n      }}\n      onPointerMove={(event) => {\n        onPointerMove?.(event)\n        updatePointer(event)\n      }}\n      onPointerDown={(event) => {\n        onPointerDown?.(event)\n        updatePointer(event)\n        if (event.defaultPrevented || (event.button != null && event.button !== 0)) return\n        const rect = event.currentTarget.getBoundingClientRect()\n        if (rect.width && rect.height) {\n          ripple(event.currentTarget,\n            Math.max(0, Math.min(100, (event.clientX - rect.left) / rect.width * 100)),\n            Math.max(0, Math.min(100, (event.clientY - rect.top) / rect.height * 100)))\n        }\n      }}\n      onPointerUp={(event) => {\n        onPointerUp?.(event)\n        const target = event.currentTarget\n        if (event.pointerType === \"touch\") {\n          clearReleaseTimer()\n          releaseTimer.current = setTimeout(() => clearPointer(target), 160)\n        } else if (!target.matches(\":hover\")) {\n          clearPointer(target)\n        }\n      }}\n      onPointerLeave={(event) => {\n        onPointerLeave?.(event)\n        if (event.pointerType !== \"touch\") clearPointer(event.currentTarget)\n      }}\n      onPointerCancel={(event) => {\n        onPointerCancel?.(event)\n        clearPointer(event.currentTarget)\n      }}\n      onClick={(event) => {\n        onClick?.(event)\n        if (!event.defaultPrevented && event.detail === 0) ripple(event.currentTarget)\n      }}\n    />\n  )\n}\n\nexport { Button, buttonVariants }\n",
+      "type": "registry:ui",
+      "target": "@ui/button.tsx"
+    },
+    {
+      "path": "components/ui/dialog.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\nimport { Dialog as DialogPrimitive } from \"radix-ui\"\n\nimport { Button } from \"@/components/ui/button\"\n\nimport { X } from \"lucide-react\"\n\nfunction Dialog({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Root>) {\n  return <DialogPrimitive.Root data-slot=\"dialog\" {...props} />\n}\n\nfunction DialogTrigger({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {\n  return <DialogPrimitive.Trigger data-slot=\"dialog-trigger\" {...props} />\n}\n\nfunction DialogPortal({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Portal>) {\n  return <DialogPrimitive.Portal data-slot=\"dialog-portal\" {...props} />\n}\n\nfunction DialogClose({\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Close>) {\n  return <DialogPrimitive.Close data-slot=\"dialog-close\" {...props} />\n}\n\nfunction DialogOverlay({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {\n  return (\n    <DialogPrimitive.Overlay\n      data-slot=\"dialog-overlay\"\n      className={cn(\n        \"fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DialogContent({\n  className,\n  children,\n  showCloseButton = true,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Content> & {\n  showCloseButton?: boolean\n}) {\n  return (\n    <DialogPortal>\n      <DialogOverlay />\n      <DialogPrimitive.Content\n        data-slot=\"dialog-content\"\n        data-corner=\"round\"\n        className={cn(\n          \"fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-container [--container-radius:var(--radius-5xl)] [--nested-radius:var(--container-radius)] [--nested-gap:0px] has-[[data-slot=dialog-footer]_button]:[--nested-radius:var(--radius)] has-[[data-slot=dialog-footer]_button]:[--nested-gap:--spacing(5)] bg-popover p-5 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        {showCloseButton && (\n          <DialogPrimitive.Close data-slot=\"dialog-close\" asChild>\n            <Button\n              variant=\"tertiary\"\n              className=\"absolute top-3 right-3 border-0 text-muted-foreground\"\n              size=\"icon-sm\"\n            >\n              <X strokeWidth={2} />\n              <span className=\"sr-only\">Close</span>\n            </Button>\n          </DialogPrimitive.Close>\n        )}\n      </DialogPrimitive.Content>\n    </DialogPortal>\n  )\n}\n\nfunction DialogHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"dialog-header\"\n      className={cn(\"flex flex-col gap-2\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogFooter({\n  className,\n  showCloseButton = false,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  showCloseButton?: boolean\n}) {\n  return (\n    <div\n      data-slot=\"dialog-footer\"\n      className={cn(\n        \"-mx-5 -mb-5 flex flex-col-reverse gap-2 rounded-b-container p-5 sm:flex-row sm:justify-end\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      {showCloseButton && (\n        <DialogPrimitive.Close asChild>\n          <Button variant=\"outline\">Close</Button>\n        </DialogPrimitive.Close>\n      )}\n    </div>\n  )\n}\n\nfunction DialogTitle({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Title>) {\n  return (\n    <DialogPrimitive.Title\n      data-slot=\"dialog-title\"\n      className={cn(\n        \"font-heading text-base leading-none font-medium\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction DialogDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Description>) {\n  return (\n    <DialogPrimitive.Description\n      data-slot=\"dialog-description\"\n      className={cn(\n        \"text-base leading-7 text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport {\n  Dialog,\n  DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogOverlay,\n  DialogPortal,\n  DialogTitle,\n  DialogTrigger,\n}\n",
+      "type": "registry:ui",
+      "target": "@ui/dialog.tsx"
+    },
+    {
+      "path": "docs/compass.md",
+      "content": "# Building with COMPASS\n\nUse the installed COMPASS components and semantic design tokens rather than\nrecreating similar controls. This public distribution contains component source,\nfoundations, and Basic rules only.\n\n## Installation contract\n\n- React, Tailwind CSS v4, and a configured shadcn project are required.\n- Use the version-pinned hosted Registry documented in the README.\n- Request `foundations.json` explicitly alongside component items so the shared\n  tokens replace shadcn defaults. Review customized files before overwriting them.\n- Connect `components/theme-provider.tsx` at the application root. Preserve the\n  user's system theme preference and check light and dark rendering.\n- Keep the installed version and project integration choices in the project's\n  own notes. Do not update customized components automatically.\n\n## Working rules\n\n- Reuse `components/ui` and its actual variants and APIs.\n- Use semantic background, foreground, primary, border, input, and state tokens.\n- Use Pretendard Variable and the installed typography and spacing scales.\n- Use Lucide icons, accessible names for icon-only controls, and visible focus.\n- Preserve link semantics for navigation and button semantics for actions.\n- Provide useful loading, empty, error, success, and disabled states.\n- Keep text readable and controls stable on narrow screens and with longer labels.\n- Respect reduced motion. Do not delay important actions for decoration.\n- Read the relevant English or Korean Do / Don't reference under\n  `skills/compass/references/` before changing a component's behavior.\n- Run the target project's typecheck and build, then inspect the affected views.\n\nThis guide and Basic Skill do not grant permission to publish, send private data,\nor change unrelated systems. Plus documents, paid Skills, member images, and\nprivate service implementation are not included.\n",
+      "type": "registry:file",
+      "target": "~/docs/compass.md"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "shadow-sm": "var(--surface-shadow-sm)",
+      "shadow-md": "var(--surface-shadow-md)",
+      "shadow-lg": "var(--surface-shadow-lg)",
+      "font-heading": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-sans": "\"Pretendard Variable\", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+      "font-mono": "\"SFMono-Regular\", Consolas, \"Liberation Mono\", Menlo, monospace",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-chart-5": "var(--chart-5)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-1": "var(--chart-1)",
+      "color-ring": "var(--ring)",
+      "color-input": "var(--input)",
+      "color-border": "var(--border)",
+      "color-destructive": "var(--destructive)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-accent": "var(--accent)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-muted": "var(--muted)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-button-secondary": "var(--button-secondary)",
+      "color-button-secondary-hover": "var(--button-secondary-hover)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-primary": "var(--primary)",
+      "color-primary-hover": "var(--primary-hover)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-popover": "var(--popover)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-card": "var(--card)",
+      "color-foreground": "var(--foreground)",
+      "color-background": "var(--background)",
+      "color-gallery-background": "var(--gallery-background)",
+      "color-tab-muted": "var(--tab-muted)",
+      "color-tag": "var(--tag)",
+      "color-tag-foreground": "var(--tag-foreground)",
+      "radius-sm": "calc(var(--radius) * 0.15)",
+      "radius-md": "calc(var(--radius) * 0.2)",
+      "radius-lg": "calc(var(--radius) * 0.25)",
+      "radius-xl": "calc(var(--radius) * 0.35)",
+      "radius-2xl": "calc(var(--radius) * 0.45)",
+      "radius-3xl": "calc(var(--radius) * 0.55)",
+      "radius-4xl": "calc(var(--radius) * 0.65)",
+      "radius-5xl": "calc(var(--radius) * 0.8)",
+      "radius-6xl": "var(--radius)",
+      "radius-container": "min(var(--container-radius), max(0px, calc(var(--nested-radius, var(--container-radius)) + var(--nested-gap, 0px))))"
+    },
+    "light": {
+      "text-icon-size": "1.125em",
+      "corner-shape": "squircle",
+      "button-corner-shape": "superellipse(1.15)",
+      "avatar-color-blue": "#2563eb",
+      "avatar-color-teal": "#0f766e",
+      "avatar-color-rose": "#be185d",
+      "avatar-color-violet": "#7c3aed",
+      "avatar-color-orange": "#c2410c",
+      "avatar-color-green": "#15803d",
+      "avatar-color-sky": "#0369a1",
+      "avatar-color-red": "#b91c1c",
+      "avatar-color-foreground": "#ffffff",
+      "avatar-profile-background": "#e5f1ff",
+      "avatar-profile-foreground": "#0056b3",
+      "surface-shadow-sm": "0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%)",
+      "surface-shadow-md": "0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%)",
+      "surface-shadow-lg": "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%)",
+      "slider-thumb-surface": "radial-gradient(ellipse at 35% 25%, #ffffff 0%, #ffffff 50%, #fdfdfd 78%, #f4f4f4 100%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 12%), 0 1px 1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow": "0 6px 16px -4px rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 6%)",
+      "slider-thumb-shadow-hover": "0 6px 16px -4px rgb(0 0 0 / 20%), 0 2px 4px -1px rgb(0 0 0 / 10%)",
+      "background": "#ffffff",
+      "gallery-background": "#f7f7f7",
+      "gallery-preview-background": "oklch(1 0 0)",
+      "foreground": "oklch(0.145 0 0)",
+      "card": "oklch(1 0 0)",
+      "card-foreground": "oklch(0.145 0 0)",
+      "popover": "oklch(1 0 0)",
+      "popover-foreground": "oklch(0.145 0 0)",
+      "primary": "#007AFF",
+      "primary-hover": "color-mix(in oklch, var(--primary), black 12%)",
+      "primary-foreground": "#ffffff",
+      "button-secondary": "color-mix(in oklch, var(--primary) 24%, var(--background))",
+      "button-secondary-hover": "color-mix(in oklch, var(--primary) 32%, var(--background))",
+      "secondary": "oklch(0.97 0 0)",
+      "secondary-foreground": "oklch(0.205 0 0)",
+      "muted": "oklch(0.97 0 0)",
+      "tab-muted": "oklch(0.95 0 0)",
+      "layout-preview-background": "oklch(0.95 0 0)",
+      "tag": "#F4F4F4",
+      "tag-foreground": "oklch(0.205 0 0)",
+      "muted-foreground": "oklch(0.556 0 0)",
+      "accent": "#007AFF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.577 0.245 27.325)",
+      "border": "oklch(0.922 0 0)",
+      "input": "oklch(0.922 0 0)",
+      "ring": "oklch(0.708 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#5F96D8",
+      "chart-3": "#315F99",
+      "chart-4": "#224777",
+      "chart-5": "#173254",
+      "radius": "2.5rem",
+      "container-radius": "2.5rem",
+      "sidebar": "oklch(0.985 0 0)",
+      "sidebar-foreground": "oklch(0.145 0 0)",
+      "sidebar-primary": "oklch(0.205 0 0)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.97 0 0)",
+      "sidebar-accent-foreground": "oklch(0.205 0 0)",
+      "sidebar-border": "oklch(0.922 0 0)",
+      "sidebar-ring": "oklch(0.708 0 0)"
+    },
+    "dark": {
+      "button-secondary": "#d6e8ff",
+      "button-secondary-hover": "#c4deff",
+      "surface-shadow-sm": "0 2px 6px 0 rgb(0 0 0 / 40%), 0 1px 2px 0 rgb(0 0 0 / 25%)",
+      "surface-shadow-md": "0 6px 16px -2px rgb(0 0 0 / 50%), 0 2px 6px 0 rgb(0 0 0 / 35%)",
+      "surface-shadow-lg": "0 14px 32px -4px rgb(0 0 0 / 65%), 0 6px 12px -2px rgb(0 0 0 / 45%)",
+      "control-thumb-shadow": "0 2px 3px rgb(0 0 0 / 20%), 0 1px 1px rgb(0 0 0 / 10%)",
+      "slider-thumb-shadow": "0 6px 18px -4px rgb(0 0 0 / 28%), 0 2px 4px -1px rgb(0 0 0 / 12%)",
+      "slider-thumb-shadow-hover": "0 6px 18px -4px rgb(0 0 0 / 40%), 0 2px 4px -1px rgb(0 0 0 / 20%)",
+      "background": "oklch(0.18 0 0)",
+      "gallery-background": "oklch(0.18 0 0)",
+      "gallery-preview-background": "oklch(0.23 0 0)",
+      "foreground": "oklch(0.985 0 0)",
+      "card": "oklch(0.205 0 0)",
+      "card-foreground": "oklch(0.985 0 0)",
+      "popover": "oklch(0.205 0 0)",
+      "popover-foreground": "oklch(0.985 0 0)",
+      "primary": "#3390FF",
+      "primary-foreground": "#ffffff",
+      "secondary": "oklch(0.269 0 0)",
+      "secondary-foreground": "oklch(0.985 0 0)",
+      "muted": "oklch(0.269 0 0)",
+      "tab-muted": "oklch(0.27 0 0)",
+      "layout-preview-background": "oklch(0.27 0 0)",
+      "muted-foreground": "oklch(0.708 0 0)",
+      "accent": "#3390FF",
+      "accent-foreground": "#ffffff",
+      "destructive": "oklch(0.704 0.191 22.216)",
+      "border": "oklch(1 0 0 / 10%)",
+      "input": "oklch(1 0 0 / 20%)",
+      "ring": "oklch(0.556 0 0)",
+      "chart-1": "#D7E9FF",
+      "chart-2": "#8DBFFF",
+      "chart-3": "#66A5F2",
+      "chart-4": "#4D88D4",
+      "chart-5": "#3976C5",
+      "sidebar": "oklch(0.205 0 0)",
+      "sidebar-foreground": "oklch(0.985 0 0)",
+      "sidebar-primary": "oklch(0.488 0.243 264.376)",
+      "sidebar-primary-foreground": "oklch(0.985 0 0)",
+      "sidebar-accent": "oklch(0.269 0 0)",
+      "sidebar-accent-foreground": "oklch(0.985 0 0)",
+      "sidebar-border": "oklch(1 0 0 / 10%)",
+      "sidebar-ring": "oklch(0.556 0 0)"
+    }
+  },
+  "css": {
+    "@import \"tw-animate-css\"": {},
+    "@import \"shadcn/tailwind.css\"": {},
+    "@import \"leaflet/dist/leaflet.css\"": {},
+    "@import \"@ncdai/react-wheel-picker/style.css\"": {},
+    "@custom-variant dark (&:is(.dark *))": {},
+    "@font-face": {
+      "font-family": "\"Satoshi\"",
+      "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
+      "font-weight": "700",
+      "font-style": "normal",
+      "font-display": "swap"
+    },
+    "@keyframes gallery-card-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(14px) scale(0.98)",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none",
+        "filter": "none"
+      }
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".notification-badge-reveal,\n  .notification-badge-reveal[data-visible=\"false\"][data-animated=\"true\"]": {
+        "animation": "none"
+      }
+    },
+    "@keyframes pricing-content-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(16px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    "@layer base": {
+      "*": {
+        "@apply border-border outline-ring/50": {}
+      },
+      "body": {
+        "@apply bg-background text-base text-foreground": {}
+      },
+      "button:not(:disabled):not([aria-disabled=\"true\"]), [role=\"button\"]:not(:disabled):not([aria-disabled=\"true\"])": {
+        "cursor": "pointer"
+      },
+      ":disabled, [aria-disabled=\"true\"], [data-disabled]": {
+        "cursor": "not-allowed"
+      },
+      "html": {
+        "@apply font-sans": {}
+      },
+      "a[href], [role=\"link\"]": {
+        "display": "inline-block"
+      },
+      "@supports (corner-shape: squircle)": {
+        "*": {
+          "corner-shape": "var(--corner-shape)"
+        },
+        "::before, ::after": {
+          "corner-shape": "inherit"
+        },
+        ":where(.rounded-full,\n           [data-slot^=\"avatar\"], [data-slot=\"slider-thumb\"],\n           [data-slot=\"slider-track\"], [data-slot=\"progress\"],\n           [data-corner=\"round\"])": {
+          "corner-shape": "round"
+        },
+        "[data-corner=\"continuous\"]": {
+          "corner-shape": "var(--button-corner-shape)"
+        }
+      }
+    },
+    "@property --interaction-strength": {
+      "syntax": "\"<number>\"",
+      "inherits": "false",
+      "initial-value": "0"
+    },
+    "@property --button-ripple-radius": {
+      "syntax": "\"<length>\"",
+      "inherits": "false",
+      "initial-value": "0px"
+    },
+    "@keyframes button-ripple": {
+      "from": {
+        "--button-ripple-radius": "0px",
+        "opacity": "1"
+      },
+      "35%": {
+        "opacity": "0.85"
+      },
+      "to": {
+        "--button-ripple-radius": "var(--button-ripple-size, 160px)",
+        "opacity": "0"
+      }
+    },
+    "@keyframes compass-tooltip-in": {
+      "from": {
+        "opacity": "0",
+        "transform": "translate(var(--tooltip-enter-x), var(--tooltip-enter-y)) scale(0.72)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translate(0, 0) scale(1)"
+      }
+    },
+    "@keyframes compass-tooltip-out": {
+      "from": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      },
+      "to": {
+        "opacity": "0",
+        "transform": "scale(0.94)"
+      }
+    },
+    "@keyframes skeleton-shimmer": {
+      "0%, 100%": {
+        "opacity": "0.15",
+        "transform": "scale(0.8)"
+      },
+      "50%": {
+        "opacity": "1",
+        "transform": "scale(1.4)"
+      }
+    },
+    "@keyframes progress-bar-flow": {
+      "from": {
+        "transform": "translateX(-100%)"
+      },
+      "to": {
+        "transform": "translateX(100%)"
+      }
+    },
+    "@keyframes progress-percentage-shimmer": {
+      "from": {
+        "background-position": "100% 0"
+      },
+      "to": {
+        "background-position": "0% 0"
+      }
+    },
+    "@keyframes notification-badge-dismiss": {
+      "from": {
+        "translate": "0 0",
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      },
+      "to": {
+        "translate": "-4px 6px",
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      }
+    },
+    "@keyframes check-stroke-draw": {
+      "from": {
+        "stroke-dashoffset": "24"
+      },
+      "to": {
+        "stroke-dashoffset": "48"
+      }
+    },
+    "@keyframes notification-badge-slide": {
+      "from": {
+        "translate": "-8.2px 12.4px"
+      },
+      "to": {
+        "translate": "0 0"
+      }
+    },
+    "@keyframes notification-badge-pop": {
+      "from": {
+        "scale": "0",
+        "opacity": "0",
+        "filter": "blur(4px)"
+      },
+      "to": {
+        "scale": "1",
+        "opacity": "1",
+        "filter": "blur(0)"
+      }
+    },
+    "@import \"pretendard/dist/web/variable/pretendardvariable.css\"": {}
+  },
+  "meta": {
+    "version": "1.0.0",
+    "group": "navigation",
+    "distribution": "public-source",
+    "documentation": "Public-only guide; no operating-service documentation."
+  },
+  "docs": "Requires an existing React + Tailwind CSS v4 project initialized with shadcn. COMPASS merges global styles; review existing components and CSS before installing. ThemeProvider must be connected to the application root separately. See /docs/registry and /docs/ai.",
+  "type": "registry:ui"
+}
