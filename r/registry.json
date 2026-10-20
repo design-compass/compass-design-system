@@ -185,13 +185,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -795,13 +788,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -980,7 +966,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -1180,13 +1167,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -1366,7 +1346,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -1571,13 +1552,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -1759,7 +1733,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -1964,13 +1939,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -2150,7 +2118,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -2355,13 +2324,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -2543,7 +2505,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -2748,13 +2711,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -2936,7 +2892,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -3141,13 +3098,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -3328,7 +3278,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -3533,13 +3484,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -3720,7 +3664,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -3925,13 +3870,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -4110,7 +4048,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -4320,13 +4259,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -4507,7 +4439,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -4712,13 +4645,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -4901,7 +4827,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -5116,13 +5043,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -5303,7 +5223,8 @@
         "react-day-picker@10.0.2",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -5508,13 +5429,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -5698,7 +5612,8 @@
         "react-day-picker@10.0.2",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -5908,13 +5823,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -6308,13 +6216,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -6494,7 +6395,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -6699,13 +6601,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -6888,7 +6783,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -7098,13 +6994,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -7286,7 +7175,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -7491,13 +7381,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -7680,7 +7563,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -7890,13 +7774,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -8079,7 +7956,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -8294,13 +8172,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -8482,7 +8353,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -8687,13 +8559,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -8875,7 +8740,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -9085,13 +8951,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -9271,7 +9130,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -9476,13 +9336,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -9666,7 +9519,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -9881,13 +9735,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -10069,7 +9916,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -10274,13 +10122,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -10461,7 +10302,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -10666,13 +10508,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -10853,7 +10688,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -11058,13 +10894,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -11244,7 +11073,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -11449,13 +11279,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -11636,7 +11459,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -11841,13 +11665,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -12028,7 +11845,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -12233,13 +12051,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -12421,7 +12232,8 @@
         "recharts@3.10.1",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -12626,13 +12438,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -12813,7 +12618,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -13018,13 +12824,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -13205,7 +13004,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -13410,13 +13210,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -13595,7 +13388,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -13800,13 +13594,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -13986,7 +13773,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -14196,13 +13984,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -14382,7 +14163,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -14592,13 +14374,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -14781,7 +14556,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -14996,13 +14772,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -15186,7 +14955,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -15401,13 +15171,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -15590,7 +15353,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -15800,13 +15564,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -15988,7 +15745,8 @@
         "radix-ui@1.6.7",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -16198,13 +15956,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -16383,7 +16134,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
@@ -16588,13 +16340,6 @@
         "@import \"leaflet/dist/leaflet.css\"": {},
         "@import \"@ncdai/react-wheel-picker/style.css\"": {},
         "@custom-variant dark (&:is(.dark *))": {},
-        "@font-face": {
-          "font-family": "\"Satoshi\"",
-          "src": "url(\"/satoshi-bold.woff2\") format(\"woff2\")",
-          "font-weight": "700",
-          "font-style": "normal",
-          "font-display": "swap"
-        },
         "@keyframes gallery-card-enter": {
           "from": {
             "opacity": "0",
@@ -16773,7 +16518,8 @@
         "pretendard@1.3.9",
         "shadcn@4.21.0",
         "tw-animate-css@1.4.0",
-        "leaflet@1.9.4"
+        "leaflet@1.9.4",
+        "@ncdai/react-wheel-picker@1.2.3"
       ],
       "files": [
         {
